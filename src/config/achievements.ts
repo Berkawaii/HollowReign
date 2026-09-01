@@ -1,0 +1,159 @@
+export interface AchievementConfig {
+  id: string;
+  name: string;
+  description: string;
+  rewardType: 'hero' | 'weapon' | 'passive' | 'stage' | 'gold';
+  rewardId: string;
+  rewardName: string;
+  conditionType: 'survive_time' | 'kills_single' | 'level_single' | 'gold_single' | 'gold_total' | 'boss_kill' | 'evolution' | 'hero_survive';
+  targetValue: number;
+  extraParam?: string; // heroId or bossId
+}
+
+export const ACHIEVEMENTS: AchievementConfig[] = [
+  {
+    id: 'ach_cross',
+    name: 'Novice Survivor',
+    description: 'Survive for at least 5 minutes in any run.',
+    rewardType: 'weapon',
+    rewardId: 'cross',
+    rewardName: 'Weapon: Elder Ward',
+    conditionType: 'survive_time',
+    targetValue: 300, // 5 mins
+  },
+  {
+    id: 'ach_ignis',
+    name: 'Trial of Blackfire',
+    description: 'Survive for 10 minutes in a single run.',
+    rewardType: 'hero',
+    rewardId: 'ignis',
+    rewardName: 'Hero: Ignis (Blackfire Pyromancer)',
+    conditionType: 'survive_time',
+    targetValue: 600, // 10 mins
+  },
+  {
+    id: 'ach_kaelen',
+    name: 'Void Carver',
+    description: 'Banish 2,000 cosmic horrors in a single run.',
+    rewardType: 'hero',
+    rewardId: 'kaelen',
+    rewardName: 'Hero: Kaelen (Void Stalker)',
+    conditionType: 'kills_single',
+    targetValue: 2000,
+  },
+  {
+    id: 'ach_mortimer',
+    name: 'Eldritch Ascension',
+    description: 'Awaken any weapon into an Eldritch Evolution.',
+    rewardType: 'hero',
+    rewardId: 'mortimer',
+    rewardName: 'Hero: Mortimer (Necro-Alchemist)',
+    conditionType: 'evolution',
+    targetValue: 1,
+  },
+  {
+    id: 'ach_duplicator',
+    name: 'Arcane Mastery',
+    description: 'Reach Level 20 in a single run.',
+    rewardType: 'passive',
+    rewardId: 'duplicator',
+    rewardName: 'Passive: Duplicator (+Projectiles)',
+    conditionType: 'level_single',
+    targetValue: 20,
+  },
+  {
+    id: 'ach_clover',
+    name: 'Relic Seeker',
+    description: 'Collect 400 Gold in a single run.',
+    rewardType: 'passive',
+    rewardId: 'clover',
+    rewardName: 'Passive: Clover (+Luck & Crits)',
+    conditionType: 'gold_single',
+    targetValue: 400,
+  },
+  {
+    id: 'ach_candelabrador',
+    name: 'Void Expansion',
+    description: 'Reach Level 30 in a single run.',
+    rewardType: 'passive',
+    rewardId: 'candelabrador',
+    rewardName: 'Passive: Candelabrador (+Attack Area)',
+    conditionType: 'level_single',
+    targetValue: 30,
+  },
+  {
+    id: 'ach_attractorb',
+    name: 'Astral Magnetism',
+    description: 'Survive 12 minutes playing with Sylvia (Astral Occultist).',
+    rewardType: 'passive',
+    rewardId: 'attractorb',
+    rewardName: 'Passive: Attractorb (+Pickup Range)',
+    conditionType: 'hero_survive',
+    targetValue: 720, // 12 mins
+    extraParam: 'sylvia',
+  },
+  {
+    id: 'ach_lightning',
+    name: 'Cosmic Fury',
+    description: 'Survive 12 minutes playing with Valerius (Abyssal Warden).',
+    rewardType: 'weapon',
+    rewardId: 'lightning_ring',
+    rewardName: 'Weapon: Cosmic Wrath',
+    conditionType: 'hero_survive',
+    targetValue: 720, // 12 mins
+    extraParam: 'valerius',
+  },
+  {
+    id: 'ach_axe',
+    name: 'Bane of the Leviathan',
+    description: 'Defeat the Leviathan Behemoth boss at 05:00.',
+    rewardType: 'weapon',
+    rewardId: 'axe',
+    rewardName: 'Weapon: Cursed Scythe',
+    conditionType: 'boss_kill',
+    targetValue: 1,
+    extraParam: 'minotaur',
+  },
+  {
+    id: 'ach_santa_water',
+    name: 'Abyssal Endurance',
+    description: 'Survive for 20 minutes in a single run.',
+    rewardType: 'weapon',
+    rewardId: 'santa_water',
+    rewardName: 'Weapon: Ichor Flask',
+    conditionType: 'survive_time',
+    targetValue: 1200, // 20 mins
+  },
+  {
+    id: 'ach_bone',
+    name: 'Triumph over Shub-Niggurath',
+    description: 'Defeat the Spawn of Shub-Niggurath boss at 10:00.',
+    rewardType: 'weapon',
+    rewardId: 'bone',
+    rewardName: 'Weapon: Crypt Shards',
+    conditionType: 'boss_kill',
+    targetValue: 1,
+    extraParam: 'gorgon',
+  },
+  {
+    id: 'ach_stage_molten',
+    name: 'The Abyssal Trench',
+    description: 'Defeat the Leviathan Behemoth to unlock Stage 2: Abyssal Trench.',
+    rewardType: 'stage',
+    rewardId: 'stage_molten',
+    rewardName: 'Stage: Abyssal Trench',
+    conditionType: 'boss_kill',
+    targetValue: 1,
+    extraParam: 'minotaur',
+  },
+  {
+    id: 'ach_gold_hoarder',
+    name: "Hoarder of R'lyeh",
+    description: 'Accumulate 2,500 total lifetime gold.',
+    rewardType: 'gold',
+    rewardId: 'gold_bonus_500',
+    rewardName: '+500 Bonus Gold',
+    conditionType: 'gold_total',
+    targetValue: 2500,
+  },
+];
