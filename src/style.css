@@ -21,24 +21,23 @@
   }
 }
 
-/* Custom Scrollbar for Modals */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Enable touch scrolling for modals and lists on mobile */
+.overflow-y-auto, .overflow-auto {
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch;
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
-  border-radius: 4px;
+.overflow-x-auto {
+  touch-action: pan-x !important;
+  -webkit-overflow-scrolling: touch;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.4);
-  border-radius: 4px;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.7);
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Retro CRT Vignette & Glow */

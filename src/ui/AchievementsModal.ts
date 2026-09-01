@@ -10,7 +10,7 @@ export class AchievementsModal {
     this.container = document.createElement('div');
     this.container.id = 'achievements-modal';
     this.container.className =
-      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center z-50 p-4 font-mono text-white select-none hidden overflow-y-auto';
+      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start md:justify-center z-50 p-2 sm:p-4 font-mono text-white select-none hidden overflow-y-auto';
     document.body.appendChild(this.container);
   }
 
@@ -32,7 +32,7 @@ export class AchievementsModal {
     const pct = Math.round((unlockedCount / totalAch) * 100);
 
     this.container.innerHTML = `
-      <div class="w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/60 rounded-3xl p-6 shadow-2xl flex flex-col my-auto max-h-[92vh] overflow-hidden">
+      <div class="w-full max-w-4xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/60 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl flex flex-col my-auto max-h-[94vh] overflow-hidden">
         
         <!-- Header -->
         <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">

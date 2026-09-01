@@ -23,7 +23,7 @@ export class LevelUpModal {
     this.container = document.createElement('div');
     this.container.id = 'level-up-modal';
     this.container.className =
-      'fixed inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center z-50 p-4 font-mono text-white select-none hidden';
+      'fixed inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-start md:justify-center z-50 p-2 sm:p-4 font-mono text-white select-none hidden overflow-y-auto';
     document.body.appendChild(this.container);
   }
 
@@ -46,7 +46,7 @@ export class LevelUpModal {
     const options = this.generateCards(em);
 
     this.container.innerHTML = `
-      <div class="w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/80 rounded-2xl p-6 shadow-2xl flex flex-col items-center animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/80 rounded-2xl p-3 sm:p-6 shadow-2xl flex flex-col items-center my-auto max-h-[94vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
         <!-- Header -->
         <div class="text-center mb-6">
           <span class="text-amber-400 font-bold tracking-widest text-xs uppercase bg-amber-950/60 border border-amber-600/40 px-3 py-1 rounded-full">

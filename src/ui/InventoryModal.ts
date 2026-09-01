@@ -13,7 +13,7 @@ export class InventoryModal {
     this.container = document.createElement('div');
     this.container.id = 'inventory-modal';
     this.container.className =
-      'fixed inset-0 bg-black/85 backdrop-blur-md flex flex-col items-center justify-center z-50 p-4 font-mono text-white select-none hidden overflow-y-auto';
+      'fixed inset-0 bg-black/85 backdrop-blur-md flex flex-col items-center justify-start md:justify-center z-50 p-2 sm:p-4 font-mono text-white select-none hidden overflow-y-auto';
     document.body.appendChild(this.container);
   }
 
@@ -34,7 +34,7 @@ export class InventoryModal {
       .padStart(2, '0');
 
     this.container.innerHTML = `
-      <div class="w-full max-w-5xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/80 rounded-3xl p-6 shadow-2xl flex flex-col my-auto max-h-[92vh] overflow-y-auto">
+      <div class="w-full max-w-5xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/80 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl flex flex-col my-auto max-h-[94vh] overflow-y-auto">
         
         <!-- Header -->
         <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">

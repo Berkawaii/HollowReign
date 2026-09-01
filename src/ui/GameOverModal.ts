@@ -9,7 +9,7 @@ export class GameOverModal {
     this.container = document.createElement('div');
     this.container.id = 'game-over-modal';
     this.container.className =
-      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center z-50 p-4 font-mono text-white select-none hidden';
+      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start md:justify-center z-50 p-2 sm:p-4 font-mono text-white select-none hidden overflow-y-auto';
     document.body.appendChild(this.container);
   }
 
@@ -34,7 +34,7 @@ export class GameOverModal {
     this.container.innerHTML = `
       <div class="w-full max-w-lg bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 ${
         isVictory ? 'border-amber-400' : 'border-red-600'
-      } rounded-3xl p-8 shadow-2xl flex flex-col items-center animate-in zoom-in-95 duration-200">
+      } rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl flex flex-col items-center my-auto max-h-[94vh] overflow-y-auto animate-in zoom-in-95 duration-200">
         
         <!-- Status Title -->
         <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border mb-2 font-mono ${

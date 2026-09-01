@@ -96,43 +96,43 @@ export class HUD {
         </div>
 
         <!-- Header Stats Grid -->
-        <div class="flex items-center justify-between text-sm px-2">
+        <div class="flex items-center justify-between text-sm px-1 sm:px-2 gap-1 sm:gap-2">
           <!-- Left: Hero Portrait & HP -->
-          <div class="flex items-center space-x-3">
-            <img src="${heroPortrait}" alt="${p.hero.name}" class="w-10 h-10 rounded-lg border border-amber-400/80 shadow shrink-0" style="image-rendering: pixelated;" />
+          <div class="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
+            <img src="${heroPortrait}" alt="${p.hero.name}" class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-amber-400/80 shadow shrink-0" style="image-rendering: pixelated;" />
             <div>
-              <div class="font-bold text-slate-200 text-xs">${p.hero.name} <span class="text-slate-400 font-normal text-[11px]">(${p.hero.title})</span></div>
-              <div class="w-32 h-3 bg-slate-900 border border-red-900 rounded overflow-hidden relative mt-0.5">
+              <div class="font-bold text-slate-200 text-[11px] sm:text-xs truncate max-w-[85px] sm:max-w-none">${p.hero.name} <span class="hidden sm:inline text-slate-400 font-normal text-[11px]">(${p.hero.title})</span></div>
+              <div class="w-20 sm:w-32 h-2.5 sm:h-3 bg-slate-900 border border-red-900 rounded overflow-hidden relative mt-0.5">
                 <div class="h-full bg-gradient-to-r from-red-600 to-rose-400 transition-all duration-150" style="width: ${hpPct}%"></div>
-                <span class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-white drop-shadow">
-                  ${Math.ceil(p.currentHp)} / ${p.stats.maxHealth}
+                <span class="absolute inset-0 flex items-center justify-center text-[8px] sm:text-[9px] font-bold text-white drop-shadow">
+                  ${Math.ceil(p.currentHp)}/${p.stats.maxHealth}
                 </span>
               </div>
             </div>
           </div>
 
           <!-- Center: Timer -->
-          <div class="text-2xl font-black text-amber-300 tracking-wider drop-shadow-md">
+          <div class="text-xl sm:text-2xl font-black text-amber-300 tracking-wider drop-shadow-md shrink-0">
             ${minutes}:${seconds}
           </div>
 
           <!-- Right: Kills, Gold, Inventory & Pause -->
-          <div class="flex items-center space-x-3 text-xs">
-            <div class="flex items-center space-x-1.5 text-rose-400 font-bold bg-slate-950/80 border border-slate-800 px-2.5 py-1 rounded-lg">
-              <span class="text-[10px] text-rose-500 uppercase">${t('kills')}</span>
+          <div class="flex items-center space-x-1 sm:space-x-2 text-xs shrink-0">
+            <div class="flex items-center space-x-1 text-rose-400 font-bold bg-slate-950/80 border border-slate-800 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-xs">
+              <span class="hidden sm:inline text-[10px] text-rose-500 uppercase">${t('kills')}</span>
               <span>${p.kills}</span>
             </div>
-            <div class="flex items-center space-x-1.5 text-amber-400 font-bold bg-slate-950/80 border border-slate-800 px-2.5 py-1 rounded-lg">
-              <span class="text-[10px] text-amber-500 uppercase">${t('gold')}</span>
+            <div class="flex items-center space-x-1 text-amber-400 font-bold bg-slate-950/80 border border-slate-800 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-xs">
+              <span class="hidden sm:inline text-[10px] text-amber-500 uppercase">${t('gold')}</span>
               <span>${p.goldCollected}</span>
             </div>
-            <button id="hud-inventory-btn" class="pointer-events-auto bg-amber-950/80 hover:bg-amber-900 px-3 py-1 rounded-lg border border-amber-500/60 text-xs font-bold text-amber-200 transition active:scale-95 flex items-center space-x-1">
+            <button id="hud-inventory-btn" class="pointer-events-auto bg-amber-950/80 hover:bg-amber-900 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg border border-amber-500/60 text-[10px] sm:text-xs font-bold text-amber-200 transition active:scale-95 flex items-center space-x-1">
               <span>${t('inventory')}</span>
             </button>
-            <button id="hud-mute-btn" class="pointer-events-auto bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-600 text-xs font-bold transition active:scale-95">
+            <button id="hud-mute-btn" class="hidden sm:block pointer-events-auto bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-600 text-xs font-bold transition active:scale-95">
               ${sound.isAudioMuted() ? t('muted') : t('sound')}
             </button>
-            <button id="hud-pause-btn" class="pointer-events-auto bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-600 text-xs font-bold transition active:scale-95">
+            <button id="hud-pause-btn" class="pointer-events-auto bg-slate-800/80 hover:bg-slate-700 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-slate-600 text-[10px] sm:text-xs font-bold transition active:scale-95">
               ${t('pause')}
             </button>
           </div>
@@ -162,7 +162,7 @@ export class HUD {
       }
 
       <!-- BOTTOM LEFT: INVENTORY SLOTS -->
-      <div class="absolute bottom-4 left-4 flex flex-col space-y-2 bg-black/60 backdrop-blur-sm p-2.5 rounded-xl border border-slate-800 shadow-xl pointer-events-auto">
+      <div class="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 flex flex-col space-y-1 sm:space-y-2 bg-black/70 backdrop-blur-sm p-1.5 sm:p-2.5 rounded-xl border border-slate-800 shadow-xl pointer-events-auto scale-75 sm:scale-100 origin-bottom-left">
         <!-- Weapon Slots (Max 6) -->
         <div class="flex space-x-1.5">
           ${Array.from({ length: 6 })

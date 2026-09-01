@@ -26,7 +26,7 @@ export class ChestModal {
     this.container = document.createElement('div');
     this.container.id = 'chest-modal';
     this.container.className =
-      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center z-50 p-3 sm:p-6 font-mono text-white select-none hidden';
+      'fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start md:justify-center z-50 p-2 sm:p-6 font-mono text-white select-none hidden overflow-y-auto';
     document.body.appendChild(this.container);
   }
 
@@ -104,7 +104,7 @@ export class ChestModal {
     onClose: () => void
   ): void {
     this.container.innerHTML = `
-      <div class="w-full max-w-2xl bg-gradient-to-b from-slate-950 via-neutral-950 to-black border-4 border-amber-400/90 rounded-3xl p-4 sm:p-7 shadow-[0_0_60px_rgba(245,158,11,0.35)] flex flex-col items-center text-center animate-in zoom-in-90 duration-300">
+      <div class="w-full max-w-2xl bg-gradient-to-b from-slate-950 via-neutral-950 to-black border-4 border-amber-400/90 rounded-2xl sm:rounded-3xl p-3 sm:p-7 shadow-[0_0_60px_rgba(245,158,11,0.35)] flex flex-col items-center text-center my-auto max-h-[94vh] overflow-y-auto animate-in zoom-in-90 duration-300">
         
         <!-- Marquee Light Arcade Header -->
         <div class="w-full flex items-center justify-between px-3 py-1.5 bg-neutral-900/90 border-2 border-amber-500/40 rounded-full mb-3 shadow-inner">
