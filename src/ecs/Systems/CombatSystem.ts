@@ -504,26 +504,41 @@ export class CombatSystem {
       const isEvo = config.id === 'leviathans_grasp';
       const facingAngle = em.playerFacingAngle;
       const count = isEvo ? totalProjectiles * 2 : totalProjectiles;
+      const tendrilSpeed = Math.max(300, totalSpeed);
+
+      if (isEvo) {
+        // Leviathan's Grasp: Pull nearby XP gems towards player
+        for (const g of em.gems) {
+          if (g.active && !g.isMagnetized) {
+            const dx = em.playerX - g.x;
+            const dy = em.playerY - g.y;
+            if (dx * dx + dy * dy < 280 * 280) {
+              g.isMagnetized = true;
+            }
+          }
+        }
+      }
 
       for (let i = 0; i < count; i++) {
         const spread = isEvo
           ? (i / count) * Math.PI * 2
-          : facingAngle + (i - (count - 1) / 2) * 0.22;
-        const vx = Math.cos(spread) * totalSpeed;
-        const vy = Math.sin(spread) * totalSpeed;
+          : facingAngle + (i - (count - 1) / 2) * 0.28;
+        const vx = Math.cos(spread) * tendrilSpeed;
+        const vy = Math.sin(spread) * tendrilSpeed;
 
         em.spawnProjectile(
           config.id,
-          em.playerX,
-          em.playerY,
+          em.playerX + Math.cos(spread) * 25,
+          em.playerY + Math.sin(spread) * 25,
           vx,
           vy,
           baseDamage,
           stats.piercing,
-          (isEvo ? 18 : 12) * totalArea,
+          (isEvo ? 26 : 18) * totalArea,
           totalDuration,
           totalArea,
-          stats.knockback
+          stats.knockback,
+          { initialVx: vx, initialVy: vy }
         );
       }
     }

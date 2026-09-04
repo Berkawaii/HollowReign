@@ -59,6 +59,16 @@ export interface EnemyEntity {
   knockbackDy: number;
   knockbackResistance: number;
   attackTimer: number;
+  // Boss Telegraphs and Special Skills
+  skillTimer?: number;
+  skillPhase?: number;
+  telegraphType?: 'circle' | 'line' | 'cone' | 'rupture';
+  telegraphProgress?: number;
+  telegraphRadius?: number;
+  telegraphAngle?: number;
+  telegraphTargetX?: number;
+  telegraphTargetY?: number;
+  isEnraged?: boolean;
   dropsChest?: boolean;
   active: boolean;
 }

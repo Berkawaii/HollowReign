@@ -279,6 +279,11 @@ export class EntityManager {
     enemy.knockbackDy = 0;
     enemy.knockbackResistance = knockbackResistance;
     enemy.attackTimer = 0;
+    enemy.skillTimer = 0;
+    enemy.skillPhase = 0;
+    enemy.telegraphType = undefined;
+    enemy.telegraphProgress = 0;
+    enemy.isEnraged = false;
     enemy.dropsChest = dropsChest;
     enemy.active = true;
 

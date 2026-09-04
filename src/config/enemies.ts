@@ -3,6 +3,7 @@ export type EnemyBehaviorType = 'chase' | 'swarm' | 'ranged' | 'tank' | 'boss' |
 export interface EnemyConfig {
   id: string;
   name: string;
+  subtitle?: string;
   behavior: EnemyBehaviorType;
   baseHp: number;
   baseSpeed: number; // px per second
@@ -80,6 +81,7 @@ export const ENEMIES: Record<string, EnemyConfig> = {
   minotaur_boss: {
     id: 'minotaur_boss',
     name: 'Leviathan Behemoth',
+    subtitle: 'Ancient Abyssal Terror',
     behavior: 'boss',
     baseHp: 1400,
     baseSpeed: 65,
@@ -96,6 +98,7 @@ export const ENEMIES: Record<string, EnemyConfig> = {
   gorgon_boss: {
     id: 'gorgon_boss',
     name: 'Spawn of Shub-Niggurath',
+    subtitle: 'Scion of the Black Goat',
     behavior: 'boss',
     baseHp: 2400,
     baseSpeed: 55,
@@ -112,6 +115,7 @@ export const ENEMIES: Record<string, EnemyConfig> = {
   vampire_boss: {
     id: 'vampire_boss',
     name: 'Herald of Nyarlathotep',
+    subtitle: 'The Crawling Chaos',
     behavior: 'boss',
     baseHp: 3800,
     baseSpeed: 70,
@@ -128,6 +132,7 @@ export const ENEMIES: Record<string, EnemyConfig> = {
   necromancer_boss: {
     id: 'necromancer_boss',
     name: "High Priest of R'lyeh",
+    subtitle: 'Voice of the Deep Slumber',
     behavior: 'boss',
     baseHp: 5600,
     baseSpeed: 60,
@@ -144,6 +149,7 @@ export const ENEMIES: Record<string, EnemyConfig> = {
   reaper: {
     id: 'reaper',
     name: 'The Ancient One (Cthulhu)',
+    subtitle: 'Harbinger of Cosmic Oblivion',
     behavior: 'reaper',
     baseHp: 655350,
     baseSpeed: 280,

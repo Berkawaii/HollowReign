@@ -358,6 +358,15 @@ export class SpawnDirector {
       em.player.level
     );
 
+    // Cap concurrent ranged archers to avoid overwhelming bullet spam
+    let behavior = enemyConfig.behavior;
+    if (behavior === 'ranged') {
+      const currentRanged = em.enemies.filter((e) => e.active && e.behavior === 'ranged').length;
+      if (currentRanged >= 8) {
+        behavior = 'chase';
+      }
+    }
+
     em.spawnEnemy(
       enemyConfig.id,
       spawnX,
@@ -367,7 +376,7 @@ export class SpawnDirector {
       enemyConfig.baseDamage,
       enemyConfig.xpValue,
       enemyConfig.radius,
-      enemyConfig.behavior,
+      behavior,
       enemyConfig.knockbackResistance,
       enemyConfig.dropsChest
     );

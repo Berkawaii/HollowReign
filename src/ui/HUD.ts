@@ -1,6 +1,7 @@
 import { EntityManager } from '../ecs/EntityManager';
 import { WEAPONS } from '../config/weapons';
 import { PASSIVES } from '../config/passives';
+import { ENEMIES } from '../config/enemies';
 import { sound } from '../core/AudioEngine';
 import { WorldMap } from '../core/WorldMap';
 import { ProceduralAssets } from '../utils/ProceduralAssets';
@@ -58,6 +59,12 @@ export const PASSIVE_SHORT_NAMES: Record<string, string> = {
 
 export class HUD {
   private container: HTMLDivElement;
+  private lastBossId: number = -1;
+  private bossIntroTimer: number = 0;
+  private bossIntroName: string = '';
+  private bossIntroSubtitle: string = '';
+  private lastUpdateTime: number = performance.now();
+  private trailingBossHp: number = 0;
 
   constructor() {
     this.container = document.createElement('div');
@@ -82,6 +89,36 @@ export class HUD {
     onTriggerAbility?: () => void
   ): void {
     if (!em.player) return;
+
+    const now = performance.now();
+    const dt = Math.min(0.1, (now - this.lastUpdateTime) / 1000);
+    this.lastUpdateTime = now;
+
+    // Detect active boss for Dark Souls entrance banner & health bar
+    const activeBoss = em.enemies.find((e) => e.active && e.behavior === 'boss');
+    if (activeBoss) {
+      if (activeBoss.id !== this.lastBossId) {
+        this.lastBossId = activeBoss.id;
+        this.bossIntroTimer = 3.6;
+        const cfg = ENEMIES[activeBoss.typeId];
+        this.bossIntroName = cfg?.name || 'ANCIENT BEHEMOTH';
+        this.bossIntroSubtitle = cfg?.subtitle || 'THE ABYSSAL HARBINGER';
+        sound.play('explosion');
+        this.trailingBossHp = activeBoss.hp;
+      }
+
+      if (this.trailingBossHp > activeBoss.hp) {
+        this.trailingBossHp = Math.max(activeBoss.hp, this.trailingBossHp - activeBoss.maxHp * dt * 0.4);
+      } else {
+        this.trailingBossHp = activeBoss.hp;
+      }
+    } else {
+      this.trailingBossHp = 0;
+    }
+
+    if (this.bossIntroTimer > 0) {
+      this.bossIntroTimer = Math.max(0, this.bossIntroTimer - dt);
+    }
 
     const p = em.player;
     const hpPct = Math.max(0, Math.min(100, (p.currentHp / p.stats.maxHealth) * 100));
@@ -280,6 +317,95 @@ export class HUD {
           </div>
         </button>
       </div>
+
+      <!-- DARK SOULS CINEMATIC BOSS ENTRANCE BANNER -->
+      ${
+        this.bossIntroTimer > 0
+          ? `
+        <div class="fixed inset-0 pointer-events-none z-50 flex flex-col justify-between transition-opacity duration-300" style="opacity: ${
+          this.bossIntroTimer > 3.0
+            ? (3.6 - this.bossIntroTimer) / 0.6
+            : this.bossIntroTimer < 0.6
+            ? this.bossIntroTimer / 0.6
+            : 1
+        }">
+          <!-- Top Letterbox Bar -->
+          <div class="w-full h-12 sm:h-20 bg-gradient-to-b from-black via-black/95 to-transparent"></div>
+
+          <!-- Center Grand Banner -->
+          <div class="flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-r from-transparent via-black/85 to-transparent backdrop-blur-xs">
+            <div class="flex items-center space-x-3 mb-1.5">
+              <div class="h-[1px] w-12 sm:w-28 bg-gradient-to-r from-transparent via-amber-500 to-amber-200"></div>
+              <span class="text-[9px] sm:text-xs font-mono font-bold text-red-500 uppercase tracking-[0.35em] drop-shadow">ARCHON OF THE VOID AWAKENS</span>
+              <div class="h-[1px] w-12 sm:w-28 bg-gradient-to-l from-transparent via-amber-500 to-amber-200"></div>
+            </div>
+
+            <h1 class="font-gothic text-2xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-300 to-yellow-600 tracking-[0.15em] sm:tracking-[0.25em] uppercase text-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+              ${this.bossIntroName}
+            </h1>
+
+            <div class="text-xs sm:text-sm md:text-base font-mono font-bold text-red-400 tracking-[0.3em] uppercase text-center mt-1 drop-shadow">
+              [ ${this.bossIntroSubtitle} ]
+            </div>
+
+            <div class="h-[1px] w-36 sm:w-72 bg-gradient-to-r from-transparent via-amber-400/80 to-transparent mt-3"></div>
+          </div>
+
+          <!-- Bottom Letterbox Bar -->
+          <div class="w-full h-12 sm:h-20 bg-gradient-to-t from-black via-black/95 to-transparent"></div>
+        </div>
+      `
+          : ''
+      }
+
+      <!-- PERSISTENT DARK SOULS DOCKED BOSS HEALTH BAR -->
+      ${
+        activeBoss
+          ? `
+        <div class="fixed bottom-14 sm:bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-xl pointer-events-none z-30 flex flex-col items-center">
+          <!-- Boss Title, Subtitle, & Enraged State -->
+          <div class="w-full flex items-center justify-between px-1 mb-1 font-mono">
+            <div class="flex items-center space-x-2">
+              <span class="font-gothic font-black text-xs sm:text-sm text-amber-200 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                ${ENEMIES[activeBoss.typeId]?.name || 'BOSS'}
+              </span>
+              <span class="hidden sm:inline text-[10px] text-slate-400 font-normal">
+                (${ENEMIES[activeBoss.typeId]?.subtitle || 'Archon'})
+              </span>
+            </div>
+            <div class="flex items-center space-x-2">
+              ${
+                activeBoss.isEnraged
+                  ? `<span class="text-[9px] sm:text-[10px] font-black font-mono text-red-400 bg-red-950/90 border border-red-500 px-1.5 py-0.2 rounded animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.7)]">
+                      [ENRAGED]
+                     </span>`
+                  : ''
+              }
+              <span class="text-[9px] sm:text-[10px] font-bold text-amber-400">
+                ${Math.ceil(activeBoss.hp)} / ${activeBoss.maxHp}
+              </span>
+            </div>
+          </div>
+
+          <!-- Outer Gold / Crimson Gothic Bar Frame -->
+          <div class="w-full h-3 sm:h-3.5 bg-slate-950/95 border-2 ${
+            activeBoss.isEnraged ? 'border-red-500 shadow-[0_0_14px_rgba(239,68,68,0.7)]' : 'border-amber-500/80 shadow-lg'
+          } rounded-sm overflow-hidden relative">
+            <!-- Trailing Damage Amber Bar -->
+            <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-amber-600 to-yellow-500 transition-all duration-75 opacity-90" style="width: ${Math.max(
+              0,
+              Math.min(100, (this.trailingBossHp / activeBoss.maxHp) * 100)
+            )}%"></div>
+            <!-- Current HP Red/Crimson Bar -->
+            <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-red-800 via-rose-600 to-red-500 transition-all duration-100" style="width: ${Math.max(
+              0,
+              Math.min(100, (activeBoss.hp / activeBoss.maxHp) * 100)
+            )}%"></div>
+          </div>
+        </div>
+      `
+          : ''
+      }
     `;
 
     // Bind click events

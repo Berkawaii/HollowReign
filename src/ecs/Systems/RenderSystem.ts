@@ -45,6 +45,9 @@ export class RenderSystem {
     // 3. DRAW GROUND DECALS & PUDDLES (Santa Water, La Borra, Astral Vortex)
     this.renderGroundDecalsAndPuddles(em, camera, particleSystem);
 
+    // 3.5. DRAW BOSS ATTACK TELEGRAPHS
+    this.renderBossTelegraphs(em, camera);
+
     // 4. DRAW PICKUPS & GEMS (With shadows and floating bob)
     this.renderPickupsAndGems(em, camera);
 
@@ -192,6 +195,106 @@ export class RenderSystem {
     }
   }
 
+  private renderBossTelegraphs(em: EntityManager, camera: Camera): void {
+    const ctx = this.ctx;
+    for (let i = 0; i < em.enemies.length; i++) {
+      const e = em.enemies[i];
+      if (!e.active || e.behavior !== 'boss' || !e.telegraphType) continue;
+
+      const progress = e.telegraphProgress || 0;
+      const radius = e.telegraphRadius || 120;
+
+      if (e.telegraphType === 'circle') {
+        const screenPos = camera.worldToScreen(e.x, e.y);
+        ctx.save();
+        ctx.setLineDash([8, 6]);
+        ctx.strokeStyle = 'rgba(239, 68, 68, 0.85)';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Expanding inner danger fill
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.25)';
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, radius * progress, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else if (e.telegraphType === 'line') {
+        // Charge telegraph lane
+        const screenPos = camera.worldToScreen(e.x, e.y);
+        const angle = e.telegraphAngle || 0;
+        const length = radius;
+        const width = 64;
+
+        ctx.save();
+        ctx.translate(screenPos.x, screenPos.y);
+        ctx.rotate(angle);
+
+        ctx.setLineDash([10, 6]);
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.85)';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(0, -width / 2, length, width);
+
+        // Advancing progress fill
+        ctx.fillStyle = 'rgba(2, 132, 199, 0.25)';
+        ctx.fillRect(0, -width / 2, length * progress, width);
+        ctx.restore();
+      } else if (e.telegraphType === 'cone') {
+        // Conical petrifying gaze
+        const screenPos = camera.worldToScreen(e.x, e.y);
+        const angle = e.telegraphAngle || 0;
+        const halfAngle = Math.PI / 6;
+
+        ctx.save();
+        ctx.setLineDash([8, 6]);
+        ctx.strokeStyle = 'rgba(34, 197, 94, 0.85)';
+        ctx.lineWidth = 2.5;
+
+        ctx.beginPath();
+        ctx.moveTo(screenPos.x, screenPos.y);
+        ctx.arc(screenPos.x, screenPos.y, radius, angle - halfAngle, angle + halfAngle);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(screenPos.x, screenPos.y);
+        ctx.arc(screenPos.x, screenPos.y, radius * progress, angle - halfAngle, angle + halfAngle);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      } else if (e.telegraphType === 'rupture') {
+        // Ground rupture under player target
+        const tx = e.telegraphTargetX ?? em.playerX;
+        const ty = e.telegraphTargetY ?? em.playerY;
+        const screenPos = camera.worldToScreen(tx, ty);
+
+        ctx.save();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = 'rgba(192, 38, 211, 0.9)';
+        ctx.lineWidth = 2.5;
+
+        // Concentric necrotic rings
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(232, 121, 249, 0.6)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, radius * 0.5, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(192, 38, 211, 0.28)';
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, radius * progress, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+  }
+
   private renderPickupsAndGems(em: EntityManager, camera: Camera): void {
     const ctx = this.ctx;
     const now = performance.now();
@@ -266,6 +369,27 @@ export class RenderSystem {
 
       ctx.drawImage(sprite, -size / 2, -size / 2, size, size);
       ctx.restore();
+
+      // Enraged Boss Hellfire Aura
+      if (e.behavior === 'boss' && e.isEnraged) {
+        ctx.save();
+        const pulse = Math.sin(now * 0.008) * 0.25 + 0.65;
+        ctx.strokeStyle = `rgba(239, 68, 68, ${pulse})`;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, e.radius + 8 + Math.sin(now * 0.015) * 3, 0, Math.PI * 2);
+        ctx.stroke();
+
+        const grad = ctx.createRadialGradient(screenPos.x, screenPos.y, e.radius * 0.4, screenPos.x, screenPos.y, e.radius + 12);
+        grad.addColorStop(0, 'rgba(239, 68, 68, 0)');
+        grad.addColorStop(1, 'rgba(239, 68, 68, 0.2)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(screenPos.x, screenPos.y, e.radius + 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
 
       // Boss or Heavy Enemy Health Bar
       if (e.behavior === 'boss' || e.behavior === 'tank' || e.hp < e.maxHp) {

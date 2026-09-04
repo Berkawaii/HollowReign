@@ -35,8 +35,32 @@ export class CollisionSystem {
       const p = em.projectiles[i];
       if (!p.active) continue;
 
-      // Enemy arrows only damage the player
+      // Enemy arrows only damage the player, UNLESS intercepted by player attacks
       if (p.weaponId === 'enemy_arrow') {
+        // Check if intercepted/deflected by player weapon projectiles or slashes
+        let intercepted = false;
+        for (let k = 0; k < em.projectiles.length; k++) {
+          const playerProj = em.projectiles[k];
+          if (!playerProj.active || playerProj.weaponId === 'enemy_arrow') continue;
+
+          const distSq = (playerProj.x - p.x) ** 2 + (playerProj.y - p.y) ** 2;
+          const hitDist = playerProj.radius + p.radius + 6;
+          if (distSq <= hitDist * hitDist) {
+            intercepted = true;
+            break;
+          }
+        }
+
+        if (intercepted) {
+          p.active = false;
+          em.removeProjectile(p, i);
+          const particles = ParticleSystem.get();
+          if (particles) {
+            particles.spawnBurst(p.x, p.y, '#f59e0b', 4, 90, 2, 'spark');
+          }
+          continue;
+        }
+
         const dx = em.playerX - p.x;
         const dy = em.playerY - p.y;
         if (dx * dx + dy * dy <= (em.playerRadius + p.radius) ** 2) {

@@ -74,13 +74,16 @@ export class HeroSelectModal {
     const canStart = isSelectedHeroUnlocked && isSelectedStageUnlocked;
 
     this.container.innerHTML = `
-      <div class="w-full max-w-6xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/60 rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-8 shadow-2xl flex flex-col my-auto max-h-none md:max-h-[96vh] overflow-y-auto">
+      <div class="w-full max-w-6xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/70 rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-8 shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col my-auto max-h-none md:max-h-[96vh] overflow-y-auto">
         
         <!-- Top Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-slate-800 pb-3 mb-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-amber-500/30 pb-3.5 mb-3.5">
           <div>
-            <span class="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-widest block">${t('app_title')}</span>
-            <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 leading-tight">
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-400 uppercase tracking-[0.25em]">${t('app_title')}</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-gothic font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-500 tracking-wider leading-tight mt-0.5">
               ${t('select_your_hero')} & BIOME
             </h1>
           </div>
@@ -88,7 +91,7 @@ export class HeroSelectModal {
           <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <!-- Language Selector Dropdown -->
             <div class="relative">
-              <button id="hero-lang-toggle-btn" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-slate-200 transition active:scale-95 flex items-center space-x-1.5 shadow">
+              <button id="hero-lang-toggle-btn" class="bg-slate-950/90 hover:bg-slate-900 border border-slate-700 hover:border-amber-500/50 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-slate-200 transition active:scale-95 flex items-center space-x-1.5 shadow">
                 <span class="font-black text-amber-400">${currentLangMeta.flag}</span>
                 <span>${currentLangMeta.nativeName}</span>
                 <span class="text-[10px] text-slate-400">▾</span>
@@ -97,12 +100,12 @@ export class HeroSelectModal {
               ${
                 this.isLangDropdownOpen
                   ? `
-                <div class="absolute right-0 top-full mt-1.5 w-44 bg-slate-950 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden z-50 py-1 max-h-60 overflow-y-auto font-mono">
+                <div class="absolute right-0 top-full mt-1.5 w-44 bg-slate-950 border border-amber-500/40 rounded-2xl shadow-2xl overflow-hidden z-50 py-1 max-h-60 overflow-y-auto font-mono">
                   ${supportedLangs
                     .map(
                       (l) => `
-                    <button data-lang-code="${l.code}" class="lang-option-btn w-full text-left px-3.5 py-2 text-xs flex items-center justify-between hover:bg-slate-800 transition ${
-                        l.code === currentLang ? 'bg-amber-950/60 text-amber-300 font-bold' : 'text-slate-300'
+                    <button data-lang-code="${l.code}" class="lang-option-btn w-full text-left px-3.5 py-2 text-xs flex items-center justify-between hover:bg-amber-950/40 transition ${
+                        l.code === currentLang ? 'bg-amber-950/70 text-amber-300 font-bold' : 'text-slate-300'
                       }">
                       <span>${l.nativeName}</span>
                       <span class="text-[10px] text-slate-500">${l.flag}</span>
@@ -117,28 +120,28 @@ export class HeroSelectModal {
             </div>
 
             <!-- Achievements Button -->
-            <button id="hero-menu-achievements-btn" class="bg-slate-900 hover:bg-slate-800 border border-amber-500/40 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-amber-300 transition active:scale-95 shadow">
+            <button id="hero-menu-achievements-btn" class="bg-slate-950/90 hover:bg-slate-900 border border-amber-500/40 hover:border-amber-400 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold text-amber-300 transition active:scale-95 shadow">
               ${t('achievements')}
             </button>
 
             <!-- PowerUp Shop Button -->
-            <button id="hero-menu-shop-btn" class="bg-slate-900 hover:bg-slate-800 border border-amber-500/40 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-amber-300 transition active:scale-95 flex items-center space-x-1.5 shadow">
+            <button id="hero-menu-shop-btn" class="bg-slate-950/90 hover:bg-slate-900 border border-amber-500/40 hover:border-amber-400 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold text-amber-300 transition active:scale-95 flex items-center space-x-1.5 shadow">
               <span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span>
               <span>${data.gold} ${t('gold')}</span>
             </button>
 
             <!-- Leaderboard Button -->
-            <button id="hero-menu-leaderboard-btn" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold text-slate-200 transition active:scale-95">
+            <button id="hero-menu-leaderboard-btn" class="bg-slate-950/90 hover:bg-slate-900 border border-slate-700 hover:border-amber-500/40 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold text-slate-200 transition active:scale-95">
               ${t('leaderboard')}
             </button>
           </div>
         </div>
 
         <!-- Stage / Biome Selector Row -->
-        <div class="mb-3 sm:mb-4 bg-slate-950/90 border border-slate-800 p-2.5 sm:p-3 rounded-2xl">
+        <div class="mb-3 sm:mb-4 bg-slate-950/90 border border-amber-500/30 p-2.5 sm:p-3 rounded-2xl">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest font-mono">CHOOSE STAGE & BIOME</span>
-            <span class="text-[10px] text-slate-400 font-sans truncate ml-2">${this.selectedStage.title}</span>
+            <span class="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-[0.2em]">CHOOSE STAGE & BIOME</span>
+            <span class="text-[10px] text-slate-400 font-sans truncate ml-2 font-medium">${this.selectedStage.title}</span>
           </div>
 
           <div class="flex md:grid md:grid-cols-3 gap-2 overflow-x-auto pb-1 snap-x no-scrollbar">
@@ -149,18 +152,18 @@ export class HeroSelectModal {
               return `
                 <button data-stage-id="${s.id}" class="stage-select-btn shrink-0 w-[72vw] max-w-[260px] md:w-auto p-2 sm:p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between cursor-pointer snap-start ${
                 isSelected
-                  ? 'border-amber-400 bg-amber-950/40 shadow-lg'
+                  ? 'border-amber-400 bg-gradient-to-br from-amber-950/50 to-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
                   : isUnlocked
-                  ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800/80'
-                  : 'border-slate-900 bg-slate-950/40 opacity-75 hover:opacity-100 hover:border-slate-700'
+                  ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-amber-500/40'
+                  : 'border-slate-900 bg-slate-950/50 opacity-70 hover:opacity-90'
               }">
                   <div class="w-full">
                     <div class="flex items-center justify-between">
                       <div class="flex items-center space-x-1.5">
-                        <span class="font-black text-xs ${isSelected ? 'text-amber-300' : 'text-slate-200'}">${s.name}</span>
+                        <span class="font-gothic font-bold text-xs sm:text-sm ${isSelected ? 'text-amber-300' : 'text-slate-200'}">${s.name}</span>
                         ${
                           !isUnlocked
-                            ? `<span class="text-[9px] bg-slate-900 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/40 font-bold">${t('locked')}</span>`
+                            ? `<span class="text-[9px] bg-slate-950 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/40 font-mono font-bold">${t('locked')}</span>`
                             : ''
                         }
                       </div>
@@ -212,32 +215,32 @@ export class HeroSelectModal {
               const portraitUrl = ProceduralAssets.getHeroPortraitDataUrl(h.id);
 
               return `
-                <button data-hero-id="${h.id}" class="hero-card-btn shrink-0 w-[200px] sm:w-[240px] lg:w-full bg-slate-900/90 hover:bg-slate-800/90 border-2 ${
+                <button data-hero-id="${h.id}" class="hero-card-btn shrink-0 w-[200px] sm:w-[240px] lg:w-full bg-slate-950/80 hover:bg-slate-900 border-2 ${
                 isSelected
-                  ? 'border-amber-400 bg-slate-800/90 shadow-amber-500/20 shadow-lg'
+                  ? 'border-amber-400 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
                   : isUnlocked
-                  ? 'border-slate-800'
+                  ? 'border-slate-800 hover:border-amber-500/40'
                   : 'border-slate-900 opacity-60'
               } p-2.5 sm:p-3 rounded-xl sm:rounded-2xl flex items-center justify-between text-left transition duration-150 transform hover:scale-[1.01] active:scale-95 group snap-start">
                   
                   <div class="flex items-center space-x-2.5 sm:space-x-3.5">
-                    <!-- Hero Portrait Photo -->
+                    <!-- Hero Portrait Frame -->
                     <div class="relative shrink-0">
                       <img src="${portraitUrl}" alt="${h.name}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-2 shadow-md ${
                         isUnlocked ? '' : 'grayscale brightness-50'
                       }" style="border-color: ${isUnlocked ? h.color : '#334155'}; image-rendering: pixelated;" />
                       ${
                         !isUnlocked
-                          ? `<span class="absolute inset-0 flex items-center justify-center text-[9px] font-black bg-black/60 text-slate-400 rounded-xl">${t('locked')}</span>`
+                          ? `<span class="absolute inset-0 flex items-center justify-center text-[9px] font-mono font-black bg-black/70 text-slate-400 rounded-xl">${t('locked')}</span>`
                           : ''
                       }
                     </div>
 
                     <div>
                       <div class="flex items-center space-x-1.5">
-                        <span class="font-black text-sm sm:text-base ${isUnlocked ? 'text-slate-100 group-hover:text-amber-300' : 'text-slate-500'} transition truncate">${h.name}</span>
+                        <span class="font-gothic font-bold text-sm sm:text-base ${isUnlocked ? 'text-slate-100 group-hover:text-amber-300' : 'text-slate-500'} transition truncate tracking-wide">${h.name}</span>
                       </div>
-                      <div class="text-[10px] sm:text-xs text-slate-400">(${h.title})</div>
+                      <div class="text-[10px] sm:text-xs text-amber-400/90 font-mono tracking-wider font-semibold">${h.title}</div>
                       <div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 flex items-center space-x-1 font-sans">
                         <span class="text-amber-400 font-bold font-mono text-[9px] sm:text-[10px]">${t('weapon')}:</span>
                         <span class="truncate">${weapon ? weapon.name : h.startingWeaponId}</span>
@@ -260,68 +263,68 @@ export class HeroSelectModal {
           </div>
 
           <!-- Hero Details Column -->
-          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-3 sm:p-4 flex flex-col justify-between">
+          <div class="bg-slate-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-5 flex flex-col justify-between shadow-xl">
             <div>
               <!-- Big Hero Portrait Preview -->
-              <div class="flex flex-col items-center border-b border-slate-800 pb-2.5 mb-2.5">
-                <div class="relative mb-1.5">
+              <div class="flex flex-col items-center border-b border-slate-800 pb-3 mb-3">
+                <div class="relative mb-2">
                   <img src="${selectedPortrait}" alt="${this.selectedHero.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 ${
-                    isSelectedHeroUnlocked ? 'border-amber-400/80 shadow-2xl' : 'border-slate-800 grayscale brightness-50'
+                    isSelectedHeroUnlocked ? 'border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.3)]' : 'border-slate-800 grayscale brightness-50'
                   }" style="image-rendering: pixelated;" />
                   ${
                     !isSelectedHeroUnlocked
-                      ? `<span class="absolute inset-0 flex items-center justify-center text-xs font-black bg-black/70 text-amber-400 rounded-2xl">${t('locked')}</span>`
+                      ? `<span class="absolute inset-0 flex items-center justify-center text-xs font-mono font-black bg-black/70 text-amber-400 rounded-2xl">${t('locked')}</span>`
                       : ''
                   }
                 </div>
-                <span class="text-[10px] sm:text-[11px] text-amber-400 font-bold uppercase tracking-widest">${this.selectedHero.title}</span>
-                <h3 class="text-lg sm:text-xl font-black text-white">${this.selectedHero.name}</h3>
-                <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 font-sans leading-relaxed text-center">${this.selectedHero.description}</p>
+                <span class="text-[10px] sm:text-[11px] text-amber-400 font-mono font-bold uppercase tracking-[0.25em]">${this.selectedHero.title}</span>
+                <h3 class="text-xl sm:text-2xl font-gothic font-black text-amber-100 tracking-wide mt-0.5">${this.selectedHero.name}</h3>
+                <p class="text-[11px] sm:text-xs text-slate-300 mt-1 font-sans leading-relaxed text-center">${this.selectedHero.description}</p>
               </div>
 
               ${
                 !isSelectedHeroUnlocked && unlockHeroReq
                   ? `
-                <button id="hero-unlock-req-btn" class="w-full bg-amber-950/70 hover:bg-amber-900/80 border border-amber-500/60 rounded-xl p-2 mb-2.5 text-center transition cursor-pointer active:scale-95 shadow">
+                <button id="hero-unlock-req-btn" class="w-full bg-amber-950/70 hover:bg-amber-900/80 border border-amber-500/60 rounded-xl p-2.5 mb-3 text-center transition cursor-pointer active:scale-95 shadow">
                   <span class="text-[9px] font-bold text-amber-400 uppercase tracking-widest block font-mono">${t('unlock_requirement')} (CLICK TO VIEW)</span>
                   <p class="text-[11px] text-slate-200 mt-0.5 font-sans font-bold">${unlockHeroReq.description}</p>
                 </button>
               `
                   : `
-                <div class="bg-amber-950/40 border border-amber-500/40 rounded-xl p-2 sm:p-2.5 mb-2.5">
-                  <span class="text-[9px] sm:text-[10px] font-bold text-amber-300 uppercase tracking-wider block font-mono">${t('passive_trait')}</span>
-                  <p class="text-[10px] sm:text-[11px] text-slate-200 mt-0.5 font-sans">${this.selectedHero.traitDescription}</p>
+                <div class="bg-amber-950/30 border border-amber-500/40 rounded-xl p-2.5 sm:p-3 mb-3">
+                  <span class="text-[9px] sm:text-[10px] font-bold text-amber-300 uppercase tracking-widest block font-mono">${t('passive_trait')}</span>
+                  <p class="text-[11px] sm:text-xs text-slate-200 mt-1 font-sans leading-snug">${this.selectedHero.traitDescription}</p>
                 </div>
               `
               }
 
               <!-- Stats Summary -->
-              <div class="grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-[11px]">
-                <div class="bg-slate-900 p-1.5 sm:p-2 rounded-lg border border-slate-800">
-                  <span class="text-slate-500 text-[8px] sm:text-[9px] block">${t('max_health')}</span>
-                  <span class="font-bold text-slate-200">${this.selectedHero.baseStats.maxHealth} HP</span>
+              <div class="grid grid-cols-2 gap-2 text-[10px] sm:text-[11px] font-mono">
+                <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                  <span class="text-slate-500 text-[9px] block">${t('max_health')}</span>
+                  <span class="font-bold text-rose-400 text-xs">${this.selectedHero.baseStats.maxHealth} HP</span>
                 </div>
-                <div class="bg-slate-900 p-1.5 sm:p-2 rounded-lg border border-slate-800">
-                  <span class="text-slate-500 text-[8px] sm:text-[9px] block">${t('armor')}</span>
-                  <span class="font-bold text-slate-200">${this.selectedHero.baseStats.armor}</span>
+                <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                  <span class="text-slate-500 text-[9px] block">${t('armor')}</span>
+                  <span class="font-bold text-sky-400 text-xs">+${this.selectedHero.baseStats.armor}</span>
                 </div>
-                <div class="bg-slate-900 p-1.5 sm:p-2 rounded-lg border border-slate-800">
-                  <span class="text-slate-500 text-[8px] sm:text-[9px] block">${t('move_speed')}</span>
-                  <span class="font-bold text-slate-200">${this.selectedHero.baseStats.moveSpeed} px/s</span>
+                <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                  <span class="text-slate-500 text-[9px] block">${t('move_speed')}</span>
+                  <span class="font-bold text-emerald-400 text-xs">${this.selectedHero.baseStats.moveSpeed}</span>
                 </div>
-                <div class="bg-slate-900 p-1.5 sm:p-2 rounded-lg border border-slate-800">
-                  <span class="text-slate-500 text-[8px] sm:text-[9px] block">${t('starting_weapon')}</span>
-                  <span class="font-bold text-amber-400 truncate block">${startingWeapon ? startingWeapon.name : ''}</span>
+                <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                  <span class="text-slate-500 text-[9px] block">${t('starting_weapon')}</span>
+                  <span class="font-bold text-amber-400 truncate block text-xs">${startingWeapon ? startingWeapon.name : ''}</span>
                 </div>
               </div>
             </div>
 
             <!-- Start Button -->
-            <button id="hero-start-run-btn" class="mt-3 sm:mt-4 w-full ${
+            <button id="hero-start-run-btn" class="mt-4 w-full ${
               canStart
-                ? 'bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 animate-pulse'
+                ? 'bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.35)]'
                 : 'bg-slate-800 hover:bg-slate-700 border border-amber-500/50 text-amber-300 shadow-md'
-            } font-black text-sm sm:text-base py-2.5 sm:py-3 rounded-xl shadow-xl transition active:scale-95 cursor-pointer">
+            } font-gothic font-black text-sm sm:text-base py-3 sm:py-3.5 rounded-xl transition active:scale-95 cursor-pointer tracking-widest">
               ${canStart ? `${t('start_run')} • ${this.selectedStage.name}` : `VIEW ACHIEVEMENTS TO UNLOCK >`}
             </button>
           </div>

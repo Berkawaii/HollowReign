@@ -2,6 +2,9 @@ import { EntityManager } from '../EntityManager';
 import { InputManager } from '../../core/InputManager';
 import { Camera } from '../../core/Camera';
 import { WorldMap } from '../../core/WorldMap';
+import { sound } from '../../core/AudioEngine';
+import { ParticleSystem } from './ParticleSystem';
+import { EnemyEntity } from '../Components';
 
 export class MovementSystem {
   public update(em: EntityManager, input: InputManager, camera: Camera, worldMap: WorldMap, dt: number): void {
@@ -84,26 +87,40 @@ export class MovementSystem {
           e.y -= (dy / dist) * (e.speed * 0.7) * dt;
         }
 
-        // Fire arrow every 3.0 seconds
-        if (e.attackTimer >= 3.0 && dist < 450) {
-          e.attackTimer = 0;
-          const arrowSpeed = 220;
-          em.spawnProjectile(
-            'enemy_arrow',
-            e.x,
-            e.y,
-            (dx / dist) * arrowSpeed,
-            (dy / dist) * arrowSpeed,
-            e.damage,
-            1,
-            6,
-            4.0,
-            1.0,
-            0
-          );
+        // Visual aiming telegraph: 0.5s before shooting, archer flashes
+        if (e.attackTimer >= 4.0 && camera.isVisible(e.x, e.y, 60)) {
+          e.flashTimer = Math.max(e.flashTimer, 0.08);
         }
+
+        // Fire arrow: 4.5s cooldown, only when visible on screen, max 14 arrows on screen
+        if (e.attackTimer >= 4.5 && dist < 420 && camera.isVisible(e.x, e.y, 60)) {
+          const currentArrowCount = em.projectiles.filter((p) => p.active && p.weaponId === 'enemy_arrow').length;
+          if (currentArrowCount < 14) {
+            e.attackTimer = 0;
+            const arrowSpeed = 180;
+            em.spawnProjectile(
+              'enemy_arrow',
+              e.x,
+              e.y,
+              (dx / dist) * arrowSpeed,
+              (dy / dist) * arrowSpeed,
+              Math.round(e.damage * 0.8),
+              1,
+              6,
+              2.4,
+              1.0,
+              0
+            );
+          } else {
+            // Delay shot slightly if screen is already arrow heavy
+            e.attackTimer = 3.8;
+          }
+        }
+      } else if (e.behavior === 'boss') {
+        // Boss AI with Skills, Enrage, and Telegraphs
+        this.updateBossBehavior(em, e, camera, dt);
       } else {
-        // Standard chase / swarm / boss / reaper
+        // Standard chase / swarm / tank / reaper
         if (dist > 2) {
           e.x += (dx / dist) * e.speed * dt;
           e.y += (dy / dist) * e.speed * dt;
@@ -268,6 +285,207 @@ export class MovementSystem {
       if (d.elapsedTime >= d.maxDuration) {
         d.active = false;
         em.damageNumbers.splice(i, 1);
+      }
+    }
+  }
+
+  /**
+   * Advanced Boss AI with distinct skills, warning telegraphs, and enrage transitions.
+   */
+  private updateBossBehavior(em: EntityManager, e: EnemyEntity, camera: Camera, dt: number): void {
+    if (!em.player) return;
+
+    // Enrage phase transition at <50% HP
+    if (e.hp < e.maxHp * 0.5 && !e.isEnraged) {
+      e.isEnraged = true;
+      e.speed *= 1.2;
+      camera.addShake(0.5);
+      sound.play('explosion');
+      em.spawnDamageNumber(e.x, e.y - 30, 0, true, '#ef4444');
+      const particles = ParticleSystem.get();
+      if (particles) {
+        particles.spawnShockwave(e.x, e.y, '#ef4444', 80, 0.4);
+        particles.spawnBurst(e.x, e.y, '#f59e0b', 20, 200, 3, 'ember');
+      }
+    }
+
+    const dx = em.playerX - e.x;
+    const dy = em.playerY - e.y;
+    const dist = Math.hypot(dx, dy) || 1;
+
+    e.skillTimer = (e.skillTimer || 0) + dt;
+    const skillCooldown = e.isEnraged ? 4.5 : 6.0;
+
+    // Phase 0: Regular pursuit
+    if (e.skillPhase === 0 || e.skillPhase === undefined) {
+      if (dist > 5) {
+        e.x += (dx / dist) * e.speed * dt;
+        e.y += (dy / dist) * e.speed * dt;
+      }
+
+      if (e.skillTimer >= skillCooldown) {
+        e.skillTimer = 0;
+        e.skillPhase = 1; // Begin telegraph
+        e.attackTimer = 0;
+
+        // Choose telegraph & prepare skill
+        if (e.typeId === 'minotaur_boss') {
+          // Leviathan: Tidal Slam or Charge
+          if (Math.random() < 0.5) {
+            e.telegraphType = 'circle';
+            e.telegraphRadius = 160;
+          } else {
+            e.telegraphType = 'line';
+            e.telegraphAngle = Math.atan2(dy, dx);
+            e.telegraphRadius = 320;
+          }
+        } else if (e.typeId === 'gorgon_boss') {
+          // Shub-Niggurath: Petrifying Gaze or Brood Spawn
+          if (Math.random() < 0.6) {
+            e.telegraphType = 'cone';
+            e.telegraphAngle = Math.atan2(dy, dx);
+            e.telegraphRadius = 240;
+          } else {
+            e.telegraphType = 'circle';
+            e.telegraphRadius = 120;
+          }
+        } else if (e.typeId === 'vampire_boss') {
+          // Nyarlathotep: Shadow Blink or Chaos Nova
+          e.telegraphType = 'circle';
+          e.telegraphRadius = 140;
+        } else if (e.typeId === 'necromancer_boss') {
+          // R'lyeh High Priest: Death Ruptures
+          e.telegraphType = 'rupture';
+          e.telegraphTargetX = em.playerX;
+          e.telegraphTargetY = em.playerY;
+          e.telegraphRadius = 75;
+        } else {
+          e.telegraphType = 'circle';
+          e.telegraphRadius = 140;
+        }
+      }
+    } else if (e.skillPhase === 1) {
+      // Phase 1: Telegraph wind-up (0.9s duration)
+      e.attackTimer += dt;
+      const windupDuration = e.isEnraged ? 0.7 : 0.9;
+      e.telegraphProgress = Math.min(1, e.attackTimer / windupDuration);
+
+      // Flash during telegraph
+      e.flashTimer = 0.08;
+
+      if (e.attackTimer >= windupDuration) {
+        // Execute skill!
+        e.skillPhase = 0;
+        e.skillTimer = 0;
+        const executedType = e.telegraphType;
+        e.telegraphType = undefined;
+        e.telegraphProgress = 0;
+
+        const particles = ParticleSystem.get();
+
+        if (e.typeId === 'minotaur_boss') {
+          if (executedType === 'circle') {
+            // Tidal Slam
+            camera.addShake(0.65);
+            sound.play('explosion');
+            if (particles) {
+              particles.spawnShockwave(e.x, e.y, '#0284c7', 160, 0.45);
+              particles.spawnBurst(e.x, e.y, '#38bdf8', 25, 220, 3, 'spark');
+            }
+            if (dist < 160) {
+              const dmg = Math.round(e.damage * 1.3);
+              em.player.currentHp = Math.max(1, em.player.currentHp - dmg);
+              camera.addShake(0.4);
+              sound.play('hit');
+              em.spawnDamageNumber(em.playerX, em.playerY, dmg, true, '#ef4444');
+            }
+          } else {
+            // Abyssal Surge (Charge)
+            camera.addShake(0.5);
+            sound.play('explosion');
+            const chargeAngle = e.telegraphAngle || 0;
+            e.knockbackDx = Math.cos(chargeAngle) * 550;
+            e.knockbackDy = Math.sin(chargeAngle) * 550;
+            if (particles) {
+              particles.spawnBurst(e.x, e.y, '#0284c7', 20, 180, 2.5, 'dust');
+            }
+          }
+        } else if (e.typeId === 'gorgon_boss') {
+          if (executedType === 'cone') {
+            // Petrifying Gaze
+            sound.play('magic_bolt');
+            camera.addShake(0.35);
+            if (particles) {
+              particles.spawnBurst(e.x, e.y, '#22c55e', 30, 200, 3, 'ember');
+            }
+            const gazeAngle = e.telegraphAngle || 0;
+            const playerAngle = Math.atan2(em.playerY - e.y, em.playerX - e.x);
+            let diff = Math.abs(playerAngle - gazeAngle);
+            if (diff > Math.PI) diff = Math.PI * 2 - diff;
+
+            if (diff < Math.PI / 6 && dist < 240) {
+              // Hit by petrifying gaze: slow player by 40% for 3 seconds!
+              em.player.invulnerabilityTimer = 0.3;
+              const dmg = Math.round(e.damage * 0.9);
+              em.player.currentHp = Math.max(1, em.player.currentHp - dmg);
+              em.spawnDamageNumber(em.playerX, em.playerY, dmg, false, '#22c55e');
+            }
+          } else {
+            // Brood Spawn: summon 4 swarmer parasites
+            sound.play('explosion');
+            for (let b = 0; b < 4; b++) {
+              const a = (b / 4) * Math.PI * 2;
+              em.spawnEnemy('bat', e.x + Math.cos(a) * 45, e.y + Math.sin(a) * 45, 60, 140, 8, 2, 12, 'swarm', 0.1);
+            }
+          }
+        } else if (e.typeId === 'vampire_boss') {
+          // Shadow Blink & Blood Slash
+          sound.play('knife');
+          camera.addShake(0.4);
+          if (particles) {
+            particles.spawnGhostTrail(e.x, e.y, 'enemy_vampire_boss', '#9333ea', 1);
+            particles.spawnBurst(e.x, e.y, '#a855f7', 20, 160, 2.5, 'spark');
+          }
+          // Teleport behind player
+          const behindAngle = Math.atan2(em.playerFacingY, em.playerFacingX) + Math.PI;
+          e.x = em.playerX + Math.cos(behindAngle) * 90;
+          e.y = em.playerY + Math.sin(behindAngle) * 90;
+
+          // Fire 8-direction shadow bolts
+          for (let s = 0; s < 8; s++) {
+            const sa = (s / 8) * Math.PI * 2;
+            em.spawnProjectile(
+              'enemy_arrow',
+              e.x,
+              e.y,
+              Math.cos(sa) * 160,
+              Math.sin(sa) * 160,
+              Math.round(e.damage * 0.7),
+              1,
+              7,
+              2.5,
+              1.0,
+              0
+            );
+          }
+        } else if (e.typeId === 'necromancer_boss') {
+          // Death Ruptures
+          sound.play('explosion');
+          camera.addShake(0.5);
+          const rx = e.telegraphTargetX || em.playerX;
+          const ry = e.telegraphTargetY || em.playerY;
+          if (particles) {
+            particles.spawnShockwave(rx, ry, '#c026d3', 90, 0.4);
+            particles.spawnBurst(rx, ry, '#e879f9', 24, 180, 3, 'soul');
+          }
+          const pDist = Math.hypot(em.playerX - rx, em.playerY - ry);
+          if (pDist < 90) {
+            const dmg = Math.round(e.damage * 1.2);
+            em.player.currentHp = Math.max(1, em.player.currentHp - dmg);
+            sound.play('hit');
+            em.spawnDamageNumber(em.playerX, em.playerY, dmg, true, '#c026d3');
+          }
+        }
       }
     }
   }

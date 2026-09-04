@@ -511,14 +511,14 @@ export const WEAPONS: Record<string, WeaponConfig> = {
     evolutionWeaponId: 'leviathans_grasp',
     soundEffect: 'whip',
     levels: [
-      { level: 1, damage: 28, cooldown: 1.4, projectiles: 1, speed: 0, area: 1.0, duration: 0.35, piercing: 999, knockback: 15, description: 'Lashes 1 tentacle at closest cluster of horrors.' },
-      { level: 2, damage: 36, cooldown: 1.3, projectiles: 1, speed: 0, area: 1.15, duration: 0.35, piercing: 999, knockback: 18, description: 'Damage +8, Area +15%' },
-      { level: 3, damage: 45, cooldown: 1.25, projectiles: 2, speed: 0, area: 1.15, duration: 0.35, piercing: 999, knockback: 20, description: 'Tentacle Amount +1 (Strikes in 2 directions)' },
-      { level: 4, damage: 56, cooldown: 1.15, projectiles: 2, speed: 0, area: 1.30, duration: 0.35, piercing: 999, knockback: 24, description: 'Damage +11, Area +15%' },
-      { level: 5, damage: 68, cooldown: 1.10, projectiles: 3, speed: 0, area: 1.30, duration: 0.35, piercing: 999, knockback: 26, description: 'Tentacle Amount +1' },
-      { level: 6, damage: 82, cooldown: 1.00, projectiles: 3, speed: 0, area: 1.45, duration: 0.35, piercing: 999, knockback: 30, description: 'Damage +14, Area +15%' },
-      { level: 7, damage: 98, cooldown: 0.95, projectiles: 4, speed: 0, area: 1.45, duration: 0.35, piercing: 999, knockback: 32, description: 'Tentacle Amount +1 (Surrounding thrash)' },
-      { level: 8, damage: 125, cooldown: 0.85, projectiles: 4, speed: 0, area: 1.65, duration: 0.40, piercing: 999, knockback: 40, description: 'Damage +27, Giant Tentacle Surge!' },
+      { level: 1, damage: 28, cooldown: 1.4, projectiles: 1, speed: 340, area: 1.0, duration: 0.6, piercing: 999, knockback: 15, description: 'Lashes 1 tentacle at closest cluster of horrors.' },
+      { level: 2, damage: 36, cooldown: 1.3, projectiles: 1, speed: 360, area: 1.15, duration: 0.65, piercing: 999, knockback: 18, description: 'Damage +8, Area +15%' },
+      { level: 3, damage: 45, cooldown: 1.25, projectiles: 2, speed: 380, area: 1.15, duration: 0.65, piercing: 999, knockback: 20, description: 'Tentacle Amount +1 (Strikes in 2 directions)' },
+      { level: 4, damage: 56, cooldown: 1.15, projectiles: 2, speed: 400, area: 1.30, duration: 0.7, piercing: 999, knockback: 24, description: 'Damage +11, Area +15%' },
+      { level: 5, damage: 68, cooldown: 1.10, projectiles: 3, speed: 420, area: 1.30, duration: 0.7, piercing: 999, knockback: 26, description: 'Tentacle Amount +1' },
+      { level: 6, damage: 82, cooldown: 1.00, projectiles: 3, speed: 440, area: 1.45, duration: 0.75, piercing: 999, knockback: 30, description: 'Damage +14, Area +15%' },
+      { level: 7, damage: 98, cooldown: 0.95, projectiles: 4, speed: 460, area: 1.45, duration: 0.75, piercing: 999, knockback: 32, description: 'Tentacle Amount +1 (Surrounding thrash)' },
+      { level: 8, damage: 125, cooldown: 0.85, projectiles: 4, speed: 480, area: 1.65, duration: 0.85, piercing: 999, knockback: 40, description: 'Damage +27, Giant Tentacle Surge!' },
     ],
   },
   leviathans_grasp: {
@@ -532,7 +532,7 @@ export const WEAPONS: Record<string, WeaponConfig> = {
     evolvedFromWeaponId: 'void_tendril',
     soundEffect: 'whip_crit',
     levels: [
-      { level: 1, damage: 175, cooldown: 0.75, projectiles: 6, speed: 0, area: 2.1, duration: 0.45, piercing: 999, knockback: 50, description: 'Colossal eldritch tentacles sweep the entire battlefield, drawing faraway gems!' },
+      { level: 1, damage: 175, cooldown: 0.75, projectiles: 6, speed: 520, area: 2.1, duration: 0.9, piercing: 999, knockback: 50, description: 'Colossal eldritch tentacles sweep the entire battlefield, drawing faraway gems!' },
     ],
   },
 
