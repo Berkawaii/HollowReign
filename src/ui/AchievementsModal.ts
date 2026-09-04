@@ -63,40 +63,54 @@ export class AchievementsModal {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto pr-1 flex-1 py-1">
           ${ACHIEVEMENTS.map((ach) => {
             const isUnlocked = data.unlockedAchievements.includes(ach.id);
+            const isSecretLocked = ach.isSecret && !isUnlocked;
+            const displayName = isSecretLocked ? '[CORRUPTED RECORD]' : ach.name;
+            const displayDesc = isSecretLocked
+              ? 'Corrupted void cipher detected. The cosmic trial and true nature of this entity remain shrouded in oblivion.'
+              : ach.description;
+            const displayReward = isSecretLocked ? '[CLASSIFIED REWARD]' : ach.rewardName;
 
             return `
               <div class="p-3.5 rounded-2xl border transition shadow ${
                 isUnlocked
                   ? 'bg-slate-950/90 border-amber-500/60 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+                  : isSecretLocked
+                  ? 'bg-purple-950/20 border-purple-900/50 opacity-80'
                   : 'bg-slate-950/60 border-slate-800/80 opacity-75'
               } flex items-start justify-between">
                 
                 <div class="flex-1 mr-3">
                   <div class="flex items-center space-x-2">
-                    <span class="font-gothic font-bold text-sm sm:text-base ${isUnlocked ? 'text-amber-200' : 'text-slate-300'}">${ach.name}</span>
+                    <span class="font-gothic font-bold text-sm sm:text-base ${
+                      isUnlocked ? 'text-amber-200' : isSecretLocked ? 'text-purple-300 tracking-wider' : 'text-slate-300'
+                    }">${displayName}</span>
                     <span class="text-[9px] font-mono font-black px-1.5 py-0.5 rounded ${
                       isUnlocked
                         ? 'bg-emerald-950 text-emerald-300 border border-emerald-700/60'
+                        : isSecretLocked
+                        ? 'bg-purple-950 text-purple-300 border border-purple-800/60 animate-pulse'
                         : 'bg-slate-900 text-slate-500 border border-slate-800'
                     }">
-                      ${isUnlocked ? t('unlocked') : t('locked')}
+                      ${isUnlocked ? t('unlocked') : isSecretLocked ? 'CIPHER' : t('locked')}
                     </span>
                   </div>
 
-                  <p class="text-[11px] text-slate-400 mt-1 font-sans leading-relaxed">${ach.description}</p>
+                  <p class="text-[11px] ${isSecretLocked ? 'text-purple-300/70 font-mono italic' : 'text-slate-400 font-sans'} mt-1 leading-relaxed">${displayDesc}</p>
 
                   <div class="mt-2 pt-1.5 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
                     <span class="text-slate-500 font-mono">${t('reward')}</span>
-                    <span class="font-bold ${isUnlocked ? 'text-amber-400' : 'text-slate-400'} font-mono">${ach.rewardName}</span>
+                    <span class="font-bold ${isUnlocked ? 'text-amber-400' : isSecretLocked ? 'text-purple-400 font-mono' : 'text-slate-400'} font-mono">${displayReward}</span>
                   </div>
                 </div>
 
                 <div class="w-10 h-10 rounded-xl ${
                   isUnlocked
                     ? 'bg-gradient-to-br from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-black shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+                    : isSecretLocked
+                    ? 'bg-purple-950/80 border border-purple-800 text-purple-300 font-mono font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]'
                     : 'bg-slate-900 border border-slate-800 text-slate-600 font-bold'
                 } flex items-center justify-center text-xs shrink-0 font-mono">
-                  ${isUnlocked ? 'OK' : 'LOCK'}
+                  ${isUnlocked ? 'OK' : isSecretLocked ? '???' : 'LOCK'}
                 </div>
               </div>
             `;

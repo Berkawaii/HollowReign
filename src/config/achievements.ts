@@ -8,6 +8,7 @@ export interface AchievementConfig {
   conditionType: 'survive_time' | 'kills_single' | 'level_single' | 'gold_single' | 'gold_total' | 'boss_kill' | 'evolution' | 'hero_survive' | 'map_quest';
   targetValue: number;
   extraParam?: string; // heroId or bossId or questId
+  isSecret?: boolean;
 }
 
 export const ACHIEVEMENTS: AchievementConfig[] = [
@@ -232,6 +233,77 @@ export const ACHIEVEMENTS: AchievementConfig[] = [
     extraParam: 'gorgon',
   },
   {
+    id: 'ach_void_tendril',
+    name: 'Grasp of the Void',
+    description: 'Survive for 8 minutes in a single run to unlock Weapon: Void Tendril.',
+    rewardType: 'weapon',
+    rewardId: 'void_tendril',
+    rewardName: 'Weapon: Void Tendril',
+    conditionType: 'survive_time',
+    targetValue: 480,
+  },
+  {
+    id: 'ach_abyssal_anchor',
+    name: 'Colossus of the Deep',
+    description: 'Banish 1,500 cosmic horrors in a single run to unlock Weapon: Abyssal Anchor.',
+    rewardType: 'weapon',
+    rewardId: 'abyssal_anchor',
+    rewardName: 'Weapon: Abyssal Anchor',
+    conditionType: 'kills_single',
+    targetValue: 1500,
+  },
+  {
+    id: 'ach_singularity_orb',
+    name: 'Singularity Threshold',
+    description: 'Reach Level 25 in a single run to unlock Weapon: Singularity Orb.',
+    rewardType: 'weapon',
+    rewardId: 'singularity_orb',
+    rewardName: 'Weapon: Singularity Orb',
+    conditionType: 'level_single',
+    targetValue: 25,
+  },
+  {
+    id: 'ach_blood_chalice',
+    name: 'Sanguine Offering',
+    description: 'Collect 600 Gold in a single run to unlock Weapon: Sanguine Chalice.',
+    rewardType: 'weapon',
+    rewardId: 'blood_chalice',
+    rewardName: 'Weapon: Sanguine Chalice',
+    conditionType: 'gold_single',
+    targetValue: 600,
+  },
+  {
+    id: 'ach_madness_grimoire',
+    name: 'Tome of the Old Gods',
+    description: 'Survive for 15 minutes playing as Mortimer (Necro-Alchemist) to unlock Grimoire of Madness.',
+    rewardType: 'passive',
+    rewardId: 'madness_grimoire',
+    rewardName: 'Passive: Grimoire of Madness (+Might & Curse)',
+    conditionType: 'hero_survive',
+    targetValue: 900,
+    extraParam: 'mortimer',
+  },
+  {
+    id: 'ach_void_carapace',
+    name: 'Abyssal Chitin',
+    description: 'Reach Level 40 in a single run to unlock Passive: Void Carapace.',
+    rewardType: 'passive',
+    rewardId: 'void_carapace',
+    rewardName: 'Passive: Void Carapace (+Armor & Recovery)',
+    conditionType: 'level_single',
+    targetValue: 40,
+  },
+  {
+    id: 'ach_astral_prism',
+    name: 'Prism of the Cosmos',
+    description: 'Banish 3,000 cosmic horrors in a single run to unlock Passive: Astral Prism.',
+    rewardType: 'passive',
+    rewardId: 'astral_prism',
+    rewardName: 'Passive: Astral Prism (+Attack Area & Speed)',
+    conditionType: 'kills_single',
+    targetValue: 3000,
+  },
+  {
     id: 'ach_omen',
     name: "Reaper's Demise",
     description: 'Defeat The Ancient One (Grim Reaper) to banish the cosmic death shroud.',
@@ -241,5 +313,6 @@ export const ACHIEVEMENTS: AchievementConfig[] = [
     conditionType: 'boss_kill',
     targetValue: 1,
     extraParam: 'reaper',
+    isSecret: true,
   },
 ];
