@@ -69,6 +69,9 @@ export class RenderSystem {
     // 10. DRAW DAMAGE NUMBERS
     this.renderDamageNumbers(em, camera);
 
+    // 10.5. DRAW REAPER DOOM VIGNETTE (COSMIC DREAD OVERLAY)
+    this.renderReaperDreadVignette(em, width, height);
+
     // 11. DRAW VIRTUAL TOUCH JOYSTICK (IF ACTIVE)
     this.renderJoystick(input);
   }
@@ -199,7 +202,7 @@ export class RenderSystem {
     const ctx = this.ctx;
     for (let i = 0; i < em.enemies.length; i++) {
       const e = em.enemies[i];
-      if (!e.active || e.behavior !== 'boss' || !e.telegraphType) continue;
+      if (!e.active || (e.behavior !== 'boss' && e.behavior !== 'reaper') || !e.telegraphType) continue;
 
       const progress = e.telegraphProgress || 0;
       const radius = e.telegraphRadius || 120;
@@ -289,6 +292,30 @@ export class RenderSystem {
         ctx.fillStyle = 'rgba(192, 38, 211, 0.28)';
         ctx.beginPath();
         ctx.arc(screenPos.x, screenPos.y, radius * progress, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else if (e.telegraphType === 'arc') {
+        // Colossal Doom Scythe Cleave Arc (Reaper)
+        const screenPos = camera.worldToScreen(e.x, e.y);
+        const angle = e.telegraphAngle || 0;
+        const halfAngle = Math.PI * 0.45;
+
+        ctx.save();
+        ctx.setLineDash([8, 6]);
+        ctx.strokeStyle = 'rgba(239, 68, 68, 0.95)';
+        ctx.lineWidth = 3;
+
+        ctx.beginPath();
+        ctx.moveTo(screenPos.x, screenPos.y);
+        ctx.arc(screenPos.x, screenPos.y, radius, angle - halfAngle, angle + halfAngle);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(185, 28, 28, 0.32)';
+        ctx.beginPath();
+        ctx.moveTo(screenPos.x, screenPos.y);
+        ctx.arc(screenPos.x, screenPos.y, radius * progress, angle - halfAngle, angle + halfAngle);
+        ctx.closePath();
         ctx.fill();
         ctx.restore();
       }
@@ -572,6 +599,25 @@ export class RenderSystem {
           2.5,
           0.4,
           'spark'
+        );
+      }
+    } else if (p.hero.id === 'omen') {
+      // Omen: Harbinger of Oblivion - Spectral Void mist & dark violet runes
+      ctx.strokeStyle = `rgba(168, 85, 247, ${0.45 * auraPulse})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(screenPos.x, screenPos.y + 2, 24 * auraPulse, 0, Math.PI * 2);
+      ctx.stroke();
+      if (Math.random() < 0.25) {
+        particleSystem.spawn(
+          em.playerX + (Math.random() - 0.5) * 26,
+          em.playerY + (Math.random() - 0.5) * 26,
+          (Math.random() - 0.5) * 15,
+          -25 - Math.random() * 20,
+          Math.random() < 0.5 ? '#c084fc' : '#06b6d4',
+          2,
+          0.4,
+          'magic_star'
         );
       }
     }
@@ -860,5 +906,42 @@ export class RenderSystem {
     ctx.arc(visual.current.x, visual.current.y, 22, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
     ctx.fill();
+  }
+
+  /**
+   * Cinematic Cosmic Dread & Doom Vignette when Grim Reaper is active.
+   */
+  private renderReaperDreadVignette(em: EntityManager, width: number, height: number): void {
+    const hasReaper = em.enemies.some((e) => e.active && e.behavior === 'reaper');
+    if (!hasReaper) return;
+
+    const ctx = this.ctx;
+    ctx.save();
+    const now = Date.now();
+    const pulse = Math.sin(now * 0.003) * 0.12 + 0.88;
+
+    const grad = ctx.createRadialGradient(
+      width / 2,
+      height / 2,
+      Math.min(width, height) * 0.28,
+      width / 2,
+      height / 2,
+      Math.max(width, height) * 0.72
+    );
+    grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    grad.addColorStop(0.55, `rgba(35, 5, 20, ${0.38 * pulse})`);
+    grad.addColorStop(1, `rgba(10, 0, 8, ${0.82 * pulse})`);
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Subtle drifting void ember specks
+    ctx.fillStyle = 'rgba(168, 85, 247, 0.25)';
+    for (let s = 0; s < 6; s++) {
+      const sx = (Math.sin(now * 0.001 + s * 1.5) * 0.5 + 0.5) * width;
+      const sy = (Math.cos(now * 0.0008 + s * 2.1) * 0.5 + 0.5) * height;
+      ctx.fillRect(sx, sy, 2, 2);
+    }
+    ctx.restore();
   }
 }

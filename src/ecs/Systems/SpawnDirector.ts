@@ -108,12 +108,16 @@ export class SpawnDirector {
     }
 
     // 3. CONTINUOUS WAVE SPAWNING
-    this.spawnTimer += dt;
-    const spawnInterval = Math.max(0.12, 0.75 - elapsedMinutes * 0.025);
+    // If the Grim Reaper is on the battlefield, halt wave spawning for a pure 1v1 showdown!
+    const activeReaper = em.enemies.find((e) => e.active && e.behavior === 'reaper');
+    if (!activeReaper) {
+      this.spawnTimer += dt;
+      const spawnInterval = Math.max(0.12, 0.75 - elapsedMinutes * 0.025);
 
-    if (this.spawnTimer >= spawnInterval) {
-      this.spawnTimer = 0;
-      this.spawnWaveGroup(em, elapsedMinutes);
+      if (this.spawnTimer >= spawnInterval) {
+        this.spawnTimer = 0;
+        this.spawnWaveGroup(em, elapsedMinutes);
+      }
     }
   }
 

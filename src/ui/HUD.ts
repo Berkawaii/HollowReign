@@ -95,14 +95,17 @@ export class HUD {
     this.lastUpdateTime = now;
 
     // Detect active boss for Dark Souls entrance banner & health bar
-    const activeBoss = em.enemies.find((e) => e.active && e.behavior === 'boss');
+    const activeBoss = em.enemies.find((e) => e.active && (e.behavior === 'boss' || e.behavior === 'reaper'));
     if (activeBoss) {
       if (activeBoss.id !== this.lastBossId) {
         this.lastBossId = activeBoss.id;
-        this.bossIntroTimer = 3.6;
+        const isReaper = activeBoss.behavior === 'reaper';
+        this.bossIntroTimer = isReaper ? 4.2 : 3.6;
         const cfg = ENEMIES[activeBoss.typeId];
-        this.bossIntroName = cfg?.name || 'ANCIENT BEHEMOTH';
-        this.bossIntroSubtitle = cfg?.subtitle || 'THE ABYSSAL HARBINGER';
+        this.bossIntroName = isReaper ? 'THE ANCIENT ONE (GRIM REAPER)' : cfg?.name || 'ANCIENT BEHEMOTH';
+        this.bossIntroSubtitle = isReaper
+          ? 'INEVITABLE DEATH • HARBINGER OF COSMIC OBLIVION'
+          : cfg?.subtitle || 'THE ABYSSAL HARBINGER';
         sound.play('explosion');
         this.trailingBossHp = activeBoss.hp;
       }
@@ -366,38 +369,58 @@ export class HUD {
           <!-- Boss Title, Subtitle, & Enraged State -->
           <div class="w-full flex items-center justify-between px-1 mb-1 font-mono">
             <div class="flex items-center space-x-2">
-              <span class="font-gothic font-black text-xs sm:text-sm text-amber-200 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                ${ENEMIES[activeBoss.typeId]?.name || 'BOSS'}
+              <span class="font-gothic font-black text-xs sm:text-sm ${
+                activeBoss.behavior === 'reaper' ? 'text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]' : 'text-amber-200'
+              } uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                ${activeBoss.behavior === 'reaper' ? 'THE ANCIENT ONE (GRIM REAPER)' : ENEMIES[activeBoss.typeId]?.name || 'BOSS'}
               </span>
               <span class="hidden sm:inline text-[10px] text-slate-400 font-normal">
-                (${ENEMIES[activeBoss.typeId]?.subtitle || 'Archon'})
+                (${activeBoss.behavior === 'reaper' ? 'HARBINGER OF OBLIVION' : ENEMIES[activeBoss.typeId]?.subtitle || 'Archon'})
               </span>
             </div>
             <div class="flex items-center space-x-2">
               ${
-                activeBoss.isEnraged
+                activeBoss.behavior === 'reaper'
+                  ? `<span class="text-[9px] sm:text-[10px] font-black font-mono text-purple-300 bg-purple-950/90 border border-purple-500 px-1.5 py-0.2 rounded animate-pulse shadow-[0_0_8px_rgba(168,85,247,0.7)]">
+                      [INEVITABLE DEATH]
+                     </span>`
+                  : activeBoss.isEnraged
                   ? `<span class="text-[9px] sm:text-[10px] font-black font-mono text-red-400 bg-red-950/90 border border-red-500 px-1.5 py-0.2 rounded animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.7)]">
                       [ENRAGED]
                      </span>`
                   : ''
               }
-              <span class="text-[9px] sm:text-[10px] font-bold text-amber-400">
+              <span class="text-[9px] sm:text-[10px] font-bold ${
+                activeBoss.behavior === 'reaper' ? 'text-purple-300' : 'text-amber-400'
+              }">
                 ${Math.ceil(activeBoss.hp)} / ${activeBoss.maxHp}
               </span>
             </div>
           </div>
 
-          <!-- Outer Gold / Crimson Gothic Bar Frame -->
+          <!-- Outer Gothic Bar Frame -->
           <div class="w-full h-3 sm:h-3.5 bg-slate-950/95 border-2 ${
-            activeBoss.isEnraged ? 'border-red-500 shadow-[0_0_14px_rgba(239,68,68,0.7)]' : 'border-amber-500/80 shadow-lg'
+            activeBoss.behavior === 'reaper'
+              ? 'border-purple-500 shadow-[0_0_18px_rgba(168,85,247,0.8)]'
+              : activeBoss.isEnraged
+              ? 'border-red-500 shadow-[0_0_14px_rgba(239,68,68,0.7)]'
+              : 'border-amber-500/80 shadow-lg'
           } rounded-sm overflow-hidden relative">
             <!-- Trailing Damage Amber Bar -->
-            <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-amber-600 to-yellow-500 transition-all duration-75 opacity-90" style="width: ${Math.max(
+            <div class="absolute top-0 bottom-0 left-0 ${
+              activeBoss.behavior === 'reaper'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-400'
+                : 'bg-gradient-to-r from-amber-600 to-yellow-500'
+            } transition-all duration-75 opacity-90" style="width: ${Math.max(
               0,
               Math.min(100, (this.trailingBossHp / activeBoss.maxHp) * 100)
             )}%"></div>
-            <!-- Current HP Red/Crimson Bar -->
-            <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-red-800 via-rose-600 to-red-500 transition-all duration-100" style="width: ${Math.max(
+            <!-- Current HP Bar -->
+            <div class="absolute top-0 bottom-0 left-0 ${
+              activeBoss.behavior === 'reaper'
+                ? 'bg-gradient-to-r from-purple-950 via-purple-700 to-rose-600'
+                : 'bg-gradient-to-r from-red-800 via-rose-600 to-red-500'
+            } transition-all duration-100" style="width: ${Math.max(
               0,
               Math.min(100, (activeBoss.hp / activeBoss.maxHp) * 100)
             )}%"></div>

@@ -59,6 +59,19 @@ export class AbilitySystem {
             e.knockbackDy += (dy / dist) * 450;
           }
         }
+      } else if (p.hero.id === 'omen') {
+        // Omen death wraith stride contact decay
+        for (const e of em.enemies) {
+          if (!e.active) continue;
+          const dx = e.x - em.playerX;
+          const dy = e.y - em.playerY;
+          if (dx * dx + dy * dy < (em.playerRadius + e.radius + 25) ** 2) {
+            const dmg = Math.round(15 * p.stats.might);
+            e.hp -= dmg;
+            em.spawnDamageNumber(e.x, e.y, dmg, false, '#c084fc');
+            e.flashTimer = 0.1;
+          }
+        }
       }
     }
 
@@ -734,6 +747,88 @@ export class AbilitySystem {
           if (proj.weaponId === 'enemy_arrow') {
             proj.vx *= 0.2;
             proj.vy *= 0.2;
+          }
+        }
+      }
+    }
+
+    // 10. OMEN (HARBINGER OF OBLIVION)
+    if (heroId === 'omen') {
+      if (abilityIndex === 1) {
+        // Ability 1: Soul Harvest
+        // Massive 360-degree spectral scythe slash dealing 180 necrotic damage
+        // Destroys enemy arrows and draws all nearby gems
+        camera.addShake(0.65);
+        sound.play('axe_throw');
+        sound.play('explosion');
+
+        if (particles) {
+          particles.spawnShockwave(em.playerX, em.playerY, '#c084fc', 280, 0.45);
+          particles.spawnBurst(em.playerX, em.playerY, '#f43f5e', 28, 260, 3.5, 'spark');
+          particles.spawnBurst(em.playerX, em.playerY, '#9333ea', 20, 220, 4, 'blood');
+        }
+
+        const slashDmg = Math.round(180 * p.stats.might);
+        for (const e of em.enemies) {
+          if (!e.active) continue;
+          const dx = e.x - em.playerX;
+          const dy = e.y - em.playerY;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 280 * 280) {
+            e.hp -= slashDmg;
+            em.spawnDamageNumber(e.x, e.y, slashDmg, true, '#c084fc');
+            const dist = Math.sqrt(distSq) || 1;
+            e.knockbackDx += (dx / dist) * 600;
+            e.knockbackDy += (dy / dist) * 600;
+          }
+        }
+
+        // Obliterate enemy arrows
+        for (const proj of em.projectiles) {
+          if (!proj.active) continue;
+          if (proj.weaponId === 'enemy_arrow') {
+            const dx = proj.x - em.playerX;
+            const dy = proj.y - em.playerY;
+            if (dx * dx + dy * dy < 280 * 280) {
+              proj.active = false;
+              if (particles) {
+                particles.spawnBurst(proj.x, proj.y, '#c084fc', 4, 60, 1.5, 'spark');
+              }
+            }
+          }
+        }
+
+        // Magnet vacuum: attract all gems within 350px
+        for (const gem of em.gems) {
+          if (!gem.active) continue;
+          const dx = gem.x - em.playerX;
+          const dy = gem.y - em.playerY;
+          if (dx * dx + dy * dy < 350 * 350) {
+            gem.isMagnetized = true;
+          }
+        }
+      } else {
+        // Ability 2: Reaper's Stride
+        // 4.5s shadow wraith form with invulnerability, phase walking, and decay ticks
+        camera.addShake(0.5);
+        sound.play('explosion');
+        p.invulnerabilityTimer = 4.5;
+        p.dashDuration = 4.5;
+
+        if (particles) {
+          particles.spawnShockwave(em.playerX, em.playerY, '#9333ea', 320, 0.6);
+          particles.spawnBurst(em.playerX, em.playerY, '#06b6d4', 32, 280, 4, 'magic_star');
+        }
+
+        const decayDamage = Math.round(300 * p.stats.might);
+        for (const e of em.enemies) {
+          if (!e.active) continue;
+          const dx = e.x - em.playerX;
+          const dy = e.y - em.playerY;
+          if (dx * dx + dy * dy < 220 * 220) {
+            e.hp -= decayDamage;
+            em.spawnDamageNumber(e.x, e.y, decayDamage, true, '#f43f5e');
+            e.flashTimer = 0.5;
           }
         }
       }

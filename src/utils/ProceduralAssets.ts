@@ -257,6 +257,34 @@ export class ProceduralAssets {
       ctx.fill();
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(25, 13, 2, 2);
+    } else if (id === 'hero_omen') {
+      // Omen: Harbinger of Oblivion
+      // Tattered void robes
+      ctx.fillStyle = '#0f0728';
+      ctx.fillRect(8, 12, 16, 18);
+      ctx.fillStyle = '#2e1065';
+      ctx.fillRect(10, 14, 12, 16);
+      // Deep Phantom Cowl
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(9, 4, 14, 10);
+      ctx.fillStyle = '#09090b';
+      ctx.fillRect(11, 6, 10, 7);
+      // Piercing Spectral Eyes (cyan & amethyst)
+      ctx.fillStyle = '#a855f7';
+      ctx.fillRect(12, 8, 3, 2);
+      ctx.fillStyle = '#06b6d4';
+      ctx.fillRect(17, 8, 3, 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(13, 8, 1, 1);
+      ctx.fillRect(18, 8, 1, 1);
+      // Spectral Soul Scythe on back
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(23, 4, 2, 22);
+      ctx.fillStyle = '#c084fc';
+      ctx.fillRect(21, 2, 6, 3);
+      ctx.fillRect(19, 4, 3, 2);
+      ctx.fillStyle = '#e879f9';
+      ctx.fillRect(17, 6, 3, 2);
     }
 
     return canvas;
@@ -269,6 +297,14 @@ export class ProceduralAssets {
     const portraitId = `portrait_${id}`;
     if (!this.cache.has(portraitId)) {
       this.cache.set(portraitId, this.drawHeroPortrait(id));
+    }
+    return this.cache.get(portraitId)!.toDataURL();
+  }
+
+  public static getGlitchPortraitDataUrl(id: string): string {
+    const portraitId = `glitch_portrait_${id}`;
+    if (!this.cache.has(portraitId)) {
+      this.cache.set(portraitId, this.drawGlitchPortrait());
     }
     return this.cache.get(portraitId)!.toDataURL();
   }
@@ -527,10 +563,96 @@ export class ProceduralAssets {
       ctx.fillRect(22, 6, 20, 3);
       ctx.fillRect(18, 9, 3, 5);
       ctx.fillRect(43, 9, 3, 5);
+    } else if (id.includes('omen')) {
+      // Omen: Harbinger of Oblivion
+      ctx.fillStyle = '#0f0728';
+      ctx.fillRect(10, 42, 44, 22);
+      ctx.fillStyle = '#2e1065';
+      ctx.fillRect(14, 44, 36, 20);
+      // Tattered Shroud Pauldrons
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(8, 44, 12, 12);
+      ctx.fillRect(44, 44, 12, 12);
+      // Death Cowl & Abyss Mask
+      ctx.fillStyle = '#09090b';
+      ctx.fillRect(18, 12, 28, 32);
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(20, 14, 24, 28);
+      // Spectral Piercing Eyes
+      ctx.fillStyle = '#c084fc';
+      ctx.fillRect(24, 26, 5, 3);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(35, 26, 5, 3);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(25, 27, 2, 1);
+      ctx.fillRect(36, 27, 2, 1);
+      // Death Rune on Forehead
+      ctx.fillStyle = '#a855f7';
+      ctx.fillRect(30, 16, 4, 6);
+      ctx.fillRect(28, 18, 8, 2);
     }
 
     // Eldritch border
     ctx.strokeStyle = '#4338ca';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, 62, 62);
+
+    return canvas;
+  }
+
+  private static drawGlitchPortrait(): HTMLCanvasElement {
+    const { canvas, ctx } = this.createCanvas(64, 64);
+    // Dark void background
+    ctx.fillStyle = '#05020a';
+    ctx.fillRect(0, 0, 64, 64);
+
+    // Corrupted scanlines & digital static
+    for (let y = 0; y < 64; y += 2) {
+      ctx.fillStyle = y % 4 === 0 ? 'rgba(244, 63, 94, 0.08)' : 'rgba(6, 182, 212, 0.08)';
+      ctx.fillRect(0, y, 64, 1);
+    }
+
+    // Shadowy Glitched Silhouette of Hooded Reaper
+    // Magenta chromatic shift layer
+    ctx.fillStyle = 'rgba(244, 63, 94, 0.45)';
+    ctx.fillRect(16, 16, 28, 36);
+    ctx.fillRect(12, 44, 40, 18);
+
+    // Cyan chromatic shift layer
+    ctx.fillStyle = 'rgba(6, 182, 212, 0.45)';
+    ctx.fillRect(20, 14, 28, 36);
+    ctx.fillRect(14, 42, 40, 18);
+
+    // Void Core Silhouette
+    ctx.fillStyle = '#090514';
+    ctx.fillRect(18, 15, 28, 35);
+    ctx.fillRect(13, 43, 38, 19);
+
+    // Glowing Glitch Eyes (flickering misalignment)
+    ctx.fillStyle = '#f43f5e';
+    ctx.fillRect(22, 28, 6, 2);
+    ctx.fillStyle = '#06b6d4';
+    ctx.fillRect(36, 27, 6, 3);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(24, 28, 2, 2);
+    ctx.fillRect(38, 27, 2, 2);
+
+    // Random digital noise blocks & corrupted scan slice cuts
+    const glitchBlocks = [
+      { x: 4, y: 12, w: 22, h: 3, c: '#06b6d4' },
+      { x: 34, y: 22, w: 26, h: 2, c: '#f43f5e' },
+      { x: 10, y: 36, w: 32, h: 4, c: 'rgba(168, 85, 247, 0.6)' },
+      { x: 2, y: 48, w: 18, h: 3, c: '#38bdf8' },
+      { x: 42, y: 52, w: 20, h: 2, c: '#e11d48' },
+      { x: 20, y: 8, w: 14, h: 2, c: '#a855f7' },
+    ];
+    for (const b of glitchBlocks) {
+      ctx.fillStyle = b.c;
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    }
+
+    // Corrupted Border
+    ctx.strokeStyle = '#f43f5e';
     ctx.lineWidth = 2;
     ctx.strokeRect(1, 1, 62, 62);
 

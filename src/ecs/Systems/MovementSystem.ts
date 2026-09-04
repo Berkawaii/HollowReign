@@ -51,9 +51,36 @@ export class MovementSystem {
     }
 
     // 2. UPDATE ENEMIES
+    const activeReaper = em.enemies.find((e) => e.active && e.behavior === 'reaper');
+
     for (let i = 0; i < em.enemies.length; i++) {
       const e = em.enemies[i];
       if (!e.active) continue;
+
+      // MONSTER TERROR / FLEE AI:
+      // When the Grim Reaper arrives, all regular monsters panic and flee off-screen!
+      if (activeReaper && e.behavior !== 'reaper') {
+        e.fearTimer = (e.fearTimer || 0) + dt;
+        const fleeDx = e.x - activeReaper.x;
+        const fleeDy = e.y - activeReaper.y;
+        const fleeDist = Math.hypot(fleeDx, fleeDy) || 1;
+        // Sprint in terror at 2.4x speed away from the Reaper
+        e.x += (fleeDx / fleeDist) * e.speed * 2.4 * dt;
+        e.y += (fleeDy / fleeDist) * e.speed * 2.4 * dt;
+
+        if (Math.random() < 0.08) e.flashTimer = 0.08;
+
+        // Dissolve into fear ash if off-screen or after 3.2s
+        if (!camera.isVisible(e.x, e.y, 80) || e.fearTimer >= 3.2) {
+          const particles = ParticleSystem.get();
+          if (particles) {
+            particles.spawnBurst(e.x, e.y, '#64748b', 6, 80, 1.5, 'dust');
+          }
+          em.removeEnemy(e, i);
+          continue;
+        }
+        continue;
+      }
 
       // Flash timer decay
       if (e.flashTimer > 0) {
@@ -83,8 +110,8 @@ export class MovementSystem {
           e.y += (dy / dist) * e.speed * dt;
         } else if (dist < preferredRange - 40) {
           // Back away slightly if too close
-          e.x -= (dx / dist) * (e.speed * 0.7) * dt;
-          e.y -= (dy / dist) * (e.speed * 0.7) * dt;
+          e.x -= (dx / dist) * e.speed * 0.5 * dt;
+          e.y -= (dy / dist) * e.speed * 0.5 * dt;
         }
 
         // Visual aiming telegraph: 0.5s before shooting, archer flashes
@@ -116,11 +143,14 @@ export class MovementSystem {
             e.attackTimer = 3.8;
           }
         }
+      } else if (e.behavior === 'reaper') {
+        // Supreme Reaper Boss AI
+        this.updateReaperBehavior(em, e, camera, dt);
       } else if (e.behavior === 'boss') {
         // Boss AI with Skills, Enrage, and Telegraphs
         this.updateBossBehavior(em, e, camera, dt);
       } else {
-        // Standard chase / swarm / tank / reaper
+        // Standard chase / swarm / tank
         if (dist > 2) {
           e.x += (dx / dist) * e.speed * dt;
           e.y += (dy / dist) * e.speed * dt;
@@ -484,6 +514,106 @@ export class MovementSystem {
             em.player.currentHp = Math.max(1, em.player.currentHp - dmg);
             sound.play('hit');
             em.spawnDamageNumber(em.playerX, em.playerY, dmg, true, '#c026d3');
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Supreme Reaper AI: Doom Cleaves, Shadow Warping, Soul Vortex, and Inevitable Death.
+   */
+  private updateReaperBehavior(em: EntityManager, e: EnemyEntity, camera: Camera, dt: number): void {
+    if (!em.player) return;
+
+    const dx = em.playerX - e.x;
+    const dy = em.playerY - e.y;
+    const dist = Math.hypot(dx, dy) || 1;
+
+    // 1. Shadow Warp / Teleport if player is excessively far (> 620px)
+    if (dist > 620) {
+      const particles = ParticleSystem.get();
+      if (particles) {
+        particles.spawnShockwave(e.x, e.y, '#10b981', 100, 0.4);
+        particles.spawnBurst(e.x, e.y, '#065f46', 20, 180, 3, 'spark');
+      }
+
+      // Reappear 180px near player
+      const angle = Math.random() * Math.PI * 2;
+      e.x = em.playerX + Math.cos(angle) * 180;
+      e.y = em.playerY + Math.sin(angle) * 180;
+
+      if (particles) {
+        particles.spawnShockwave(e.x, e.y, '#10b981', 120, 0.5);
+        particles.spawnBurst(e.x, e.y, '#34d399', 24, 220, 3.5, 'spark');
+      }
+      camera.addShake(0.45);
+      sound.play('explosion');
+      return;
+    }
+
+    // 2. Soul Vortex Gravitational Pull (< 360px)
+    if (dist < 360) {
+      const pullForce = 35 * dt;
+      em.playerX += ((e.x - em.playerX) / dist) * pullForce;
+      em.playerY += ((e.y - em.playerY) / dist) * pullForce;
+    }
+
+    // 3. Attacks & Doom Cleave
+    e.skillTimer = (e.skillTimer || 0) + dt;
+    const cleaveCooldown = 4.2;
+
+    if (e.skillPhase === 0 || e.skillPhase === undefined) {
+      // Advance at base reaper speed
+      if (dist > 4) {
+        e.x += (dx / dist) * e.speed * dt;
+        e.y += (dy / dist) * e.speed * dt;
+      }
+
+      if (e.skillTimer >= cleaveCooldown) {
+        e.skillTimer = 0;
+        e.skillPhase = 1; // Begin telegraph
+        e.attackTimer = 0;
+        e.telegraphType = 'arc';
+        e.telegraphRadius = 240;
+        e.telegraphAngle = Math.atan2(dy, dx);
+        e.telegraphProgress = 0;
+      }
+    } else if (e.skillPhase === 1) {
+      // Telegraph charging for 0.75s
+      e.attackTimer += dt;
+      const chargeDuration = 0.75;
+      e.telegraphProgress = Math.min(1.0, e.attackTimer / chargeDuration);
+      e.telegraphAngle = Math.atan2(dy, dx);
+
+      if (e.attackTimer >= chargeDuration) {
+        // Execute Doom Cleave!
+        e.skillPhase = 0;
+        e.telegraphType = undefined;
+        camera.addShake(0.7);
+        sound.play('axe_throw');
+        sound.play('explosion');
+
+        const particles = ParticleSystem.get();
+        if (particles) {
+          particles.spawnShockwave(e.x, e.y, '#ef4444', 240, 0.4);
+          particles.spawnBurst(e.x, e.y, '#10b981', 30, 240, 3.5, 'spark');
+        }
+
+        // Damage player if inside cleave arc
+        const playerDist = dist;
+        if (playerDist <= 240) {
+          const playerAngle = Math.atan2(em.playerY - e.y, em.playerX - e.x);
+          let angleDiff = Math.abs(playerAngle - (e.telegraphAngle || 0));
+          if (angleDiff > Math.PI) angleDiff = 2 * Math.PI - angleDiff;
+          if (angleDiff <= Math.PI * 0.45) {
+            if (em.player.invulnerabilityTimer <= 0) {
+              const cleaveDamage = 45;
+              em.player.currentHp = Math.max(0, em.player.currentHp - cleaveDamage);
+              em.spawnDamageNumber(em.playerX, em.playerY - 20, cleaveDamage, true, '#ef4444');
+              em.player.invulnerabilityTimer = 0.8;
+              camera.addShake(0.8);
+            }
           }
         }
       }

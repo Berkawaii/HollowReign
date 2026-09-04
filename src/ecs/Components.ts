@@ -63,12 +63,13 @@ export interface EnemyEntity {
   // Boss Telegraphs and Special Skills
   skillTimer?: number;
   skillPhase?: number;
-  telegraphType?: 'circle' | 'line' | 'cone' | 'rupture';
+  telegraphType?: 'circle' | 'line' | 'cone' | 'rupture' | 'arc';
   telegraphProgress?: number;
   telegraphRadius?: number;
   telegraphAngle?: number;
   telegraphTargetX?: number;
   telegraphTargetY?: number;
+  fearTimer?: number;
   isEnraged?: boolean;
   dropsChest?: boolean;
   active: boolean;

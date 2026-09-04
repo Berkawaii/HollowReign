@@ -38,6 +38,7 @@ export interface HeroConfig {
   color: string;
   accentColor: string;
   spriteId: string;
+  isGlitchLocked?: boolean;
   ability1: HeroAbility;
   ability2: HeroAbility;
 }
@@ -445,6 +446,52 @@ export const HEROES: HeroConfig[] = [
       greed: 1.0,
       curse: 1.05,
       revival: 0,
+      rerolls: 3,
+    },
+  },
+  {
+    id: 'omen',
+    name: 'Omen',
+    title: 'Harbinger of Oblivion',
+    role: 'Harbinger',
+    description: 'An eldritch entity awakened from the severed death shroud of the Ancient Reaper. Wields spectral soul-scythes and commands dominion over mortal decay.',
+    startingWeaponId: 'axe',
+    traitDescription: "Death's Nemesis: Slaying elite horrors grants permanent +0.5% Might (up to +50%). Executing foes below 15% HP triggers a homing soul blade nova.",
+    color: '#9333ea',
+    accentColor: '#c084fc',
+    spriteId: 'hero_omen',
+    isGlitchLocked: true,
+    ability1: {
+      id: 'omen_1',
+      name: 'Soul Harvest',
+      description: 'Swings a colossal 360-degree spectral scythe deal 180 necrotic damage, obliterates enemy projectiles, and magnetically vacuums all nearby experience gems and gold.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'omen_2',
+      name: "Reaper's Stride",
+      description: 'Dissolves into a death wraith for 4.5s: invulnerable to all damage, +60% move speed, phase through obstacles, and ticks 300 void decay damage on touch.',
+      cooldown: 16.0,
+      unlockCostGold: 500,
+    },
+    baseStats: {
+      might: 1.25,
+      armor: 2,
+      maxHealth: 130,
+      recovery: 1.2,
+      cooldown: 0.85,
+      area: 1.20,
+      speed: 1.15,
+      duration: 1.20,
+      amount: 1,
+      moveSpeed: 170,
+      magnet: 160,
+      luck: 1.30,
+      growth: 1.20,
+      greed: 1.25,
+      curse: 1.10,
+      revival: 1,
       rerolls: 3,
     },
   },

@@ -200,4 +200,15 @@ export const ACHIEVEMENTS: AchievementConfig[] = [
     targetValue: 35,
     extraParam: 'sylvia',
   },
+  {
+    id: 'ach_omen',
+    name: "Reaper's Demise",
+    description: 'Defeat The Ancient One (Grim Reaper) to banish the cosmic death shroud.',
+    rewardType: 'hero',
+    rewardId: 'omen',
+    rewardName: 'Hero: Omen (Harbinger of Oblivion)',
+    conditionType: 'boss_kill',
+    targetValue: 1,
+    extraParam: 'reaper',
+  },
 ];
