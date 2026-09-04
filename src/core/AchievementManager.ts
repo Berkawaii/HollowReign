@@ -29,7 +29,8 @@ export class AchievementManager {
           achieved = true;
         }
       } else if (ach.conditionType === 'level_single') {
-        if (player.level >= ach.targetValue) {
+        const matchesHero = !ach.extraParam || ach.extraParam === player.hero.id;
+        if (matchesHero && player.level >= ach.targetValue) {
           achieved = true;
         }
       } else if (ach.conditionType === 'gold_single') {
@@ -39,6 +40,16 @@ export class AchievementManager {
       }
 
       if (achieved) {
+        this.triggerUnlock(ach.id);
+      }
+    }
+  }
+
+  public onMapQuestComplete(questKey: string): void {
+    for (const ach of ACHIEVEMENTS) {
+      if (StorageService.isAchievementUnlocked(ach.id)) continue;
+
+      if (ach.conditionType === 'map_quest' && ach.extraParam === questKey) {
         this.triggerUnlock(ach.id);
       }
     }

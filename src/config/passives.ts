@@ -12,6 +12,7 @@ export interface PassiveLevelEffect {
     magnetPct?: number;
     luckPct?: number;
     amountFlat?: number;
+    armorFlat?: number;
   };
 }
 
@@ -171,6 +172,51 @@ export const PASSIVES: Record<string, PassiveConfig> = {
       { level: 3, description: 'Magnet Range +25%', statChanges: { magnetPct: 0.25 } },
       { level: 4, description: 'Magnet Range +25%', statChanges: { magnetPct: 0.25 } },
       { level: 5, description: 'Magnet Range +25%', statChanges: { magnetPct: 0.25 } },
+    ],
+  },
+  madness_grimoire: {
+    id: 'madness_grimoire',
+    name: 'Grimoire of Madness',
+    description: 'Inscribes cosmic secrets: Increases Luck by 15% and Might by 8%.',
+    iconId: 'icon_madness_grimoire',
+    maxLevel: 5,
+    evolutionPartnerFor: 'void_tendril',
+    levels: [
+      { level: 1, description: 'Luck +15%, Might +8%', statChanges: { luckPct: 0.15, mightPct: 0.08 } },
+      { level: 2, description: 'Luck +15%, Might +8%', statChanges: { luckPct: 0.15, mightPct: 0.08 } },
+      { level: 3, description: 'Luck +15%, Might +8%', statChanges: { luckPct: 0.15, mightPct: 0.08 } },
+      { level: 4, description: 'Luck +15%, Might +8%', statChanges: { luckPct: 0.15, mightPct: 0.08 } },
+      { level: 5, description: 'Luck +15%, Might +8%', statChanges: { luckPct: 0.15, mightPct: 0.08 } },
+    ],
+  },
+  void_carapace: {
+    id: 'void_carapace',
+    name: 'Void Carapace',
+    description: 'Chitinous abyssal armor: Grants +1 Armor and +10% Max Health.',
+    iconId: 'icon_void_carapace',
+    maxLevel: 5,
+    evolutionPartnerFor: 'abyssal_anchor',
+    levels: [
+      { level: 1, description: 'Armor +1, Max HP +10%', statChanges: { armorFlat: 1, maxHealthPct: 0.10 } },
+      { level: 2, description: 'Armor +1, Max HP +10%', statChanges: { armorFlat: 1, maxHealthPct: 0.10 } },
+      { level: 3, description: 'Armor +1, Max HP +10%', statChanges: { armorFlat: 1, maxHealthPct: 0.10 } },
+      { level: 4, description: 'Armor +1, Max HP +10%', statChanges: { armorFlat: 1, maxHealthPct: 0.10 } },
+      { level: 5, description: 'Armor +1, Max HP +10%', statChanges: { armorFlat: 1, maxHealthPct: 0.10 } },
+    ],
+  },
+  astral_prism: {
+    id: 'astral_prism',
+    name: 'Astral Prism',
+    description: 'Spacetime refracting crystal: Reduces Cooldown by 6% and raises Projectile Speed by 12%.',
+    iconId: 'icon_astral_prism',
+    maxLevel: 5,
+    evolutionPartnerFor: 'singularity_orb',
+    levels: [
+      { level: 1, description: 'Cooldown -6%, Speed +12%', statChanges: { cooldownReduction: 0.06, speedPct: 0.12 } },
+      { level: 2, description: 'Cooldown -6%, Speed +12%', statChanges: { cooldownReduction: 0.06, speedPct: 0.12 } },
+      { level: 3, description: 'Cooldown -6%, Speed +12%', statChanges: { cooldownReduction: 0.06, speedPct: 0.12 } },
+      { level: 4, description: 'Cooldown -6%, Speed +12%', statChanges: { cooldownReduction: 0.06, speedPct: 0.12 } },
+      { level: 5, description: 'Cooldown -6%, Speed +12%', statChanges: { cooldownReduction: 0.06, speedPct: 0.12 } },
     ],
   },
 };

@@ -28,6 +28,16 @@ export const WEAPON_SHORT_NAMES: Record<string, string> = {
   death_spiral: 'DTH',
   santa_water: 'WTR',
   la_borra: 'BOR',
+  void_tendril: 'TND',
+  leviathans_grasp: 'LEV',
+  abyssal_anchor: 'ANC',
+  worldbreaker_anchor: 'WBR',
+  singularity_orb: 'SNG',
+  event_horizon: 'EVT',
+  blood_chalice: 'CLC',
+  primordial_heart: 'PRM',
+  apocalypse_horizon: 'APO',
+  blood_tide: 'BTD',
 };
 
 export const PASSIVE_SHORT_NAMES: Record<string, string> = {
@@ -41,6 +51,9 @@ export const PASSIVE_SHORT_NAMES: Record<string, string> = {
   duplicator: 'DUP',
   candelabrador: 'CND',
   attractorb: 'ORB',
+  madness_grimoire: 'GRM',
+  void_carapace: 'CRP',
+  astral_prism: 'PRS',
 };
 
 export class HUD {
@@ -83,6 +96,8 @@ export class HUD {
 
     const shrine = worldMap?.nearbyShrine;
     const heroPortrait = ProceduralAssets.getHeroPortraitDataUrl(p.hero.id);
+    const activeQuest = worldMap?.activeQuestEvent;
+    const nearestQuest = worldMap?.getNearestLockedQuest(em.playerX, em.playerY);
 
     this.container.innerHTML = `
       <!-- TOP BAR: EXP & STATS -->
@@ -139,6 +154,26 @@ export class HUD {
         </div>
       </div>
 
+      <!-- ACTIVE RITUAL OR QUEST COMPASS INDICATOR -->
+      ${
+        activeQuest
+          ? `
+        <div class="absolute top-16 sm:top-14 left-1/2 -translate-x-1/2 bg-purple-950/90 border border-purple-400 text-purple-200 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-bold animate-pulse shadow-lg flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+          <span>[Active Ritual]: ${activeQuest.title} ${activeQuest.remainingTime !== undefined ? `• ${Math.ceil(activeQuest.remainingTime)}s` : ''}</span>
+        </div>
+      `
+          : nearestQuest && nearestQuest.dist > 160
+          ? `
+        <div class="absolute top-16 sm:top-14 left-1/2 -translate-x-1/2 bg-slate-950/80 border border-amber-500/40 text-amber-300 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono flex items-center space-x-2 shadow backdrop-blur-sm">
+          <span class="text-amber-400 font-bold">QUEST COMPASS:</span>
+          <span class="text-slate-200 truncate max-w-[120px] sm:max-w-none">${nearestQuest.name}</span>
+          <span class="text-yellow-300 font-black">${Math.round(nearestQuest.dist)}m [${nearestQuest.directionLabel}]</span>
+        </div>
+      `
+          : ''
+      }
+
       <!-- BOTTOM CENTER: SHRINE PROMPT (IF NEARBY) -->
       ${
         shrine
@@ -150,7 +185,7 @@ export class HUD {
           <div class="text-left">
             <div class="font-bold text-xs text-amber-300">${shrine.name}</div>
             <div class="text-[10px] text-slate-300 font-sans">
-              <span class="text-rose-400 font-bold">${shrine.costText}</span> ➔ <span class="text-emerald-400 font-bold">${shrine.rewardText}</span>
+              <span class="text-rose-400 font-bold">${shrine.costText}</span> -> <span class="text-emerald-400 font-bold">${shrine.rewardText}</span>
             </div>
           </div>
           <button id="hud-shrine-interact-btn" class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 text-slate-950 px-3.5 py-1.5 rounded-xl text-xs font-black shadow transition active:scale-95">

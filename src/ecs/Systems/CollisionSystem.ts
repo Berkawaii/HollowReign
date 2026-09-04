@@ -47,7 +47,14 @@ export class CollisionSystem {
         continue;
       }
 
-      if (p.isPuddle && (p.weaponId === 'santa_water' || p.weaponId === 'la_borra' || p.weaponId === 'holy_water')) {
+      if (
+        p.isPuddle &&
+        (p.weaponId === 'santa_water' ||
+          p.weaponId === 'la_borra' ||
+          p.weaponId === 'holy_water' ||
+          p.weaponId === 'blood_chalice' ||
+          p.weaponId === 'primordial_heart')
+      ) {
         p.tickTimer = (p.tickTimer || 0.25) - dt;
         if (p.tickTimer <= 0) {
           p.tickTimer = 0.25;
@@ -104,11 +111,11 @@ export class CollisionSystem {
           em.spawnDamageNumber(enemy.x, enemy.y - 12, Math.round(p.damage * 0.5), false, '#f97316');
         }
 
-        // Bloody Tear, Vampiric Guillotine & Soul Eater Life Steal
-        if (p.weaponId === 'bloody_tear' || p.weaponId === 'vampiric_guillotine') {
+        // Bloody Tear, Vampiric Guillotine, Primordial Heart, Blood Tide & Soul Eater Life Steal
+        if (p.weaponId === 'bloody_tear' || p.weaponId === 'vampiric_guillotine' || p.weaponId === 'primordial_heart' || p.weaponId === 'blood_tide') {
           em.player.currentHp = Math.min(
             em.player.stats.maxHealth,
-            em.player.currentHp + (p.weaponId === 'vampiric_guillotine' ? 2.0 : 1.5)
+            em.player.currentHp + (p.weaponId === 'blood_tide' ? 2.5 : p.weaponId === 'vampiric_guillotine' ? 2.0 : 1.5)
           );
         } else if (p.weaponId === 'soul_eater' && Math.random() < 0.25) {
           em.player.currentHp = Math.min(

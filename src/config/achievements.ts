@@ -5,9 +5,9 @@ export interface AchievementConfig {
   rewardType: 'hero' | 'weapon' | 'passive' | 'stage' | 'gold';
   rewardId: string;
   rewardName: string;
-  conditionType: 'survive_time' | 'kills_single' | 'level_single' | 'gold_single' | 'gold_total' | 'boss_kill' | 'evolution' | 'hero_survive';
+  conditionType: 'survive_time' | 'kills_single' | 'level_single' | 'gold_single' | 'gold_total' | 'boss_kill' | 'evolution' | 'hero_survive' | 'map_quest';
   targetValue: number;
-  extraParam?: string; // heroId or bossId
+  extraParam?: string; // heroId or bossId or questId
 }
 
 export const ACHIEVEMENTS: AchievementConfig[] = [
@@ -155,5 +155,49 @@ export const ACHIEVEMENTS: AchievementConfig[] = [
     rewardName: '+500 Bonus Gold',
     conditionType: 'gold_total',
     targetValue: 2500,
+  },
+  {
+    id: 'ach_nyx',
+    name: "The Weaver's Awakening",
+    description: "Find the Weaver's Cocoon in Sunken Ruins and survive the 40-second spider siege.",
+    rewardType: 'hero',
+    rewardId: 'nyx',
+    rewardName: 'Hero: Nyx (The Eldritch Weaver)',
+    conditionType: 'map_quest',
+    targetValue: 1,
+    extraParam: 'cocoon_siege',
+  },
+  {
+    id: 'ach_malakor',
+    name: 'Dredged from the Deep',
+    description: 'Find the Sunken Sarcophagus in Abyssal Trench and defeat the twin Juggernauts.',
+    rewardType: 'hero',
+    rewardId: 'malakor',
+    rewardName: 'Hero: Malakor (Drowned Inquisitor)',
+    conditionType: 'map_quest',
+    targetValue: 1,
+    extraParam: 'sarcophagus_elites',
+  },
+  {
+    id: 'ach_morrigan',
+    name: 'Crimson Communion',
+    description: 'Complete the 3-stage blood sacrifice at the Crimson Blood Font without perishing.',
+    rewardType: 'hero',
+    rewardId: 'morrigan',
+    rewardName: 'Hero: Morrigan (Sanguine Priestess)',
+    conditionType: 'map_quest',
+    targetValue: 1,
+    extraParam: 'blood_font_trial',
+  },
+  {
+    id: 'ach_zephyr',
+    name: 'Astral Singularity',
+    description: 'Reach Level 35 in a single run playing as Sylvia (Astral Occultist).',
+    rewardType: 'hero',
+    rewardId: 'zephyr',
+    rewardName: 'Hero: Zephyr (Astral Astromancer)',
+    conditionType: 'level_single',
+    targetValue: 35,
+    extraParam: 'sylvia',
   },
 ];

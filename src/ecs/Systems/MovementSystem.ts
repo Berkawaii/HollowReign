@@ -203,13 +203,41 @@ export class MovementSystem {
         }
         p.x += p.vx * dt;
         p.y += p.vy * dt;
+      } else if (p.weaponId === 'singularity_orb' || p.weaponId === 'event_horizon' || p.weaponId === 'apocalypse_horizon') {
+        // Drifting Singularity Sphere with gravitational suction
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+
+        const pullRadius = p.radius * 2.8;
+        const pullRadiusSq = pullRadius * pullRadius;
+        const pullForce = (p.weaponId === 'apocalypse_horizon' ? 360 : p.weaponId === 'event_horizon' ? 260 : 160) * dt;
+
+        for (let j = 0; j < em.enemies.length; j++) {
+          const e = em.enemies[j];
+          if (!e.active) continue;
+          const dx = p.x - e.x;
+          const dy = p.y - e.y;
+          const dSq = dx * dx + dy * dy;
+          if (dSq < pullRadiusSq && dSq > 16) {
+            const dist = Math.sqrt(dSq) || 1;
+            e.x += (dx / dist) * pullForce;
+            e.y += (dy / dist) * pullForce;
+          }
+        }
       } else if (p.gravity) {
-        // Parabolic gravity (Axe)
+        // Parabolic gravity (Axe & Abyssal Anchor)
         p.vy += p.gravity * dt;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
-      } else if (p.isPuddle && (p.weaponId === 'santa_water' || p.weaponId === 'la_borra' || p.weaponId === 'holy_water')) {
-        // Ground Puddle (Santa Water / La Borra / Ability Puddles)
+      } else if (
+        p.isPuddle &&
+        (p.weaponId === 'santa_water' ||
+          p.weaponId === 'la_borra' ||
+          p.weaponId === 'holy_water' ||
+          p.weaponId === 'blood_chalice' ||
+          p.weaponId === 'primordial_heart')
+      ) {
+        // Ground Puddle (Santa Water / La Borra / Ability Puddles / Blood Runes)
         if (p.weaponId === 'la_borra' && em.player) {
           // La Borra: creeps towards player and grows
           const pdx = em.playerX - p.x;
@@ -222,7 +250,7 @@ export class MovementSystem {
           p.radius = Math.min(90, p.radius + 6 * dt);
         }
       } else {
-        // Standard straight line projectile (Knife, Fireball, Death Spiral, Arrow)
+        // Standard straight line projectile (Knife, Fireball, Death Spiral, Arrow, Void Tendril)
         p.x += p.vx * dt;
         p.y += p.vy * dt;
       }

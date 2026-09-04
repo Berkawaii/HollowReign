@@ -207,7 +207,15 @@ export class EntityManager {
           ? 'Flame Nova'
           : hero.id === 'kaelen'
           ? 'Shadow Step'
-          : 'Soul Drain & Orbit',
+          : hero.id === 'mortimer'
+          ? 'Soul Drain & Orbit'
+          : hero.id === 'nyx'
+          ? 'Weaver Cocoon Web'
+          : hero.id === 'malakor'
+          ? 'Tectonic Tremor'
+          : hero.id === 'morrigan'
+          ? 'Sanguine Eruption'
+          : 'Gravitational Singularity',
       dashVx: 0,
       dashVy: 0,
       dashDuration: 0,

@@ -136,6 +136,7 @@ export class RenderSystem {
       const screenPos = camera.worldToScreen(p.x, p.y);
       const isBorra = p.weaponId === 'la_borra';
       const isHoly = p.weaponId === 'santa_water' || isBorra || p.weaponId === 'holy_water';
+      const isBlood = p.weaponId === 'blood_chalice' || p.weaponId === 'primordial_heart';
 
       ctx.save();
       // Outer Glowing Ring
@@ -143,7 +144,12 @@ export class RenderSystem {
       const r = p.radius * pulse;
 
       const grad = ctx.createRadialGradient(screenPos.x, screenPos.y, 0, screenPos.x, screenPos.y, r);
-      if (isBorra) {
+      if (isBlood) {
+        // Sanguine Pool: Boiling dark crimson & ruby blood rune
+        grad.addColorStop(0, 'rgba(239, 68, 68, 0.6)');
+        grad.addColorStop(0.6, 'rgba(153, 27, 27, 0.35)');
+        grad.addColorStop(1, 'rgba(69, 10, 10, 0)');
+      } else if (isBorra) {
         // Primordial Slime: Bubbling cosmic violet & emerald ooze pool
         grad.addColorStop(0, 'rgba(124, 58, 237, 0.55)');
         grad.addColorStop(0.6, 'rgba(16, 185, 129, 0.35)');
@@ -166,7 +172,7 @@ export class RenderSystem {
       ctx.fill();
 
       // Rotating decorative eldritch rune boundary
-      ctx.strokeStyle = isBorra ? '#10b981' : isHoly ? '#06b6d4' : '#c084fc';
+      ctx.strokeStyle = isBlood ? '#ef4444' : isBorra ? '#10b981' : isHoly ? '#06b6d4' : '#c084fc';
       ctx.lineWidth = 1.5;
       ctx.setLineDash([6, 8]);
       ctx.beginPath();
@@ -388,6 +394,62 @@ export class RenderSystem {
           'soul'
         );
       }
+    } else if (p.hero.id === 'nyx') {
+      // Eldritch Weaver: Void spider silk embers
+      if (Math.random() < 0.2) {
+        particleSystem.spawn(
+          em.playerX + (Math.random() - 0.5) * 20,
+          em.playerY + (Math.random() - 0.5) * 20,
+          (Math.random() - 0.5) * 10,
+          -15,
+          '#a855f7',
+          2.5,
+          0.3,
+          'magic_star'
+        );
+      }
+    } else if (p.hero.id === 'malakor') {
+      // Drowned Inquisitor: Oceanic abyssal cyan bubbles
+      if (Math.random() < 0.2) {
+        particleSystem.spawn(
+          em.playerX + (Math.random() - 0.5) * 24,
+          em.playerY + 8,
+          (Math.random() - 0.5) * 8,
+          -22,
+          '#0284c7',
+          3,
+          0.35,
+          'dust'
+        );
+      }
+    } else if (p.hero.id === 'morrigan') {
+      // Sanguine Priestess: Boiling crimson blood vapors
+      if (Math.random() < 0.25) {
+        particleSystem.spawn(
+          em.playerX + (Math.random() - 0.5) * 20,
+          em.playerY + (Math.random() - 0.5) * 20,
+          (Math.random() - 0.5) * 14,
+          -20,
+          '#ef4444',
+          2.5,
+          0.3,
+          'blood'
+        );
+      }
+    } else if (p.hero.id === 'zephyr') {
+      // Astral Astromancer: Stellar starlight motes
+      if (Math.random() < 0.25) {
+        particleSystem.spawn(
+          em.playerX + (Math.random() - 0.5) * 26,
+          em.playerY + (Math.random() - 0.5) * 26,
+          (Math.random() - 0.5) * 10,
+          -15,
+          '#e879f9',
+          2.5,
+          0.4,
+          'spark'
+        );
+      }
     }
     ctx.restore();
 
@@ -593,6 +655,10 @@ export class RenderSystem {
       else if (p.weaponId === 'axe') spriteId = 'proj_axe';
       else if (p.weaponId === 'death_spiral') spriteId = 'proj_scythe';
       else if (p.weaponId === 'enemy_arrow') spriteId = 'proj_arrow';
+      else if (p.weaponId === 'void_tendril' || p.weaponId === 'leviathans_grasp' || p.weaponId === 'blood_tide') spriteId = 'proj_void_tendril';
+      else if (p.weaponId === 'abyssal_anchor' || p.weaponId === 'worldbreaker_anchor') spriteId = 'proj_abyssal_anchor';
+      else if (p.weaponId === 'singularity_orb' || p.weaponId === 'event_horizon' || p.weaponId === 'apocalypse_horizon') spriteId = 'proj_singularity';
+      else if (p.weaponId === 'blood_chalice' || p.weaponId === 'primordial_heart') spriteId = 'proj_blood_chalice';
 
       const sprite = ProceduralAssets.get(spriteId);
       const size = p.radius * 2;

@@ -448,6 +448,7 @@ export class ChestModal {
     if (changes.magnetPct) player.stats.magnet += changes.magnetPct;
     if (changes.luckPct) player.stats.luck += changes.luckPct;
     if (changes.amountFlat) player.stats.amount += changes.amountFlat;
+    if (changes.armorFlat) player.stats.armor += changes.armorFlat;
     if (changes.maxHealthPct) {
       const addedHp = Math.round(player.stats.maxHealth * changes.maxHealthPct);
       player.stats.maxHealth += addedHp;

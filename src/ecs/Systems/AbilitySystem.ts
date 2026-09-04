@@ -231,7 +231,7 @@ export class AbilitySystem {
     }
 
     // 5. MORTIMER: Soul Drain & Spirit Orbit
-    else {
+    else if (heroId === 'mortimer') {
       if (particles) {
         particles.spawnShockwave(em.playerX, em.playerY, '#22c55e', 75, 0.4);
         particles.spawnBurst(em.playerX, em.playerY, '#4ade80', 20, 160, 3, 'soul');
@@ -280,6 +280,156 @@ export class AbilitySystem {
             orbitRadius: 75,
           }
         );
+      }
+    }
+
+    // 6. NYX: Weaver Cocoon Web
+    else if (heroId === 'nyx') {
+      if (particles) {
+        particles.spawnShockwave(em.playerX, em.playerY, '#a855f7', 120, 0.45);
+        particles.spawnBurst(em.playerX, em.playerY, '#7e22ce', 25, 200, 3, 'spark');
+      }
+      camera.addShake(0.35);
+      sound.play('magic_bolt');
+
+      // Place sticky void web puddle at player location
+      em.spawnProjectile(
+        'holy_water',
+        em.playerX,
+        em.playerY,
+        0,
+        0,
+        Math.round(28 * p.stats.might),
+        999,
+        75 * p.stats.area,
+        4.0,
+        p.stats.area,
+        0,
+        { isPuddle: true, tickTimer: 0.2 }
+      );
+
+      // Fire 6 piercing void web needles radially
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const speed = 280;
+        em.spawnProjectile(
+          'void_tendril',
+          em.playerX,
+          em.playerY,
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed,
+          Math.round(45 * p.stats.might),
+          5,
+          14 * p.stats.area,
+          1.8,
+          p.stats.area,
+          35
+        );
+      }
+    }
+
+    // 7. MALAKOR: Tectonic Tremor
+    else if (heroId === 'malakor') {
+      if (particles) {
+        particles.spawnShockwave(em.playerX, em.playerY, '#0284c7', 220, 0.5);
+        particles.spawnBurst(em.playerX, em.playerY, '#0369a1', 30, 240, 3.5, 'dust');
+        particles.spawnBurst(em.playerX, em.playerY, '#f59e0b', 16, 180, 2.5, 'spark');
+      }
+      camera.addShake(0.7);
+      sound.play('explosion');
+
+      const slamDamage = Math.round(95 * p.stats.might);
+      for (const e of em.enemies) {
+        if (!e.active) continue;
+        const dx = e.x - em.playerX;
+        const dy = e.y - em.playerY;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 220 * 220) {
+          e.hp -= slamDamage;
+          em.spawnDamageNumber(e.x, e.y, slamDamage, true, '#38bdf8');
+          const dist = Math.sqrt(distSq) || 1;
+          e.knockbackDx += (dx / dist) * 750;
+          e.knockbackDy += (dy / dist) * 750;
+        }
+      }
+    }
+
+    // 8. MORRIGAN: Sanguine Eruption
+    else if (heroId === 'morrigan') {
+      if (particles) {
+        particles.spawnShockwave(em.playerX, em.playerY, '#ef4444', 180, 0.45);
+        particles.spawnBurst(em.playerX, em.playerY, '#b91c1c', 35, 220, 3, 'blood');
+      }
+      camera.addShake(0.5);
+      sound.play('whip_crit');
+
+      // Sacrifice 10% current HP to unleash massive blood eruption
+      const hpDrain = Math.max(5, Math.round(p.currentHp * 0.1));
+      p.currentHp = Math.max(1, p.currentHp - hpDrain);
+
+      const eruptionDmg = Math.round(110 * p.stats.might);
+      let hitEnemies = 0;
+      for (const e of em.enemies) {
+        if (!e.active) continue;
+        const dx = e.x - em.playerX;
+        const dy = e.y - em.playerY;
+        if (dx * dx + dy * dy < 200 * 200) {
+          e.hp -= eruptionDmg;
+          em.spawnDamageNumber(e.x, e.y, eruptionDmg, true, '#ef4444');
+          hitEnemies++;
+        }
+      }
+
+      // Life leech restoration
+      const healBack = Math.min(Math.round(p.stats.maxHealth * 0.25), hitEnemies * 4 + 8);
+      p.currentHp = Math.min(p.stats.maxHealth, p.currentHp + healBack);
+      em.spawnDamageNumber(em.playerX, em.playerY - 20, healBack, false, '#22c55e');
+
+      // Spawn crimson boiling puddle
+      em.spawnProjectile(
+        'holy_water',
+        em.playerX,
+        em.playerY,
+        0,
+        0,
+        Math.round(35 * p.stats.might),
+        999,
+        65 * p.stats.area,
+        3.0,
+        p.stats.area,
+        0,
+        { isPuddle: true, tickTimer: 0.2 }
+      );
+    }
+
+    // 9. ZEPHYR: Gravitational Singularity
+    else {
+      if (particles) {
+        particles.spawnShockwave(em.playerX, em.playerY, '#c084fc', 200, 0.5);
+        particles.spawnBurst(em.playerX, em.playerY, '#e879f9', 30, 220, 3, 'magic_star');
+      }
+      camera.addShake(0.45);
+      sound.play('magic_bolt');
+
+      // Magnetize all gems & pickups on map immediately!
+      for (const g of em.gems) {
+        if (g.active) g.isMagnetized = true;
+      }
+
+      // Vacuum drag nearby enemies towards player front & deal damage
+      const pullDamage = Math.round(75 * p.stats.might);
+      for (const e of em.enemies) {
+        if (!e.active) continue;
+        const dx = em.playerX - e.x;
+        const dy = em.playerY - e.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 260 * 260) {
+          const dist = Math.sqrt(distSq) || 1;
+          e.knockbackDx += (dx / dist) * 450;
+          e.knockbackDy += (dy / dist) * 450;
+          e.hp -= pullDamage;
+          em.spawnDamageNumber(e.x, e.y, pullDamage, false, '#c084fc');
+        }
       }
     }
   }

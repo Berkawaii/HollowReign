@@ -177,7 +177,7 @@ export class HeroSelectModal {
                           [LOCKED] ${s.unlockCondition}
                         </div>`
                       : `<div class="mt-1.5 text-[9px] text-emerald-400/80 font-mono flex items-center space-x-1">
-                          <span>✓ Ready</span>
+                          <span>[READY]</span>
                         </div>`
                   }
                 </button>

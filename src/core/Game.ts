@@ -193,8 +193,9 @@ export class Game {
     // 2. Camera Tracking
     this.camera.update(this.em.playerX, this.em.playerY, dt);
 
-    // 3. Timed Wave Spawning
+    // 3. Timed Wave Spawning & Quest Events
     this.spawnDirector.update(this.em, dt);
+    this.worldMap.updateQuestEvents(this.em, this.achievementManager, dt);
 
     // 4. Weapon Combat & Attack Projectiles
     this.combatSystem.update(this.em, dt);

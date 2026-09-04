@@ -179,6 +179,84 @@ export class ProceduralAssets {
       ctx.fillRect(24, 10, 5, 14);
       ctx.fillStyle = '#a855f7';
       ctx.fillRect(25, 12, 3, 2);
+    } else if (id === 'hero_nyx') {
+      // Nyx: The Eldritch Weaver
+      ctx.fillStyle = '#2e1065'; // Void silk dress
+      ctx.fillRect(8, 12, 16, 18);
+      ctx.fillStyle = '#581c87';
+      ctx.fillRect(10, 14, 12, 16);
+      ctx.fillStyle = '#e9d5ff'; // Pale silk hair
+      ctx.fillRect(8, 4, 16, 10);
+      ctx.fillStyle = '#3b0764'; // Blindfold / Spider cowl
+      ctx.fillRect(10, 7, 12, 4);
+      // 4 tiny glowing purple spider eyes
+      ctx.fillStyle = '#c084fc';
+      ctx.fillRect(11, 8, 2, 2);
+      ctx.fillRect(14, 7, 2, 2);
+      ctx.fillRect(17, 7, 2, 2);
+      ctx.fillRect(20, 8, 2, 2);
+      // Floating silk threads
+      ctx.fillStyle = '#a855f7';
+      ctx.fillRect(4, 10, 2, 14);
+      ctx.fillRect(26, 10, 2, 14);
+    } else if (id === 'hero_malakor') {
+      // Malakor: Drowned Inquisitor
+      ctx.fillStyle = '#0e7490'; // Verdigris sea plate
+      ctx.fillRect(6, 10, 20, 16);
+      ctx.fillStyle = '#155e75';
+      ctx.fillRect(8, 8, 16, 16);
+      ctx.fillStyle = '#042f2e'; // Barbute helm
+      ctx.fillRect(9, 3, 14, 10);
+      ctx.fillStyle = '#38bdf8'; // Glowing cyan eye slit
+      ctx.fillRect(11, 7, 10, 2);
+      // Iron chain & rusted anchor at side
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(5, 14, 3, 12);
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(24, 6, 4, 22);
+      ctx.fillStyle = '#b45309';
+      ctx.fillRect(22, 22, 8, 4);
+    } else if (id === 'hero_morrigan') {
+      // Morrigan: Sanguine Priestess
+      ctx.fillStyle = '#4c0519'; // Crimson gown
+      ctx.fillRect(8, 12, 16, 18);
+      ctx.fillStyle = '#881337';
+      ctx.fillRect(10, 14, 12, 16);
+      ctx.fillStyle = '#fecdd3'; // Pale visage
+      ctx.fillRect(11, 6, 10, 8);
+      // Blood veil & horns
+      ctx.fillStyle = '#9f1239';
+      ctx.fillRect(9, 2, 3, 6);
+      ctx.fillRect(20, 2, 3, 6);
+      ctx.fillStyle = '#e11d48'; // Glowing crimson eyes
+      ctx.fillRect(13, 8, 2, 2);
+      ctx.fillRect(17, 8, 2, 2);
+      // Sanguine Chalice
+      ctx.fillStyle = '#fb7185';
+      ctx.fillRect(24, 12, 4, 6);
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(25, 18, 2, 6);
+    } else if (id === 'hero_zephyr') {
+      // Zephyr: Astral Astromancer
+      ctx.fillStyle = '#082f49'; // Starry midnight robes
+      ctx.fillRect(8, 12, 16, 18);
+      ctx.fillStyle = '#0369a1';
+      ctx.fillRect(10, 14, 12, 16);
+      ctx.fillStyle = '#0284c7'; // Hood
+      ctx.fillRect(9, 4, 14, 10);
+      ctx.fillStyle = '#fde047'; // Starlight runes
+      ctx.fillRect(11, 16, 2, 2);
+      ctx.fillRect(19, 18, 2, 2);
+      // Cosmic void eyes & floating orb
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(12, 8, 3, 2);
+      ctx.fillRect(17, 8, 3, 2);
+      ctx.fillStyle = '#0ea5e9';
+      ctx.beginPath();
+      ctx.arc(26, 14, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(25, 13, 2, 2);
     }
 
     return canvas;
@@ -352,6 +430,103 @@ export class ProceduralAssets {
       ctx.fillRect(35, 25, 4, 4);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(36, 26, 2, 2);
+    } else if (id.includes('nyx')) {
+      // Nyx: The Eldritch Weaver
+      ctx.fillStyle = '#1e1035';
+      ctx.fillRect(10, 42, 44, 22);
+      ctx.fillStyle = '#3b0764';
+      ctx.fillRect(14, 44, 36, 20);
+      // Flowing Silver Silk Hair
+      ctx.fillStyle = '#e9d5ff';
+      ctx.fillRect(16, 12, 32, 34);
+      // Blindfolded Cowl
+      ctx.fillStyle = '#2e1065';
+      ctx.fillRect(20, 22, 24, 14);
+      // 4 Glowing spider eyes
+      ctx.fillStyle = '#c084fc';
+      ctx.fillRect(23, 26, 3, 3);
+      ctx.fillRect(28, 25, 3, 3);
+      ctx.fillRect(33, 25, 3, 3);
+      ctx.fillRect(38, 26, 3, 3);
+      // Pale lower visage
+      ctx.fillStyle = '#fce7f3';
+      ctx.fillRect(24, 36, 16, 12);
+      // Silk Web Crown
+      ctx.fillStyle = '#a855f7';
+      ctx.fillRect(20, 10, 24, 4);
+      ctx.fillRect(30, 4, 4, 8);
+    } else if (id.includes('malakor')) {
+      // Malakor: Drowned Inquisitor
+      ctx.fillStyle = '#083344';
+      ctx.fillRect(10, 42, 44, 22);
+      ctx.fillStyle = '#0e7490';
+      ctx.fillRect(14, 44, 36, 20);
+      // Verdigris Barbute Helmet
+      ctx.fillStyle = '#155e75';
+      ctx.fillRect(18, 12, 28, 34);
+      ctx.fillStyle = '#042f2e';
+      ctx.fillRect(20, 14, 24, 30);
+      // Heavy Rusty Iron Chain
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(12, 38, 40, 6);
+      // Glowing Cyan Depths Visor
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(22, 24, 20, 4);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(24, 25, 4, 2);
+      ctx.fillRect(36, 25, 4, 2);
+      // Barnacles on Helm
+      ctx.fillStyle = '#065f46';
+      ctx.fillRect(20, 10, 5, 4);
+      ctx.fillRect(38, 12, 6, 5);
+    } else if (id.includes('morrigan')) {
+      // Morrigan: Sanguine Priestess
+      ctx.fillStyle = '#4c0519';
+      ctx.fillRect(10, 42, 44, 22);
+      ctx.fillStyle = '#881337';
+      ctx.fillRect(14, 44, 36, 20);
+      // Pale Visage
+      ctx.fillStyle = '#ffe4e6';
+      ctx.fillRect(22, 22, 20, 22);
+      // Crimson Blood Veil & Horned Tiara
+      ctx.fillStyle = '#9f1239';
+      ctx.fillRect(18, 8, 5, 16);
+      ctx.fillRect(41, 8, 5, 16);
+      ctx.fillStyle = '#be123c';
+      ctx.fillRect(20, 18, 24, 8);
+      // Crimson Glowing Eyes
+      ctx.fillStyle = '#e11d48';
+      ctx.fillRect(25, 28, 4, 3);
+      ctx.fillRect(35, 28, 4, 3);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(26, 29, 2, 1);
+      ctx.fillRect(36, 29, 2, 1);
+      // Blood Droplet Rune on Forehead
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(30, 22, 4, 5);
+    } else if (id.includes('zephyr')) {
+      // Zephyr: Astral Astromancer
+      ctx.fillStyle = '#082f49';
+      ctx.fillRect(10, 42, 44, 22);
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(14, 44, 36, 20);
+      // Deep Astral Hood
+      ctx.fillStyle = '#0369a1';
+      ctx.fillRect(18, 10, 28, 34);
+      ctx.fillStyle = '#0c4a6e';
+      ctx.fillRect(20, 14, 24, 28);
+      // Glowing Stellar Starlight Eyes
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(24, 26, 5, 3);
+      ctx.fillRect(35, 26, 5, 3);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(25, 27, 3, 1);
+      ctx.fillRect(36, 27, 3, 1);
+      // Golden Astrolabe / Stellar Halo
+      ctx.fillStyle = '#fde047';
+      ctx.fillRect(22, 6, 20, 3);
+      ctx.fillRect(18, 9, 3, 5);
+      ctx.fillRect(43, 9, 3, 5);
     }
 
     // Eldritch border
@@ -929,6 +1104,120 @@ export class ProceduralAssets {
       return canvas;
     }
 
+    // --- VOID TENDRIL / LEVIATHAN'S GRASP ---
+    if (id === 'proj_void_tendril') {
+      const { canvas, ctx } = this.createCanvas(48, 48);
+      // Sweeping abyssal tentacle with suction cups
+      ctx.fillStyle = '#1e1035';
+      ctx.beginPath();
+      ctx.moveTo(10, 44);
+      ctx.quadraticCurveTo(16, 20, 36, 10);
+      ctx.quadraticCurveTo(42, 6, 44, 4);
+      ctx.quadraticCurveTo(40, 16, 26, 30);
+      ctx.quadraticCurveTo(20, 40, 14, 46);
+      ctx.closePath();
+      ctx.fill();
+      // Glowing violet inner marrow
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(12, 44);
+      ctx.quadraticCurveTo(20, 24, 40, 8);
+      ctx.stroke();
+      // Suction cups
+      ctx.fillStyle = '#c084fc';
+      ctx.beginPath();
+      ctx.arc(22, 28, 2.5, 0, Math.PI * 2);
+      ctx.arc(30, 20, 2.5, 0, Math.PI * 2);
+      ctx.arc(38, 13, 2, 0, Math.PI * 2);
+      ctx.fill();
+      // Tip stinger glow
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(41, 5, 3, 3);
+      return canvas;
+    }
+
+    // --- ABYSSAL ANCHOR / WORLDBREAKER ---
+    if (id === 'proj_abyssal_anchor') {
+      const { canvas, ctx } = this.createCanvas(40, 40);
+      ctx.save();
+      ctx.translate(20, 20);
+      // Rusted Shank
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(-2.5, -16, 5, 28);
+      // Stock Crossbar
+      ctx.fillStyle = '#64748b';
+      ctx.fillRect(-12, -12, 24, 4);
+      // Top Ring
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(0, -15, 3.5, 0, Math.PI * 2);
+      ctx.stroke();
+      // Flukes (Curved Bottom)
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.arc(0, 4, 13, 0.15 * Math.PI, 0.85 * Math.PI);
+      ctx.stroke();
+      // Palms (Barbed Tips)
+      ctx.fillStyle = '#06b6d4'; // Glowing sea runes
+      ctx.fillRect(-15, 6, 4, 4);
+      ctx.fillRect(11, 6, 4, 4);
+      ctx.restore();
+      return canvas;
+    }
+
+    // --- SINGULARITY SPHERE / EVENT HORIZON ---
+    if (id === 'proj_singularity') {
+      const { canvas, ctx } = this.createCanvas(36, 36);
+      const grad = ctx.createRadialGradient(18, 18, 2, 18, 18, 18);
+      grad.addColorStop(0, '#000000');
+      grad.addColorStop(0.35, '#0284c7');
+      grad.addColorStop(0.7, '#7c3aed');
+      grad.addColorStop(0.95, '#38bdf8');
+      grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(18, 18, 17, 0, Math.PI * 2);
+      ctx.fill();
+      // Central Event Horizon (Pitch Black)
+      ctx.fillStyle = '#030712';
+      ctx.beginPath();
+      ctx.arc(18, 18, 6, 0, Math.PI * 2);
+      ctx.fill();
+      // Swirling Accretion Spiral
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(18, 18, 10, 0, Math.PI * 1.2);
+      ctx.stroke();
+      return canvas;
+    }
+
+    // --- SANGUINE CHALICE BLOOD RUNE ---
+    if (id === 'proj_blood_chalice') {
+      const { canvas, ctx } = this.createCanvas(32, 32);
+      // Crimson Runic Circle
+      ctx.strokeStyle = '#be123c';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(16, 16, 13, 0, Math.PI * 2);
+      ctx.stroke();
+      // Inner Blood Star
+      ctx.fillStyle = '#881337';
+      ctx.beginPath();
+      ctx.arc(16, 16, 9, 0, Math.PI * 2);
+      ctx.fill();
+      // Thorn cross
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(15, 5, 2, 22);
+      ctx.fillRect(5, 15, 22, 2);
+      ctx.fillStyle = '#ffe4e6';
+      ctx.fillRect(15, 15, 2, 2);
+      return canvas;
+    }
+
     return this.createCanvas(16, 16).canvas;
   }
 
@@ -1376,6 +1665,94 @@ export class ProceduralAssets {
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#d97706';
       ctx.stroke();
+    } else if (id.includes('void_tendril') || id.includes('leviathan')) {
+      // Void Tendrils / Leviathan's Grasp Icon
+      ctx.fillStyle = id.includes('leviathan') ? '#581c87' : '#1e1035';
+      ctx.beginPath();
+      ctx.moveTo(-6, 14);
+      ctx.quadraticCurveTo(-2, -4, 10, -12);
+      ctx.quadraticCurveTo(14, -14, 16, -12);
+      ctx.quadraticCurveTo(10, 0, -2, 16);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(4, -4, 3, 3);
+      ctx.fillRect(-1, 4, 3, 3);
+    } else if (id.includes('abyssal_anchor') || id.includes('worldbreaker')) {
+      // Abyssal Anchor / Worldbreaker Icon
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(-2, -14, 4, 22);
+      ctx.fillStyle = '#64748b';
+      ctx.fillRect(-10, -10, 20, 3);
+      ctx.strokeStyle = id.includes('worldbreaker') ? '#06b6d4' : '#475569';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(0, 2, 10, 0.15 * Math.PI, 0.85 * Math.PI);
+      ctx.stroke();
+    } else if (id.includes('singularity') || id.includes('event_horizon')) {
+      // Singularity Sphere / Event Horizon Icon
+      const g = ctx.createRadialGradient(0, 0, 1, 0, 0, 14);
+      g.addColorStop(0, '#000000');
+      g.addColorStop(0.5, '#0284c7');
+      g.addColorStop(1, '#a855f7');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(0, 0, 13, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(0, 0, 8, 0, Math.PI * 1.3);
+      ctx.stroke();
+    } else if (id.includes('blood_chalice') || id.includes('primordial_heart')) {
+      // Sanguine Chalice / Primordial Heart Icon
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(-8, -12, 16, 12);
+      ctx.fillRect(-2, 0, 4, 10);
+      ctx.fillRect(-6, 10, 12, 3);
+      ctx.fillStyle = '#e11d48';
+      ctx.fillRect(-6, -10, 12, 8);
+      ctx.fillStyle = '#f43f5e';
+      ctx.beginPath();
+      ctx.arc(0, -6, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (id.includes('madness_grimoire')) {
+      // Grimoire of Madness
+      ctx.fillStyle = '#2e1065';
+      ctx.fillRect(-10, -12, 20, 24);
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-10, -12, 20, 24);
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.arc(0, 0, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (id.includes('void_carapace')) {
+      // Void Carapace
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(0, 0, 12, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(-6, -6, 12, 12);
+    } else if (id.includes('astral_prism')) {
+      // Astral Prism
+      ctx.fillStyle = '#0ea5e9';
+      ctx.beginPath();
+      ctx.moveTo(0, -14); ctx.lineTo(12, 0); ctx.lineTo(0, 14); ctx.lineTo(-12, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(0, -10); ctx.lineTo(6, 0); ctx.lineTo(0, 10); ctx.lineTo(-6, 0);
+      ctx.closePath();
+      ctx.fill();
     } else {
       ctx.fillStyle = '#e2e8f0';
       ctx.fillRect(-8, -8, 16, 16);
@@ -1559,6 +1936,84 @@ export class ProceduralAssets {
       ctx.fill();
       ctx.fillStyle = '#67e8f9';
       ctx.fillRect(23, 22, 2, 4);
+      return canvas;
+    }
+
+    if (id === 'shrine_cocoon') {
+      // Weaver's Cocoon (Arachnid Silk Pod)
+      ctx.fillStyle = '#1e1035';
+      ctx.fillRect(12, 18, 24, 22);
+      // Giant Silk Cocoon Egg
+      ctx.fillStyle = '#3b0764';
+      ctx.beginPath();
+      ctx.ellipse(24, 20, 14, 18, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Glowing Silk Bands
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(24, 20, 14, 18, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      // Horizontal Silk Strands
+      ctx.fillStyle = '#e9d5ff';
+      ctx.fillRect(14, 14, 20, 2);
+      ctx.fillRect(12, 20, 24, 2);
+      ctx.fillRect(15, 26, 18, 2);
+      // Glowing spider eye slits inside cocoon
+      ctx.fillStyle = '#c084fc';
+      ctx.fillRect(20, 18, 3, 2);
+      ctx.fillRect(25, 18, 3, 2);
+      return canvas;
+    }
+
+    if (id === 'shrine_sarcophagus') {
+      // Sunken Sarcophagus of Malakor
+      ctx.fillStyle = '#083344';
+      ctx.fillRect(10, 8, 28, 34);
+      ctx.fillStyle = '#0e7490';
+      ctx.fillRect(12, 10, 24, 30);
+      ctx.strokeStyle = '#155e75';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(12, 10, 24, 30);
+      // Crossbars and verdigris
+      ctx.fillStyle = '#042f2e';
+      ctx.fillRect(14, 16, 20, 4);
+      // Rusted heavy chains
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(8, 22, 32, 4);
+      ctx.fillStyle = '#b45309';
+      ctx.fillRect(14, 20, 3, 8);
+      ctx.fillRect(31, 20, 3, 8);
+      // Glowing deep-sea cyan runes
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(20, 28, 8, 3);
+      ctx.fillRect(22, 33, 4, 3);
+      return canvas;
+    }
+
+    if (id === 'shrine_blood_font') {
+      // Crimson Blood Font of Morrigan
+      ctx.fillStyle = '#4c0519';
+      ctx.fillRect(8, 20, 32, 20);
+      ctx.fillStyle = '#881337';
+      ctx.fillRect(10, 22, 28, 16);
+      // Boiling Blood Pool
+      ctx.fillStyle = '#be123c';
+      ctx.beginPath();
+      ctx.ellipse(24, 18, 14, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#e11d48';
+      ctx.beginPath();
+      ctx.arc(24, 18, 6, 0, Math.PI * 2);
+      ctx.fill();
+      // Bone Candles on Left and Right
+      ctx.fillStyle = '#ffe4e6';
+      ctx.fillRect(10, 10, 3, 10);
+      ctx.fillRect(35, 10, 3, 10);
+      // Crimson Flames
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(10, 7, 3, 3);
+      ctx.fillRect(35, 7, 3, 3);
       return canvas;
     }
 

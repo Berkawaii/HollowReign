@@ -452,7 +452,7 @@ export const WEAPONS: Record<string, WeaponConfig> = {
   },
 
   // -------------------------------------------------------------
-  // 12. ULTRA UNIFIED WEAPONS (2 Max Weapons ➔ 1 Ultra Weapon)
+  // 12. ULTRA UNIFIED WEAPONS (2 Max Weapons -> 1 Ultra Weapon)
   // -------------------------------------------------------------
   cosmic_blaze: {
     id: 'cosmic_blaze',
@@ -495,6 +495,196 @@ export const WEAPONS: Record<string, WeaponConfig> = {
       { level: 1, damage: 180, cooldown: 0.38, projectiles: 8, speed: 580, area: 2.2, duration: 1.2, piercing: 4, knockback: 30, description: 'Permanent barrier of 8 holy scriptures firing rapid homing light beams!' },
     ],
   },
+
+  // -------------------------------------------------------------
+  // 14. VOID TENDRILS & LEVIATHAN'S GRASP
+  // -------------------------------------------------------------
+  void_tendril: {
+    id: 'void_tendril',
+    name: 'Void Tendrils',
+    description: 'Eldritch tentacles lash out from the void, thrashing nearby enemies and slowing their movement.',
+    iconId: 'icon_void_tendril',
+    spriteId: 'proj_void_tendril',
+    maxLevel: 8,
+    isEvolution: false,
+    evolutionPartnerPassive: 'spellbinder',
+    evolutionWeaponId: 'leviathans_grasp',
+    soundEffect: 'whip',
+    levels: [
+      { level: 1, damage: 28, cooldown: 1.4, projectiles: 1, speed: 0, area: 1.0, duration: 0.35, piercing: 999, knockback: 15, description: 'Lashes 1 tentacle at closest cluster of horrors.' },
+      { level: 2, damage: 36, cooldown: 1.3, projectiles: 1, speed: 0, area: 1.15, duration: 0.35, piercing: 999, knockback: 18, description: 'Damage +8, Area +15%' },
+      { level: 3, damage: 45, cooldown: 1.25, projectiles: 2, speed: 0, area: 1.15, duration: 0.35, piercing: 999, knockback: 20, description: 'Tentacle Amount +1 (Strikes in 2 directions)' },
+      { level: 4, damage: 56, cooldown: 1.15, projectiles: 2, speed: 0, area: 1.30, duration: 0.35, piercing: 999, knockback: 24, description: 'Damage +11, Area +15%' },
+      { level: 5, damage: 68, cooldown: 1.10, projectiles: 3, speed: 0, area: 1.30, duration: 0.35, piercing: 999, knockback: 26, description: 'Tentacle Amount +1' },
+      { level: 6, damage: 82, cooldown: 1.00, projectiles: 3, speed: 0, area: 1.45, duration: 0.35, piercing: 999, knockback: 30, description: 'Damage +14, Area +15%' },
+      { level: 7, damage: 98, cooldown: 0.95, projectiles: 4, speed: 0, area: 1.45, duration: 0.35, piercing: 999, knockback: 32, description: 'Tentacle Amount +1 (Surrounding thrash)' },
+      { level: 8, damage: 125, cooldown: 0.85, projectiles: 4, speed: 0, area: 1.65, duration: 0.40, piercing: 999, knockback: 40, description: 'Damage +27, Giant Tentacle Surge!' },
+    ],
+  },
+  leviathans_grasp: {
+    id: 'leviathans_grasp',
+    name: "Leviathan's Grasp",
+    description: "Evolved Void Tendrils: Massive shadowy tentacles thrash across reality, crushing foes and pulling distant XP gems.",
+    iconId: 'icon_leviathans_grasp',
+    spriteId: 'proj_void_tendril',
+    maxLevel: 1,
+    isEvolution: true,
+    evolvedFromWeaponId: 'void_tendril',
+    soundEffect: 'whip_crit',
+    levels: [
+      { level: 1, damage: 175, cooldown: 0.75, projectiles: 6, speed: 0, area: 2.1, duration: 0.45, piercing: 999, knockback: 50, description: 'Colossal eldritch tentacles sweep the entire battlefield, drawing faraway gems!' },
+    ],
+  },
+
+  // -------------------------------------------------------------
+  // 15. ABYSSAL ANCHOR & WORLDBREAKER ANCHOR
+  // -------------------------------------------------------------
+  abyssal_anchor: {
+    id: 'abyssal_anchor',
+    name: 'Abyssal Anchor',
+    description: 'Hurls a colossal rusted anchor that crashes into the ground, causing a devastating seismic shockwave.',
+    iconId: 'icon_abyssal_anchor',
+    spriteId: 'proj_abyssal_anchor',
+    maxLevel: 8,
+    isEvolution: false,
+    evolutionPartnerPassive: 'void_carapace',
+    evolutionWeaponId: 'worldbreaker_anchor',
+    soundEffect: 'explosion',
+    levels: [
+      { level: 1, damage: 45, cooldown: 2.2, projectiles: 1, speed: 280, area: 1.0, duration: 0.8, piercing: 999, knockback: 35, description: 'Hurls 1 heavy anchor creating a crater impact.' },
+      { level: 2, damage: 60, cooldown: 2.1, projectiles: 1, speed: 300, area: 1.2, duration: 0.8, piercing: 999, knockback: 40, description: 'Damage +15, Shockwave Area +20%' },
+      { level: 3, damage: 78, cooldown: 2.0, projectiles: 2, speed: 310, area: 1.2, duration: 0.8, piercing: 999, knockback: 45, description: 'Anchor Amount +1 (Dual bombard)' },
+      { level: 4, damage: 98, cooldown: 1.9, projectiles: 2, speed: 330, area: 1.35, duration: 0.8, piercing: 999, knockback: 50, description: 'Damage +20, Impact Area +15%' },
+      { level: 5, damage: 120, cooldown: 1.8, projectiles: 3, speed: 340, area: 1.35, duration: 0.8, piercing: 999, knockback: 55, description: 'Anchor Amount +1' },
+      { level: 6, damage: 145, cooldown: 1.7, projectiles: 3, speed: 360, area: 1.50, duration: 0.8, piercing: 999, knockback: 60, description: 'Damage +25, Shockwave Area +15%' },
+      { level: 7, damage: 175, cooldown: 1.6, projectiles: 4, speed: 380, area: 1.50, duration: 0.8, piercing: 999, knockback: 65, description: 'Anchor Amount +1' },
+      { level: 8, damage: 220, cooldown: 1.4, projectiles: 4, speed: 400, area: 1.80, duration: 0.9, piercing: 999, knockback: 75, description: 'Cataclysmic impact with colossal tremors!' },
+    ],
+  },
+  worldbreaker_anchor: {
+    id: 'worldbreaker_anchor',
+    name: 'Worldbreaker Anchor',
+    description: 'Evolved Abyssal Anchor: Ground impacts fracture reality, sending out 4 directional fissure shockwaves.',
+    iconId: 'icon_worldbreaker_anchor',
+    spriteId: 'proj_abyssal_anchor',
+    maxLevel: 1,
+    isEvolution: true,
+    evolvedFromWeaponId: 'abyssal_anchor',
+    soundEffect: 'explosion',
+    levels: [
+      { level: 1, damage: 320, cooldown: 1.2, projectiles: 4, speed: 420, area: 2.2, duration: 1.1, piercing: 999, knockback: 90, description: 'Seismic tremors fracture the ground in 4 directions, crushing armies!' },
+    ],
+  },
+
+  // -------------------------------------------------------------
+  // 16. SINGULARITY SPHERE & EVENT HORIZON
+  // -------------------------------------------------------------
+  singularity_orb: {
+    id: 'singularity_orb',
+    name: 'Singularity Sphere',
+    description: 'Fires a drifting gravitational vortex that pulls enemies inwards while dealing continuous damage.',
+    iconId: 'icon_singularity_orb',
+    spriteId: 'proj_singularity',
+    maxLevel: 8,
+    isEvolution: false,
+    evolutionPartnerPassive: 'astral_prism',
+    evolutionWeaponId: 'event_horizon',
+    soundEffect: 'magic_bolt',
+    levels: [
+      { level: 1, damage: 18, cooldown: 1.8, projectiles: 1, speed: 120, area: 1.0, duration: 3.0, piercing: 999, knockback: -8, description: 'Launches 1 gravity vortex pulling foes inwards.' },
+      { level: 2, damage: 24, cooldown: 1.7, projectiles: 1, speed: 130, area: 1.2, duration: 3.2, piercing: 999, knockback: -10, description: 'Damage +6, Vortex Area +20%' },
+      { level: 3, damage: 32, cooldown: 1.6, projectiles: 2, speed: 135, area: 1.2, duration: 3.4, piercing: 999, knockback: -12, description: 'Orb Amount +1' },
+      { level: 4, damage: 40, cooldown: 1.5, projectiles: 2, speed: 140, area: 1.4, duration: 3.6, piercing: 999, knockback: -14, description: 'Damage +8, Gravitational Radius +20%' },
+      { level: 5, damage: 50, cooldown: 1.4, projectiles: 3, speed: 145, area: 1.4, duration: 3.8, piercing: 999, knockback: -16, description: 'Orb Amount +1' },
+      { level: 6, damage: 62, cooldown: 1.3, projectiles: 3, speed: 150, area: 1.6, duration: 4.0, piercing: 999, knockback: -18, description: 'Damage +12, Area +20%' },
+      { level: 7, damage: 76, cooldown: 1.2, projectiles: 4, speed: 155, area: 1.6, duration: 4.2, piercing: 999, knockback: -20, description: 'Orb Amount +1' },
+      { level: 8, damage: 95, cooldown: 1.0, projectiles: 4, speed: 160, area: 1.9, duration: 4.5, piercing: 999, knockback: -25, description: 'Massive gravitational suction with intense collapse damage!' },
+    ],
+  },
+  event_horizon: {
+    id: 'event_horizon',
+    name: 'Event Horizon',
+    description: 'Evolved Singularity Sphere: Supermassive black hole that swallows non-boss enemies and implodes in a supernova.',
+    iconId: 'icon_event_horizon',
+    spriteId: 'proj_singularity',
+    maxLevel: 1,
+    isEvolution: true,
+    evolvedFromWeaponId: 'singularity_orb',
+    soundEffect: 'explosion',
+    levels: [
+      { level: 1, damage: 180, cooldown: 0.9, projectiles: 3, speed: 160, area: 2.5, duration: 5.0, piercing: 999, knockback: -35, description: 'Irresistible gravitational collapse exploding in cosmic shockwaves!' },
+    ],
+  },
+
+  // -------------------------------------------------------------
+  // 17. SANGUINE CHALICE & PRIMORDIAL HEART
+  // -------------------------------------------------------------
+  blood_chalice: {
+    id: 'blood_chalice',
+    name: 'Sanguine Chalice',
+    description: 'Etches dark blood runes on the battlefield that burst into barbed crimson thorns when enemies step over them.',
+    iconId: 'icon_blood_chalice',
+    spriteId: 'proj_blood_chalice',
+    maxLevel: 8,
+    isEvolution: false,
+    evolutionPartnerPassive: 'madness_grimoire',
+    evolutionWeaponId: 'primordial_heart',
+    soundEffect: 'magic_bolt',
+    levels: [
+      { level: 1, damage: 22, cooldown: 1.6, projectiles: 2, speed: 0, area: 1.0, duration: 4.0, piercing: 10, knockback: 12, description: 'Places 2 blood runes that burst into crimson thorns.' },
+      { level: 2, damage: 30, cooldown: 1.5, projectiles: 2, speed: 0, area: 1.2, duration: 4.2, piercing: 12, knockback: 14, description: 'Damage +8, Rune Area +20%' },
+      { level: 3, damage: 38, cooldown: 1.4, projectiles: 3, speed: 0, area: 1.2, duration: 4.5, piercing: 14, knockback: 16, description: 'Rune Amount +1' },
+      { level: 4, damage: 48, cooldown: 1.3, projectiles: 3, speed: 0, area: 1.35, duration: 4.8, piercing: 16, knockback: 18, description: 'Damage +10, Thorn Radius +15%' },
+      { level: 5, damage: 60, cooldown: 1.2, projectiles: 4, speed: 0, area: 1.35, duration: 5.0, piercing: 18, knockback: 20, description: 'Rune Amount +1' },
+      { level: 6, damage: 74, cooldown: 1.1, projectiles: 4, speed: 0, area: 1.50, duration: 5.2, piercing: 20, knockback: 22, description: 'Damage +14, Rune Area +15%' },
+      { level: 7, damage: 90, cooldown: 1.0, projectiles: 5, speed: 0, area: 1.50, duration: 5.5, piercing: 22, knockback: 25, description: 'Rune Amount +1' },
+      { level: 8, damage: 115, cooldown: 0.85, projectiles: 5, speed: 0, area: 1.75, duration: 6.0, piercing: 28, knockback: 30, description: 'Vast field of crimson runes leeching health on kill!' },
+    ],
+  },
+  primordial_heart: {
+    id: 'primordial_heart',
+    name: 'Primordial Heart',
+    description: 'Evolved Sanguine Chalice: Pulsing crimson vortex that drains life continuously and transforms killed enemies into seeking blood bats.',
+    iconId: 'icon_primordial_heart',
+    spriteId: 'proj_blood_chalice',
+    maxLevel: 1,
+    isEvolution: true,
+    evolvedFromWeaponId: 'blood_chalice',
+    soundEffect: 'whip_crit',
+    levels: [
+      { level: 1, damage: 160, cooldown: 0.7, projectiles: 6, speed: 360, area: 2.2, duration: 6.5, piercing: 999, knockback: 35, description: 'Continuous sanguine vortex leeching life and releasing seeking blood bats!' },
+    ],
+  },
+
+  // -------------------------------------------------------------
+  // 18. LEGENDARY UNIFICATIONS
+  // -------------------------------------------------------------
+  apocalypse_horizon: {
+    id: 'apocalypse_horizon',
+    name: 'Apocalypse Horizon',
+    description: 'Fusion of Event Horizon + Cosmic Blaze: A flaming black hole discharging dark cosmic lightning and solar flares.',
+    iconId: 'icon_singularity_orb',
+    spriteId: 'proj_singularity',
+    maxLevel: 1,
+    isEvolution: true,
+    soundEffect: 'explosion',
+    levels: [
+      { level: 1, damage: 350, cooldown: 0.6, projectiles: 4, speed: 200, area: 3.0, duration: 5.5, piercing: 999, knockback: -50, description: 'Catastrophic flaming cosmic vortex devastating entire screens!' },
+    ],
+  },
+  blood_tide: {
+    id: 'blood_tide',
+    name: "Leviathan's Blood Tide",
+    description: "Fusion of Leviathan's Grasp + Primordial Heart: A crimson sea of thrashing appendages with continuous lifesteal.",
+    iconId: 'icon_leviathans_grasp',
+    spriteId: 'proj_void_tendril',
+    maxLevel: 1,
+    isEvolution: true,
+    soundEffect: 'whip_crit',
+    levels: [
+      { level: 1, damage: 320, cooldown: 0.5, projectiles: 8, speed: 400, area: 2.8, duration: 0.6, piercing: 999, knockback: 65, description: 'Infinite blood tentacle frenzy with absolute life leech!' },
+    ],
+  },
 };
 
 export interface WeaponUnificationRecipe {
@@ -530,5 +720,21 @@ export const WEAPON_UNIFICATIONS: WeaponUnificationRecipe[] = [
     resultWeaponId: 'holy_maelstrom',
     name: 'Holy Maelstrom',
     description: 'Combines Holy Wand + Unholy Vespers: Celestial book ring firing constant homing lasers at all nearby foes!',
+  },
+  {
+    id: 'unify_apocalypse_horizon',
+    weapon1Id: 'event_horizon',
+    weapon2Id: 'cosmic_blaze',
+    resultWeaponId: 'apocalypse_horizon',
+    name: 'Apocalypse Horizon',
+    description: 'Combines Event Horizon + Cosmic Blaze: A flaming black hole discharging dark cosmic lightning and solar flares!',
+  },
+  {
+    id: 'unify_blood_tide',
+    weapon1Id: 'leviathans_grasp',
+    weapon2Id: 'primordial_heart',
+    resultWeaponId: 'blood_tide',
+    name: "Leviathan's Blood Tide",
+    description: "Combines Leviathan's Grasp + Primordial Heart: A crimson sea of thrashing appendages with continuous lifesteal!",
   },
 ];

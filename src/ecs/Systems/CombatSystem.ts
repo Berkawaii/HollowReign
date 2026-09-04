@@ -497,6 +497,213 @@ export class CombatSystem {
         );
       }
     }
+
+    // 13. VOID TENDRIL & LEVIATHAN'S GRASP
+    else if (config.id === 'void_tendril' || config.id === 'leviathans_grasp') {
+      sound.play(config.id === 'leviathans_grasp' ? 'whip_crit' : 'whip');
+      const isEvo = config.id === 'leviathans_grasp';
+      const facingAngle = em.playerFacingAngle;
+      const count = isEvo ? totalProjectiles * 2 : totalProjectiles;
+
+      for (let i = 0; i < count; i++) {
+        const spread = isEvo
+          ? (i / count) * Math.PI * 2
+          : facingAngle + (i - (count - 1) / 2) * 0.22;
+        const vx = Math.cos(spread) * totalSpeed;
+        const vy = Math.sin(spread) * totalSpeed;
+
+        em.spawnProjectile(
+          config.id,
+          em.playerX,
+          em.playerY,
+          vx,
+          vy,
+          baseDamage,
+          stats.piercing,
+          (isEvo ? 18 : 12) * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback
+        );
+      }
+    }
+
+    // 14. ABYSSAL ANCHOR & WORLDBREAKER ANCHOR
+    else if (config.id === 'abyssal_anchor' || config.id === 'worldbreaker_anchor') {
+      sound.play('explosion');
+      const isEvo = config.id === 'worldbreaker_anchor';
+      const targets = this.getClosestEnemies(em, em.playerX, em.playerY, totalProjectiles);
+
+      for (let i = 0; i < totalProjectiles; i++) {
+        let targetX = em.playerX + (i % 2 === 0 ? 1 : -1) * (140 + i * 40);
+
+        if (targets[i]) {
+          targetX = targets[i].x;
+        } else if (targets[0]) {
+          targetX = targets[0].x + (Math.random() * 80 - 40);
+        }
+
+        const dx = targetX - em.playerX;
+        const timeToTarget = 0.9;
+        const vx = dx / timeToTarget;
+        const vy = -460;
+
+        em.spawnProjectile(
+          config.id,
+          em.playerX,
+          em.playerY,
+          vx,
+          vy,
+          baseDamage,
+          stats.piercing,
+          (isEvo ? 24 : 16) * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback,
+          { gravity: 850 }
+        );
+      }
+    }
+
+    // 15. SINGULARITY SPHERE & EVENT HORIZON
+    else if (config.id === 'singularity_orb' || config.id === 'event_horizon') {
+      sound.play('magic_bolt');
+      const isEvo = config.id === 'event_horizon';
+      const targets = this.getClosestEnemies(em, em.playerX, em.playerY, totalProjectiles);
+
+      for (let i = 0; i < totalProjectiles; i++) {
+        let angle: number;
+        if (targets[i]) {
+          angle = Math.atan2(targets[i].y - em.playerY, targets[i].x - em.playerX);
+        } else {
+          angle = em.playerFacingAngle + (i - (totalProjectiles - 1) / 2) * 0.35;
+        }
+
+        const vx = Math.cos(angle) * totalSpeed;
+        const vy = Math.sin(angle) * totalSpeed;
+
+        em.spawnProjectile(
+          config.id,
+          em.playerX,
+          em.playerY,
+          vx,
+          vy,
+          baseDamage,
+          stats.piercing,
+          (isEvo ? 28 : 16) * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback,
+          { tickTimer: 0.2 }
+        );
+      }
+    }
+
+    // 16. SANGUINE CHALICE & PRIMORDIAL HEART
+    else if (config.id === 'blood_chalice' || config.id === 'primordial_heart') {
+      sound.play('whip_crit');
+      const isEvo = config.id === 'primordial_heart';
+      const targets = this.getClosestEnemies(em, em.playerX, em.playerY, totalProjectiles);
+
+      for (let i = 0; i < totalProjectiles; i++) {
+        let runeX = em.playerX + (Math.random() * 300 - 150);
+        let runeY = em.playerY + (Math.random() * 300 - 150);
+
+        if (targets[i]) {
+          runeX = targets[i].x;
+          runeY = targets[i].y;
+        } else if (targets[0]) {
+          runeX = targets[0].x + (Math.random() * 60 - 30);
+          runeY = targets[0].y + (Math.random() * 60 - 30);
+        }
+
+        em.spawnProjectile(
+          config.id,
+          runeX,
+          runeY,
+          0,
+          0,
+          baseDamage,
+          9999,
+          (isEvo ? 45 : 28) * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback,
+          {
+            isPuddle: true,
+            tickTimer: 0.25,
+          }
+        );
+      }
+    }
+
+    // 17. APOCALYPSE HORIZON (Legendary Unification)
+    else if (config.id === 'apocalypse_horizon') {
+      sound.play('explosion');
+      for (let i = 0; i < 3; i++) {
+        const angle = (i / 3) * Math.PI * 2 + (Math.random() * 0.2);
+        const vx = Math.cos(angle) * totalSpeed;
+        const vy = Math.sin(angle) * totalSpeed;
+
+        em.spawnProjectile(
+          'apocalypse_horizon',
+          em.playerX,
+          em.playerY,
+          vx,
+          vy,
+          baseDamage,
+          999,
+          36 * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback,
+          { tickTimer: 0.15 }
+        );
+      }
+    }
+
+    // 18. BLOOD TIDE (Legendary Unification)
+    else if (config.id === 'blood_tide') {
+      sound.play('whip_crit');
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        const vx = Math.cos(angle) * totalSpeed;
+        const vy = Math.sin(angle) * totalSpeed;
+
+        em.spawnProjectile(
+          'blood_tide',
+          em.playerX,
+          em.playerY,
+          vx,
+          vy,
+          baseDamage,
+          999,
+          22 * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback
+        );
+      }
+
+      for (let j = 0; j < 3; j++) {
+        const offsetAngle = Math.random() * Math.PI * 2;
+        const offsetDist = Math.random() * 120;
+        em.spawnProjectile(
+          'primordial_heart',
+          em.playerX + Math.cos(offsetAngle) * offsetDist,
+          em.playerY + Math.sin(offsetAngle) * offsetDist,
+          0,
+          0,
+          baseDamage * 0.8,
+          9999,
+          48 * totalArea,
+          totalDuration,
+          totalArea,
+          stats.knockback,
+          { isPuddle: true, tickTimer: 0.2 }
+        );
+      }
+    }
   }
 
   private maintainOrbitingBooks(
