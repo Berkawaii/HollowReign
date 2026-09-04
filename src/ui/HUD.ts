@@ -204,13 +204,13 @@ export class HUD {
           ? `
         <div class="absolute top-[76px] sm:top-[72px] left-1/2 -translate-x-1/2 z-20 bg-purple-950/95 border border-purple-400 text-purple-200 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-bold animate-pulse shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center space-x-2 backdrop-blur-md">
           <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
-          <span>[Active Ritual]: ${activeQuest.title} ${activeQuest.remainingTime !== undefined ? `• ${Math.ceil(activeQuest.remainingTime)}s` : ''}</span>
+          <span>[${t('active_ritual')}]: ${activeQuest.title} ${activeQuest.remainingTime !== undefined ? `• ${Math.ceil(activeQuest.remainingTime)}s` : ''}</span>
         </div>
       `
           : nearestQuest && nearestQuest.dist > 160
           ? `
         <div class="absolute top-[76px] sm:top-[72px] left-1/2 -translate-x-1/2 z-20 bg-slate-950/90 border border-amber-500/50 text-amber-300 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-mono flex items-center space-x-2 shadow-[0_0_12px_rgba(0,0,0,0.8)] backdrop-blur-md">
-          <span class="text-amber-400 font-bold uppercase tracking-wider">QUEST COMPASS:</span>
+          <span class="text-amber-400 font-bold uppercase tracking-wider">${t('quest_compass')}:</span>
           <span class="text-slate-200 truncate max-w-[120px] sm:max-w-none">${nearestQuest.name}</span>
           <span class="text-yellow-300 font-black">${Math.round(nearestQuest.dist)}m [${nearestQuest.directionLabel}]</span>
         </div>
@@ -224,7 +224,7 @@ export class HUD {
           ? `
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-auto bg-gradient-to-b from-slate-900/95 via-slate-950/95 to-black/95 border-2 border-amber-500/70 p-3 sm:p-3.5 rounded-2xl shadow-[0_0_35px_rgba(245,158,11,0.25)] flex items-center space-x-3 sm:space-x-3.5 backdrop-blur-md animate-in fade-in zoom-in-95 z-20">
           <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-600 via-amber-800 to-amber-950 border border-amber-400/80 flex items-center justify-center font-gothic font-black text-amber-200 text-xs shadow-[0_0_10px_rgba(245,158,11,0.3)] shrink-0">
-            ALTAR
+            ${t('shrine_altar')}
           </div>
           <div class="text-left font-mono">
             <div class="font-gothic font-black text-xs sm:text-sm text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-400 leading-snug">${shrine.name}</div>
@@ -286,15 +286,15 @@ export class HUD {
 
               if (idx < maxWeaponSlots) {
                 return `
-                  <div title="Open Weapon Slot" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
-                    [OPEN]
+                  <div title="${t('open_slot')}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
+                    [${t('open_slot')}]
                   </div>
                 `;
               }
 
               return `
-                <div title="Locked Slot - Unlock via Achievements" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
-                  <span class="text-[8px] text-slate-600 font-bold leading-none">LOCK</span>
+                <div title="${t('locked_slot_title')}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
+                  <span class="text-[8px] text-slate-600 font-bold leading-none">${t('locked_badge')}</span>
                 </div>
               `;
             })
@@ -331,15 +331,15 @@ export class HUD {
 
               if (idx < maxPassiveSlots) {
                 return `
-                  <div title="Open Passive Slot" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
-                    [OPEN]
+                  <div title="${t('open_slot')}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
+                    [${t('open_slot')}]
                   </div>
                 `;
               }
 
               return `
-                <div title="Locked Slot - Unlock via Achievements" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
-                  <span class="text-[8px] text-slate-600 font-bold leading-none">LOCK</span>
+                <div title="${t('locked_slot_title')}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
+                  <span class="text-[8px] text-slate-600 font-bold leading-none">${t('locked_badge')}</span>
                 </div>
               `;
             })
@@ -360,7 +360,7 @@ export class HUD {
           <div class="text-left font-mono">
             <div class="text-[11px] font-black leading-tight ${p.abilityCooldownTimer <= 0 ? 'text-slate-950' : 'text-slate-200'}">${p.abilityName}</div>
             <div class="text-[9px] ${p.abilityCooldownTimer <= 0 ? 'text-amber-950 font-bold' : 'text-slate-400'}">
-              ${p.abilityCooldownTimer <= 0 ? 'READY [SPACE]' : `${p.abilityCooldownTimer.toFixed(1)}s`}
+              ${p.abilityCooldownTimer <= 0 ? t('ready_space') : `${p.abilityCooldownTimer.toFixed(1)}s`}
             </div>
           </div>
         </button>
@@ -384,7 +384,7 @@ export class HUD {
           <div class="flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-r from-transparent via-black/85 to-transparent backdrop-blur-xs">
             <div class="flex items-center space-x-3 mb-1.5">
               <div class="h-[1px] w-12 sm:w-28 bg-gradient-to-r from-transparent via-amber-500 to-amber-200"></div>
-              <span class="text-[9px] sm:text-xs font-mono font-bold text-red-500 uppercase tracking-[0.35em] drop-shadow">ARCHON OF THE VOID AWAKENS</span>
+              <span class="text-[9px] sm:text-xs font-mono font-bold text-red-500 uppercase tracking-[0.35em] drop-shadow">${t('archon_awakens')}</span>
               <div class="h-[1px] w-12 sm:w-28 bg-gradient-to-l from-transparent via-amber-500 to-amber-200"></div>
             </div>
 
@@ -427,11 +427,11 @@ export class HUD {
               ${
                 activeBoss.behavior === 'reaper'
                   ? `<span class="text-[9px] sm:text-[10px] font-black font-mono text-purple-300 bg-purple-950/90 border border-purple-500 px-1.5 py-0.2 rounded animate-pulse shadow-[0_0_8px_rgba(168,85,247,0.7)]">
-                      [INEVITABLE DEATH]
+                      [${t('inevitable_death')}]
                      </span>`
                   : activeBoss.isEnraged
                   ? `<span class="text-[9px] sm:text-[10px] font-black font-mono text-red-400 bg-red-950/90 border border-red-500 px-1.5 py-0.2 rounded animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.7)]">
-                      [ENRAGED]
+                      [${t('enraged')}]
                      </span>`
                   : ''
               }

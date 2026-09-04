@@ -5,6 +5,7 @@ import { PASSIVES, PassiveConfig } from '../config/passives';
 import { ProceduralAssets } from '../utils/ProceduralAssets';
 import { sound } from '../core/AudioEngine';
 import { StorageService } from '../services/StorageService';
+import { t } from '../i18n';
 
 export interface SlotReward {
   type: 'unification' | 'evolution' | 'weapon_upgrade' | 'passive_upgrade' | 'gold' | 'feast' | 'vacuum' | 'rosary';
@@ -163,16 +164,16 @@ export class ChestModal {
 
         <!-- Total Gold Award -->
         <div class="flex items-center space-x-2 text-xl sm:text-2xl font-black text-amber-400 my-1 font-mono">
-          <span>+${totalGold} GOLD</span>
+          <span>+${totalGold} ${t('gold')}</span>
         </div>
 
         <!-- Action / Controls Button -->
         <div class="w-full flex space-x-3 mt-3">
           <button id="slot-skip-btn" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs sm:text-sm py-3 rounded-xl border border-slate-600 transition active:scale-95 font-mono">
-            SKIP ANIMATION &gt;&gt;
+            ${t('skip_animation')}
           </button>
           <button id="slot-claim-btn" class="flex-1 bg-gradient-to-r ${tierColor} text-slate-950 font-black text-xs sm:text-sm py-3 rounded-xl shadow-lg transition active:scale-95 font-mono hidden">
-            COLLECT ALL REWARDS!
+            ${t('collect_all_rewards')}
           </button>
         </div>
       </div>

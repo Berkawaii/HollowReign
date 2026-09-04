@@ -134,6 +134,69 @@ export interface TranslationDict {
   completed: string;
   reward: string;
   ach_tip: string;
+
+  // Hero & Realm Selection Flow
+  step_1_sub: string;
+  step_2_sub: string;
+  choose_destination_realm: string;
+  change_hero: string;
+  active_ability_deck: string;
+  click_card_to_equip: string;
+  primary: string;
+  awakened: string;
+  unlock_ability_gold: string;
+  proceed_to_realm: string;
+  view_unlock_achievements: string;
+  cipher_restricted: string;
+  cipher_restricted_desc: string;
+  sealed_vessel: string;
+  threat_level_1: string;
+  threat_level_2: string;
+  threat_level_3: string;
+  realm_unlocked: string;
+  back_to_heroes: string;
+  descend_into: string;
+  hp_stat: string;
+  armor_stat: string;
+  speed_stat: string;
+  weapon_stat: string;
+  pick_btn: string;
+  selected_badge: string;
+  analyze_btn: string;
+
+  // In-Game HUD
+  quest_compass: string;
+  active_ritual: string;
+  ready_space: string;
+  shrine_altar: string;
+  archon_awakens: string;
+  inevitable_death: string;
+  enraged: string;
+  locked_badge: string;
+  open_slot: string;
+
+  // Inventory & Slots
+  locked_slot_title: string;
+  unlock_via_achievements: string;
+  empty_slot: string;
+
+  // Secret Achievements & Mystery
+  corrupted_record: string;
+  corrupted_record_desc: string;
+  classified_reward: string;
+  cipher_badge: string;
+
+  // Game Over & General
+  player_name_placeholder: string;
+  survivor_default: string;
+  hero: string;
+  level_up: string;
+  skip_animation: string;
+  collect_all_rewards: string;
+  super_evolution_hint: string;
+  achievement_unlocked: string;
+  unlocked_reward: string;
+  loading: string;
 }
 
 export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
@@ -226,6 +289,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'COMPLETED',
     reward: 'Reward:',
     ach_tip: 'Unlocking achievements permanently grants new heroes, weapons, passives, and bonus gold!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'STEP 1 OF 2 • HERO SELECTION',
+    step_2_sub: 'STEP 2 OF 2 • REALM SELECTION',
+    choose_destination_realm: 'CHOOSE DESTINATION REALM',
+    change_hero: 'CHANGE HERO',
+    active_ability_deck: 'ACTIVE ABILITY DECK',
+    click_card_to_equip: 'CLICK CARD TO EQUIP',
+    primary: 'PRIMARY',
+    awakened: 'AWAKENED',
+    unlock_ability_gold: 'UNLOCK (500 GOLD)',
+    proceed_to_realm: 'PROCEED TO REALM SELECTION',
+    view_unlock_achievements: 'VIEW UNLOCK ACHIEVEMENTS',
+    cipher_restricted: '[CORRUPTED ENTITY // CIPHER RESTRICTED]',
+    cipher_restricted_desc: 'The astral presence of this entity cannot be unsealed. Defeat The Ancient One (Grim Reaper) to banish the cosmic death shroud.',
+    sealed_vessel: '[SEALED VESSEL - LOCKED]',
+    threat_level_1: 'THREAT LEVEL I',
+    threat_level_2: 'THREAT LEVEL II',
+    threat_level_3: 'THREAT LEVEL III',
+    realm_unlocked: '[REALM UNLOCKED]',
+    back_to_heroes: 'BACK TO HEROES',
+    descend_into: 'DESCEND INTO',
+    hp_stat: 'HP',
+    armor_stat: 'ARMOR',
+    speed_stat: 'SPEED',
+    weapon_stat: 'WEAPON',
+    pick_btn: 'PICK',
+    selected_badge: '[SELECTED]',
+    analyze_btn: 'ANALYZE',
+
+    // In-Game HUD
+    quest_compass: 'QUEST COMPASS',
+    active_ritual: 'Active Ritual',
+    ready_space: 'READY [SPACE]',
+    shrine_altar: 'ALTAR',
+    archon_awakens: 'ARCHON OF THE VOID AWAKENS',
+    inevitable_death: 'INEVITABLE DEATH',
+    enraged: 'ENRAGED',
+    locked_badge: 'LOCK',
+    open_slot: 'OPEN',
+
+    // Inventory & Slots
+    locked_slot_title: '[LOCKED SLOT]',
+    unlock_via_achievements: 'Unlock via Achievements',
+    empty_slot: '[Empty Slot]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[CORRUPTED RECORD]',
+    corrupted_record_desc: 'Corrupted void cipher detected. The cosmic trial and true nature of this entity remain shrouded in oblivion.',
+    classified_reward: '[CLASSIFIED REWARD]',
+    cipher_badge: 'CIPHER',
+
+    // Game Over & General
+    player_name_placeholder: 'Player Name',
+    survivor_default: 'Survivor',
+    hero: 'Hero',
+    level_up: 'LEVEL UP!',
+    skip_animation: 'SKIP ANIMATION >>',
+    collect_all_rewards: 'COLLECT ALL REWARDS!',
+    super_evolution_hint: 'Lvl 8 + Passive = Super Evolution',
+    achievement_unlocked: 'ACHIEVEMENT UNLOCKED!',
+    unlocked_reward: 'Unlocked',
+    loading: 'Loading...',
   },
 
   tr: {
@@ -317,6 +443,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'TAMAMLANDI',
     reward: 'Ödül:',
     ach_tip: 'Başarımları tamamlamak kalıcı olarak yeni kahramanlar, silahlar ve altın kazandırır!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'AŞAMA 1 / 2 • KAHRAMAN SEÇİMİ',
+    step_2_sub: 'AŞAMA 2 / 2 • DİYAR SEÇİMİ',
+    choose_destination_realm: 'HEDEF DİYARI SEÇ',
+    change_hero: 'KAHRAMANI DEĞİŞTİR',
+    active_ability_deck: 'AKTİF YETENEK DESTESİ',
+    click_card_to_equip: 'KUŞANMAK İÇİN TIKLA',
+    primary: 'BİRİNCİL',
+    awakened: 'UYANMIŞ',
+    unlock_ability_gold: 'KİLİDİ AÇ (500 ALTIN)',
+    proceed_to_realm: 'DİYAR SEÇİMİNE İLERLE',
+    view_unlock_achievements: 'KİLİT BAŞARIMLARINI GÖR',
+    cipher_restricted: '[BOZULMUŞ VARLIK // ŞİFRE KISITLI]',
+    cipher_restricted_desc: 'Bu varlığın astral mührü kırılamıyor. Kozmik ölüm örtüsünü kaldırmak için Kadim Olan\'ı (Grim Reaper) alt et.',
+    sealed_vessel: '[MÜHÜRLÜ BEDEN - KİLİTLİ]',
+    threat_level_1: 'TEHDİT SEVİYESİ I',
+    threat_level_2: 'TEHDİT SEVİYESİ II',
+    threat_level_3: 'TEHDİT SEVİYESİ III',
+    realm_unlocked: '[DİYAR AÇILDI]',
+    back_to_heroes: 'KAHRAMANLARA DÖN',
+    descend_into: 'DİYARA İNİŞ YAP:',
+    hp_stat: 'CAN',
+    armor_stat: 'ZIRH',
+    speed_stat: 'HIZ',
+    weapon_stat: 'SİLAH',
+    pick_btn: 'SEÇ',
+    selected_badge: '[SEÇİLDİ]',
+    analyze_btn: 'İNCELER',
+
+    // In-Game HUD
+    quest_compass: 'GÖREV PUSULASI',
+    active_ritual: 'Aktif Ritüel',
+    ready_space: 'HAZIR [SPACE]',
+    shrine_altar: 'SUNAK',
+    archon_awakens: 'HİÇLİĞİN HÜKÜMDARI UYANIYOR',
+    inevitable_death: 'KAÇINILMAZ ÖLÜM',
+    enraged: 'ÖFKELİ',
+    locked_badge: 'KİLİT',
+    open_slot: 'AÇIK',
+
+    // Inventory & Slots
+    locked_slot_title: '[KİLİTLİ SLOT]',
+    unlock_via_achievements: 'Başarımlarla Açılır',
+    empty_slot: '[Boş Slot]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[BOZULMUŞ KAYIT]',
+    corrupted_record_desc: 'Bozulmuş hiçlik sinyali tespit edildi. Bu varlığın kozmik sınavı ve asıl kimliği karanlığa gömülü kalmaya devam ediyor.',
+    classified_reward: '[GİZLİ ÖDÜL]',
+    cipher_badge: 'ŞİFRE',
+
+    // Game Over & General
+    player_name_placeholder: 'Oyuncu Adı',
+    survivor_default: 'Hayatta Kalan',
+    hero: 'Kahraman',
+    level_up: 'SEVİYE ATLADIN!',
+    skip_animation: 'ANİMASYONU GEÇ >>',
+    collect_all_rewards: 'TÜM ÖDÜLLERİ AL!',
+    super_evolution_hint: 'Sv 8 + Pasif = Süper Evrim',
+    achievement_unlocked: 'BAŞARIM AÇILDI!',
+    unlocked_reward: 'Açıldı',
+    loading: 'Yükleniyor...',
   },
 
   es: {
@@ -408,6 +597,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'COMPLETADO',
     reward: 'Recompensa:',
     ach_tip: '¡Completar logros desbloquea nuevos héroes, armas, pasivas y oro extra!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'PASO 1 DE 2 • SELECCIÓN DE HÉROE',
+    step_2_sub: 'PASO 2 DE 2 • SELECCIÓN DE REINO',
+    choose_destination_realm: 'ELIGE EL REINO DE DESTINO',
+    change_hero: 'CAMBIAR HÉROE',
+    active_ability_deck: 'MAZO DE HABILIDADES ACTIVAS',
+    click_card_to_equip: 'CLIC EN LA CARTA PARA EQUIPAR',
+    primary: 'PRIMARIA',
+    awakened: 'DESPERTADA',
+    unlock_ability_gold: 'DESBLOQUEAR (500 ORO)',
+    proceed_to_realm: 'CONTINUAR A ELECCIÓN DE REINO',
+    view_unlock_achievements: 'VER LOGROS DE DESBLOQUEO',
+    cipher_restricted: '[ENTIDAD CORRUPTA // CIFRADO RESTRINGIDO]',
+    cipher_restricted_desc: 'La presencia astral de esta entidad no puede ser liberada. Derrota a El Anciano (Grim Reaper) para desterrar el velo de muerte cósmica.',
+    sealed_vessel: '[RECIPIENTE SELLADO - BLOQUEADO]',
+    threat_level_1: 'NIVEL DE AMENAZA I',
+    threat_level_2: 'NIVEL DE AMENAZA II',
+    threat_level_3: 'NIVEL DE AMENAZA III',
+    realm_unlocked: '[REINO DESBLOQUEADO]',
+    back_to_heroes: 'VOLVER A HÉROES',
+    descend_into: 'DESCENDER A',
+    hp_stat: 'SALUD',
+    armor_stat: 'ARMADURA',
+    speed_stat: 'VELOCIDAD',
+    weapon_stat: 'ARMA',
+    pick_btn: 'ELEGIR',
+    selected_badge: '[SELECCIONADO]',
+    analyze_btn: 'ANALIZAR',
+
+    // In-Game HUD
+    quest_compass: 'BRÚJULA DE MISIÓN',
+    active_ritual: 'Ritual Activo',
+    ready_space: 'LISTO [ESPACIO]',
+    shrine_altar: 'ALTAR',
+    archon_awakens: 'EL ARCONTE DEL VACÍO DESPIERTA',
+    inevitable_death: 'MUERTE INEVITABLE',
+    enraged: 'ENFURECIDO',
+    locked_badge: 'BLOQ',
+    open_slot: 'ABIERTO',
+
+    // Inventory & Slots
+    locked_slot_title: '[ESPACIO BLOQUEADO]',
+    unlock_via_achievements: 'Desbloquear mediante Logros',
+    empty_slot: '[Espacio Vacío]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[REGISTRO CORRUPTO]',
+    corrupted_record_desc: 'Señal corrupta del vacío detectada. El juicio cósmico y la verdadera naturaleza de esta entidad permanecen envueltos en el olvido.',
+    classified_reward: '[RECOMPENSA CLASIFICADA]',
+    cipher_badge: 'CIFRADO',
+
+    // Game Over & General
+    player_name_placeholder: 'Nombre de Jugador',
+    survivor_default: 'Superviviente',
+    hero: 'Héroe',
+    level_up: '¡SUBIDA DE NIVEL!',
+    skip_animation: 'SALTAR ANIMACIÓN >>',
+    collect_all_rewards: '¡RECLAMAR TODAS LAS RECOMPENSAS!',
+    super_evolution_hint: 'Nv 8 + Pasiva = Súper Evolución',
+    achievement_unlocked: '¡LOGRO DESBLOQUEADO!',
+    unlocked_reward: 'Desbloqueado',
+    loading: 'Cargando...',
   },
 
   de: {
@@ -499,6 +751,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'ABGESCHLOSSEN',
     reward: 'Belohnung:',
     ach_tip: 'Erfolge schalten dauerhaft Helden, Waffen, Passiva und Gold frei!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'SCHRITT 1 VON 2 • HELDENWAHL',
+    step_2_sub: 'SCHRITT 2 VON 2 • REICHSAUSWAHL',
+    choose_destination_realm: 'ZIELREICH WÄHLEN',
+    change_hero: 'HELD WECHSELN',
+    active_ability_deck: 'AKTIVES FÄHIGKEITEN-DECK',
+    click_card_to_equip: 'KARTE KLICKEN ZUM AUSRÜSTEN',
+    primary: 'PRIMÄR',
+    awakened: 'ERWACHT',
+    unlock_ability_gold: 'FREISCHALTEN (500 GOLD)',
+    proceed_to_realm: 'WEITER ZUR REICHSAUSWAHL',
+    view_unlock_achievements: 'FREISCHALT-ERFOLGE ANSEHEN',
+    cipher_restricted: '[KORRUMPIERTE ENTITÄT // CHIFFRE GESPERRT]',
+    cipher_restricted_desc: 'Die astrale Präsenz dieser Entität kann nicht entsiegelt werden. Besiege den Uralten (Grim Reaper), um den kosmischen Todesschleier zu bannen.',
+    sealed_vessel: '[VERSIEGELTES GEFÄSS - GESPERRT]',
+    threat_level_1: 'BEDROHUNGSSTUFE I',
+    threat_level_2: 'BEDROHUNGSSTUFE II',
+    threat_level_3: 'BEDROHUNGSSTUFE III',
+    realm_unlocked: '[REICH FREIGESCHALTET]',
+    back_to_heroes: 'ZURÜCK ZU DEN HELDEN',
+    descend_into: 'HINABSTEIGEN NACH',
+    hp_stat: 'LP',
+    armor_stat: 'RÜSTUNG',
+    speed_stat: 'TEMPO',
+    weapon_stat: 'WAFFE',
+    pick_btn: 'WÄHLEN',
+    selected_badge: '[GEWÄHLT]',
+    analyze_btn: 'ANALYSIEREN',
+
+    // In-Game HUD
+    quest_compass: 'QUEST-KOMPASS',
+    active_ritual: 'Aktives Ritual',
+    ready_space: 'BEREIT [LEERTASTE]',
+    shrine_altar: 'ALTAR',
+    archon_awakens: 'DER ARCHON DER LEERE ERWACHT',
+    inevitable_death: 'UNVERMEIDLICHER TOD',
+    enraged: 'ENTFESSELT',
+    locked_badge: 'SCHLUSS',
+    open_slot: 'OFFEN',
+
+    // Inventory & Slots
+    locked_slot_title: '[GESPERRTER PLATZ]',
+    unlock_via_achievements: 'Über Erfolge freischalten',
+    empty_slot: '[Leerer Platz]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[KORRUMPIERTER EINTRAG]',
+    corrupted_record_desc: 'Korruptes Leeren-Signal erkannt. Die kosmische Prüfung und das Wesen dieser Entität bleiben im Vergessen versiegelt.',
+    classified_reward: '[GEHEIME BELOHNUNG]',
+    cipher_badge: 'CHIFFRE',
+
+    // Game Over & General
+    player_name_placeholder: 'Spielername',
+    survivor_default: 'Überlebender',
+    hero: 'Held',
+    level_up: 'STUFENAUFSTIEG!',
+    skip_animation: 'ANIMATION ÜBERSPRINGEN >>',
+    collect_all_rewards: 'ALLE BELOHNUNGEN EINSAMMELN!',
+    super_evolution_hint: 'St 8 + Passiv = Super-Evolution',
+    achievement_unlocked: 'ERFOLG FREIGESCHALTET!',
+    unlocked_reward: 'Freigeschaltet',
+    loading: 'Wird geladen...',
   },
 
   fr: {
@@ -590,6 +905,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'TERMINÉ',
     reward: 'Récompense :',
     ach_tip: 'Débloquer des succès offre des héros, armes et or permanents !',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'ÉTAPE 1 SUR 2 • SÉLECTION DU HÉROS',
+    step_2_sub: 'ÉTAPE 2 SUR 2 • SÉLECTION DU ROYAUME',
+    choose_destination_realm: 'CHOISIR LE ROYAUME DE DESTINATION',
+    change_hero: 'CHANGER DE HÉROS',
+    active_ability_deck: 'DECK DE COMPÉTENCES ACTIVES',
+    click_card_to_equip: 'CLIQUER SUR LA CARTE POUR ÉQUIPER',
+    primary: 'PRIMAIRE',
+    awakened: 'ÉVEILLÉE',
+    unlock_ability_gold: 'DÉBLOQUER (500 OR)',
+    proceed_to_realm: 'PASSER À LA SÉLECTION DU ROYAUME',
+    view_unlock_achievements: 'VOIR LES SUCCÈS DE DÉBLOCAGE',
+    cipher_restricted: '[ENTITÉ CORROMPUE // CHIFFRE RESTREINT]',
+    cipher_restricted_desc: 'La présence astrale de cette entité ne peut être descellée. Vainquez l\'Ancien (Grim Reaper) pour bannir le suaire de mort cosmique.',
+    sealed_vessel: '[RÉCEPTACLE SCELLÉ - VERROUILLÉ]',
+    threat_level_1: 'NIVEAU DE MENACE I',
+    threat_level_2: 'NIVEAU DE MENACE II',
+    threat_level_3: 'NIVEAU DE MENACE III',
+    realm_unlocked: '[ROYAUME DÉVERROUILLÉ]',
+    back_to_heroes: 'RETOUR AUX HÉROS',
+    descend_into: 'DESCENDRE DANS',
+    hp_stat: 'PV',
+    armor_stat: 'ARMURE',
+    speed_stat: 'VITESSE',
+    weapon_stat: 'ARME',
+    pick_btn: 'CHOISIR',
+    selected_badge: '[SÉLECTIONNÉ]',
+    analyze_btn: 'ANALYSER',
+
+    // In-Game HUD
+    quest_compass: 'BOUSSOLE DE QUÊTE',
+    active_ritual: 'Ritual Actif',
+    ready_space: 'PRÊT [ESPACE]',
+    shrine_altar: 'AUTEL',
+    archon_awakens: 'L\'ARCHONTE DU NÉANT S\'ÉVEILLE',
+    inevitable_death: 'MORT INÉLUCTABLE',
+    enraged: 'ENRAGÉ',
+    locked_badge: 'VERR',
+    open_slot: 'LIBRE',
+
+    // Inventory & Slots
+    locked_slot_title: '[EMPLACEMENT VERROUILLÉ]',
+    unlock_via_achievements: 'Débloquer via les succès',
+    empty_slot: '[Emplacement Vide]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[REGISTRE CORROMPU]',
+    corrupted_record_desc: 'Signal du néant corrompu détecté. L\'épreuve cosmique et la véritable identité de cette entité restent scellées dans l\'oubli.',
+    classified_reward: '[RÉCOMPENSE CLASSIFIÉE]',
+    cipher_badge: 'CHIFFRE',
+
+    // Game Over & General
+    player_name_placeholder: 'Nom du Joueur',
+    survivor_default: 'Survivant',
+    hero: 'Héros',
+    level_up: 'NIVEAU SUPÉRIEUR !',
+    skip_animation: "PASSER L'ANIMATION >>",
+    collect_all_rewards: 'RÉCUPÉRER TOUTES LES RÉCOMPENSES !',
+    super_evolution_hint: 'Niv 8 + Passif = Super Évolution',
+    achievement_unlocked: 'SUCCÈS DÉVERROUILLÉ !',
+    unlocked_reward: 'Déverrouillé',
+    loading: 'Chargement...',
   },
 
   ja: {
@@ -681,6 +1059,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: '達成',
     reward: '報酬:',
     ach_tip: '実績を達成すると永続的に新しい英雄や武器がアンロックされます！',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'ステップ 1 / 2 • 英雄の選択',
+    step_2_sub: 'ステップ 2 / 2 • 領域の選択',
+    choose_destination_realm: '目的地の領域を選択',
+    change_hero: '英雄を変更',
+    active_ability_deck: 'アクティブ能力デッキ',
+    click_card_to_equip: 'クリックして装備',
+    primary: '基本能力',
+    awakened: '覚醒能力',
+    unlock_ability_gold: '解放 (500 ゴールド)',
+    proceed_to_realm: '領域選択へ進む',
+    view_unlock_achievements: '解放実績を確認',
+    cipher_restricted: '[浸食された存在 // 暗号制限中]',
+    cipher_restricted_desc: 'この存在のアストラル体は封印されています。死神（グリム・リーパー）を討伐し宇宙の死の帳を払ってください。',
+    sealed_vessel: '[封印されし器 - ロック中]',
+    threat_level_1: '脅威度 I',
+    threat_level_2: '脅威度 II',
+    threat_level_3: '脅威度 III',
+    realm_unlocked: '[領域解放済み]',
+    back_to_heroes: '英雄一覧に戻る',
+    descend_into: '降臨する:',
+    hp_stat: '体力',
+    armor_stat: '防御',
+    speed_stat: '速度',
+    weapon_stat: '武器',
+    pick_btn: '選択',
+    selected_badge: '[選択中]',
+    analyze_btn: '解析',
+
+    // In-Game HUD
+    quest_compass: '任務コンパス',
+    active_ritual: '進行中の儀式',
+    ready_space: '準備完了 [SPACE]',
+    shrine_altar: '祭壇',
+    archon_awakens: '虚無のアルコーンが覚醒する',
+    inevitable_death: '不可避の死',
+    enraged: '激昂状態',
+    locked_badge: '施錠',
+    open_slot: '空き',
+
+    // Inventory & Slots
+    locked_slot_title: '[施錠スロット]',
+    unlock_via_achievements: '実績達成で解放',
+    empty_slot: '[空きスロット]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[破損した記録]',
+    corrupted_record_desc: '虚無の異常信号を受信。この存在の宇宙的試練と正体は忘却の彼方に封印されています。',
+    classified_reward: '[極秘報酬]',
+    cipher_badge: '暗号',
+
+    // Game Over & General
+    player_name_placeholder: 'プレイヤー名',
+    survivor_default: '生存者',
+    hero: '英雄',
+    level_up: 'レベルアップ！',
+    skip_animation: '演出をスキップ >>',
+    collect_all_rewards: 'すべての報酬を獲得！',
+    super_evolution_hint: 'Lv 8 + パッシブ = スーパー進化',
+    achievement_unlocked: '実績解除！',
+    unlocked_reward: '解除',
+    loading: '読み込み中...',
   },
 
   ko: {
@@ -772,6 +1213,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: '완료됨',
     reward: '보상:',
     ach_tip: '업적을 완료하면 영구적으로 새로운 영웅과 무기가 잠금 해제됩니다!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: '단계 1 / 2 • 영웅 선택',
+    step_2_sub: '단계 2 / 2 • 차원 선택',
+    choose_destination_realm: '목적지 차원 선택',
+    change_hero: '영웅 변경',
+    active_ability_deck: '액티브 스킬 덱',
+    click_card_to_equip: '카드를 클릭하여 장착',
+    primary: '기본 능력',
+    awakened: '각성 능력',
+    unlock_ability_gold: '잠금 해제 (500 골드)',
+    proceed_to_realm: '차원 선택으로 이동',
+    view_unlock_achievements: '해금 업적 확인',
+    cipher_restricted: '[오염된 개체 // 암호 제한됨]',
+    cipher_restricted_desc: '이 개체의 영혼은 봉인되어 있습니다. 고대 사신(Grim Reaper)을 물리치고 죽음의 장막을 걷어내십시오.',
+    sealed_vessel: '[봉인된 그릇 - 잠김]',
+    threat_level_1: '위협 등급 I',
+    threat_level_2: '위협 등급 II',
+    threat_level_3: '위협 등급 III',
+    realm_unlocked: '[차원 해금됨]',
+    back_to_heroes: '영웅 목록으로',
+    descend_into: '강림하기:',
+    hp_stat: '체력',
+    armor_stat: '방어력',
+    speed_stat: '이동속도',
+    weapon_stat: '무기',
+    pick_btn: '선택',
+    selected_badge: '[선택됨]',
+    analyze_btn: '분석',
+
+    // In-Game HUD
+    quest_compass: '퀘스트 나침반',
+    active_ritual: '활성 의식',
+    ready_space: '준비 완료 [SPACE]',
+    shrine_altar: '제단',
+    archon_awakens: '공허의 지배자가 깨어납니다',
+    inevitable_death: '피할 수 없는 죽음',
+    enraged: '분노 상태',
+    locked_badge: '잠김',
+    open_slot: '비어있음',
+
+    // Inventory & Slots
+    locked_slot_title: '[잠긴 슬롯]',
+    unlock_via_achievements: '업적으로 잠금 해제',
+    empty_slot: '[빈 슬롯]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[손상된 기록]',
+    corrupted_record_desc: '공허 신호가 감지되었습니다. 이 개체의 시련과 정체는 여전히 망각 속에 봉인되어 있습니다.',
+    classified_reward: '[기밀 보상]',
+    cipher_badge: '암호',
+
+    // Game Over & General
+    player_name_placeholder: '플레이어 이름',
+    survivor_default: '생존자',
+    hero: '영웅',
+    level_up: '레벨 업!',
+    skip_animation: '애니메이션 건너뛰기 >>',
+    collect_all_rewards: '모든 보상 받기!',
+    super_evolution_hint: 'Lv 8 + 패시브 = 슈퍼 진화',
+    achievement_unlocked: '업적 달성!',
+    unlocked_reward: '해금됨',
+    loading: '로딩 중...',
   },
 
   zh: {
@@ -863,6 +1367,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: '已完成',
     reward: '奖励:',
     ach_tip: '完成成就可永久解锁新英雄、武器、被动物品和额外金币！',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: '步骤 1 / 2 • 选择英雄',
+    step_2_sub: '步骤 2 / 2 • 选择领域',
+    choose_destination_realm: '选择降临领域',
+    change_hero: '更换英雄',
+    active_ability_deck: '主动技能栏',
+    click_card_to_equip: '点击卡牌进行装备',
+    primary: '基础技能',
+    awakened: '觉醒技能',
+    unlock_ability_gold: '解锁 (500 金币)',
+    proceed_to_realm: '前往选择领域',
+    view_unlock_achievements: '查看解锁成就',
+    cipher_restricted: '[腐蚀实体 // 密码限制]',
+    cipher_restricted_desc: '该实体的星体封印无法解开。击败古老死神（Grim Reaper）以驱散宇宙死亡阴霾。',
+    sealed_vessel: '[封印躯体 - 已锁定]',
+    threat_level_1: '威胁等级 I',
+    threat_level_2: '威胁等级 II',
+    threat_level_3: '威胁等级 III',
+    realm_unlocked: '[领域已解锁]',
+    back_to_heroes: '返回英雄列表',
+    descend_into: '降临于：',
+    hp_stat: '生命值',
+    armor_stat: '护甲',
+    speed_stat: '移速',
+    weapon_stat: '初始武器',
+    pick_btn: '选择',
+    selected_badge: '[已选择]',
+    analyze_btn: '解析',
+
+    // In-Game HUD
+    quest_compass: '任务罗盘',
+    active_ritual: '进行中的仪式',
+    ready_space: '就绪 [空格]',
+    shrine_altar: '祭坛',
+    archon_awakens: '虚空执政官苏醒',
+    inevitable_death: '不可避免的死亡',
+    enraged: '狂暴状态',
+    locked_badge: '锁定',
+    open_slot: '开放',
+
+    // Inventory & Slots
+    locked_slot_title: '[锁定槽位]',
+    unlock_via_achievements: '通过成就解锁',
+    empty_slot: '[空槽位]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[损坏的档案]',
+    corrupted_record_desc: '检测到虚空腐蚀信号。该实体的宇宙试炼与真面目仍被封存于遗忘之中。',
+    classified_reward: '[机密奖励]',
+    cipher_badge: '密码',
+
+    // Game Over & General
+    player_name_placeholder: '玩家名称',
+    survivor_default: '幸存者',
+    hero: '英雄',
+    level_up: '等级提升！',
+    skip_animation: '跳过动画 >>',
+    collect_all_rewards: '领取全部奖励！',
+    super_evolution_hint: '8级 + 被动 = 超武进化',
+    achievement_unlocked: '成就解锁！',
+    unlocked_reward: '已解锁',
+    loading: '加载中...',
   },
 
   pt: {
@@ -954,6 +1521,69 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'CONCLUÍDO',
     reward: 'Recompensa:',
     ach_tip: 'Concluir conquistas desbloqueia permanentemente novos heróis, armas, passivas e ouro!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'ETAPA 1 DE 2 • SELEÇÃO DE HERÓI',
+    step_2_sub: 'ETAPA 2 DE 2 • SELEÇÃO DE REINO',
+    choose_destination_realm: 'ESCOLHA O REINO DE DESTINO',
+    change_hero: 'TROCAR HERÓI',
+    active_ability_deck: 'BARALHO DE HABILIDADES ATIVAS',
+    click_card_to_equip: 'CLIQUE NA CARTA PARA EQUIPAR',
+    primary: 'PRIMÁRIA',
+    awakened: 'DESPERTADA',
+    unlock_ability_gold: 'DESBLOQUEAR (500 OURO)',
+    proceed_to_realm: 'PROSSEGUIR PARA O REINO',
+    view_unlock_achievements: 'VER CONQUISTAS DE DESBLOQUEIO',
+    cipher_restricted: '[ENTIDADE CORROMPIDA // CIFRA RESTRITA]',
+    cipher_restricted_desc: 'A presença astral desta entidade não pode ser liberada. Derrote O Ancião (Grim Reaper) para banir a mortalha da morte cósmica.',
+    sealed_vessel: '[RECIPIENTE SELADO - BLOQUEADO]',
+    threat_level_1: 'NÍVEL DE AMEAÇA I',
+    threat_level_2: 'NÍVEL DE AMEAÇA II',
+    threat_level_3: 'NÍVEL DE AMEAÇA III',
+    realm_unlocked: '[REINO DESBLOQUEADO]',
+    back_to_heroes: 'VOLTAR AOS HERÓIS',
+    descend_into: 'DESCENDER EM',
+    hp_stat: 'VIDA',
+    armor_stat: 'ARMADURA',
+    speed_stat: 'VELOCIDADE',
+    weapon_stat: 'ARMA',
+    pick_btn: 'ESCOLHER',
+    selected_badge: '[SELECIONADO]',
+    analyze_btn: 'ANALISAR',
+
+    // In-Game HUD
+    quest_compass: 'BÚSSOLA DE MISSÃO',
+    active_ritual: 'Ritual Ativo',
+    ready_space: 'PRONTO [ESPAÇO]',
+    shrine_altar: 'ALTAR',
+    archon_awakens: 'O ARCONTE DO VAZIO DESPERTA',
+    inevitable_death: 'MORTE INEVITÁVEL',
+    enraged: 'ENFURECIDO',
+    locked_badge: 'BLOQ',
+    open_slot: 'ABERTO',
+
+    // Inventory & Slots
+    locked_slot_title: '[ESPAÇO BLOQUEADO]',
+    unlock_via_achievements: 'Desbloquear via Conquistas',
+    empty_slot: '[Espaço Vazio]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[REGISTRO CORROMPIDO]',
+    corrupted_record_desc: 'Sinal corrompido do vazio detectado. A provação cósmica e a verdadeira natureza desta entidade permanecem no esquecimento.',
+    classified_reward: '[RECOMPENSA CONFIDENCIAL]',
+    cipher_badge: 'CIFRA',
+
+    // Game Over & General
+    player_name_placeholder: 'Nome do Jogador',
+    survivor_default: 'Sobrevivente',
+    hero: 'Herói',
+    level_up: 'SUBIU DE NÍVEL!',
+    skip_animation: 'PULAR ANIMAÇÃO >>',
+    collect_all_rewards: 'COLETAR TODAS AS RECOMPENSAS!',
+    super_evolution_hint: 'Nív 8 + Passiva = Super Evolução',
+    achievement_unlocked: 'CONQUISTA DESBLOQUEADA!',
+    unlocked_reward: 'Desbloqueado',
+    loading: 'Carregando...',
   },
 
   ru: {
@@ -1045,5 +1675,68 @@ export const TRANSLATIONS: Record<SupportedLanguage, TranslationDict> = {
     completed: 'ВЫПОЛНЕНО',
     reward: 'Награда:',
     ach_tip: 'Достижения навсегда открывают новых героев, оружие, пассивки и золото!',
+
+    // Hero & Realm Selection Flow
+    step_1_sub: 'ЭТАП 1 ИЗ 2 • ВЫБОР ГЕРОЯ',
+    step_2_sub: 'ЭТАП 2 ИЗ 2 • ВЫБОР МИРА',
+    choose_destination_realm: 'ВЫБЕРИТЕ МИР НАЗНАЧЕНИЯ',
+    change_hero: 'СМЕНИТЬ ГЕРОЯ',
+    active_ability_deck: 'КОЛОДА АКТИВНЫХ НАВЫКОВ',
+    click_card_to_equip: 'НАЖМИТЕ НА КАРТУ ДЛЯ ЭКИПИРОВКИ',
+    primary: 'БАЗОВЫЙ',
+    awakened: 'ПРОБУЖДЕННЫЙ',
+    unlock_ability_gold: 'ОТКРЫТЬ (500 ЗОЛОТА)',
+    proceed_to_realm: 'ПЕРЕЙТИ К ВЫБОРУ МИРА',
+    view_unlock_achievements: 'СМОТРЕТЬ ДОСТИЖЕНИЯ',
+    cipher_restricted: '[ИСКАЖЕННАЯ СУЩНОСТЬ // ШИФР ЗАБЛОКИРОВАН]',
+    cipher_restricted_desc: 'Астральное присутствие этой сущности запечатано. Победите Древнего (Grim Reaper), чтобы развеять покров космической смерти.',
+    sealed_vessel: '[ЗАПЕЧАТАННЫЙ СОСУД - ЗАКРЫТО]',
+    threat_level_1: 'УРОВЕНЬ УГРОЗЫ I',
+    threat_level_2: 'УРОВЕНЬ УГРОЗЫ II',
+    threat_level_3: 'УРОВЕНЬ УГРОЗЫ III',
+    realm_unlocked: '[МИР РАЗБЛОКИРОВАН]',
+    back_to_heroes: 'НАЗАД К ГЕРОЯМ',
+    descend_into: 'СПУСТИТЬСЯ В',
+    hp_stat: 'ЗДОРОВЬЕ',
+    armor_stat: 'БРОНЯ',
+    speed_stat: 'СКОРОСТЬ',
+    weapon_stat: 'ОРУЖИЕ',
+    pick_btn: 'ВЫБРАТЬ',
+    selected_badge: '[ВЫБРАНО]',
+    analyze_btn: 'АНАЛИЗ',
+
+    // In-Game HUD
+    quest_compass: 'КОМПАС ЗАДАНИЙ',
+    active_ritual: 'Активный Ритуал',
+    ready_space: 'ГОТОВО [ПРОБЕЛ]',
+    shrine_altar: 'АЛТАРЬ',
+    archon_awakens: 'АРХОНТ БЕЗДНЫ ПРОБУЖДАЕТСЯ',
+    inevitable_death: 'НЕИЗБЕЖНАЯ СМЕРТЬ',
+    enraged: 'В ЯРОСТИ',
+    locked_badge: 'ЗАМОК',
+    open_slot: 'ОТКРЫТО',
+
+    // Inventory & Slots
+    locked_slot_title: '[ЗАКРЫТЫЙ СЛОТ]',
+    unlock_via_achievements: 'Открывается достижениями',
+    empty_slot: '[Пустой Слот]',
+
+    // Secret Achievements & Mystery
+    corrupted_record: '[ПОВРЕЖДЕННАЯ ЗАПИСЬ]',
+    corrupted_record_desc: 'Обнаружен поврежденный сигнал бездны. Космическое испытание и сущность этого создания остаются сокрыты во тьме забвения.',
+    classified_reward: '[СЕКРЕТНАЯ НАГРАДА]',
+    cipher_badge: 'ШИФР',
+
+    // Game Over & General
+    player_name_placeholder: 'Имя игрока',
+    survivor_default: 'Выживший',
+    hero: 'Герой',
+    level_up: 'НОВЫЙ УРОВЕНЬ!',
+    skip_animation: 'ПРОПУСТИТЬ АНИМАЦИЮ >>',
+    collect_all_rewards: 'ЗАБРАТЬ ВСЕ НАГРАДЫ!',
+    super_evolution_hint: 'Ур 8 + Пассивка = Супер-эволюция',
+    achievement_unlocked: 'ДОСТИЖЕНИЕ РАЗБЛОКИРОВАНО!',
+    unlocked_reward: 'Разблокировано',
+    loading: 'Загрузка...',
   },
 };

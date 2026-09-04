@@ -1,5 +1,6 @@
 import { sound } from '../core/AudioEngine';
 import { AchievementConfig } from '../config/achievements';
+import { t } from '../i18n';
 
 export class ToastNotification {
   private container: HTMLDivElement;
@@ -40,9 +41,9 @@ export class ToastNotification {
         ACH
       </div>
       <div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-amber-400">ACHIEVEMENT UNLOCKED!</div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-amber-400">${t('achievement_unlocked')}</div>
         <div class="text-sm font-black text-white">${ach.name}</div>
-        <div class="text-[11px] text-emerald-400 font-mono mt-0.5">Unlocked: ${ach.rewardName}</div>
+        <div class="text-[11px] text-emerald-400 font-mono mt-0.5">${t('unlocked_reward')}: ${ach.rewardName}</div>
       </div>
     `;
 

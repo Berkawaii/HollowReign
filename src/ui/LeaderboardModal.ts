@@ -26,7 +26,7 @@ export class LeaderboardModal {
           </button>
         </div>
         <div id="leaderboard-list-container" class="flex-1 overflow-y-auto flex items-center justify-center p-8 text-slate-400 font-mono">
-          Loading...
+          ${t('loading')}
         </div>
       </div>
     `;
@@ -65,7 +65,7 @@ export class LeaderboardModal {
             <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
               <th class="py-2.5 px-3">#</th>
               <th class="py-2.5 px-3">${t('player')}</th>
-              <th class="py-2.5 px-3">${t('weapon')} / Hero</th>
+              <th class="py-2.5 px-3">${t('hero')}</th>
               <th class="py-2.5 px-3">${t('time')}</th>
               <th class="py-2.5 px-3">${t('kills')}</th>
               <th class="py-2.5 px-3">${t('level')}</th>

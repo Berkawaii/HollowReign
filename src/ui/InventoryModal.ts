@@ -142,7 +142,7 @@ export class InventoryModal {
             <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
               <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2.5 flex items-center justify-between border-b border-slate-800 pb-1.5">
                 <span>${t('equipped_weapons')} (${p.weapons.length}/${maxWeapons})</span>
-                <span class="text-[10px] text-slate-400">Lvl 8 + Passive = Super Evolution</span>
+                <span class="text-[10px] text-slate-400">${t('super_evolution_hint')}</span>
               </h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -153,14 +153,14 @@ export class InventoryModal {
                       if (idx >= maxWeapons) {
                         return `
                           <div class="h-20 rounded-xl bg-slate-950/40 border border-slate-900 flex flex-col items-center justify-center text-slate-600 text-xs font-mono">
-                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">[LOCKED SLOT]</span>
-                            <span class="text-[9px] text-slate-600 mt-1">Unlock via Achievements</span>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">${t('locked_slot_title')}</span>
+                            <span class="text-[9px] text-slate-600 mt-1">${t('unlock_via_achievements')}</span>
                           </div>
                         `;
                       }
                       return `
                         <div class="h-20 rounded-xl bg-slate-900/30 border border-dashed border-slate-800/80 flex items-center justify-center text-slate-600 text-xs font-bold">
-                          [Empty Slot]
+                          ${t('empty_slot')}
                         </div>
                       `;
                     }
@@ -231,14 +231,14 @@ export class InventoryModal {
                       if (idx >= maxPassives) {
                         return `
                           <div class="h-16 rounded-xl bg-slate-950/40 border border-slate-900 flex flex-col items-center justify-center text-slate-600 text-xs font-mono">
-                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">[LOCKED SLOT]</span>
-                            <span class="text-[9px] text-slate-600 mt-0.5">Unlock via Achievements</span>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">${t('locked_slot_title')}</span>
+                            <span class="text-[9px] text-slate-600 mt-0.5">${t('unlock_via_achievements')}</span>
                           </div>
                         `;
                       }
                       return `
                         <div class="h-16 rounded-xl bg-slate-900/30 border border-dashed border-slate-800/80 flex items-center justify-center text-slate-600 text-xs font-bold">
-                          [Empty Slot]
+                          ${t('empty_slot')}
                         </div>
                       `;
                     }

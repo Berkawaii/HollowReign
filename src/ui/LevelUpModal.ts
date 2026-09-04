@@ -50,7 +50,7 @@ export class LevelUpModal {
         <!-- Header -->
         <div class="text-center mb-6">
           <span class="text-amber-400 font-bold tracking-widest text-xs uppercase bg-amber-950/60 border border-amber-600/40 px-3 py-1 rounded-full">
-            ${t('level')} Up!
+            ${t('level_up')}
           </span>
           <h2 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 mt-2">
             ${t('choose_upgrade')}

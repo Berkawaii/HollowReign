@@ -90,10 +90,10 @@ export class HeroSelectModal {
             <div>
               <div class="flex items-center space-x-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-400/90 uppercase tracking-[0.25em]">STEP 1 OF 2 • HERO SELECTION</span>
+                <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-400/90 uppercase tracking-[0.25em]">${t('step_1_sub')}</span>
               </div>
               <h1 class="text-xl sm:text-2xl md:text-3xl font-gothic font-black text-slate-100 tracking-wide mt-0.5">
-                SELECT YOUR CHAMPION
+                ${t('select_your_hero')}
               </h1>
             </div>
 
@@ -216,7 +216,7 @@ export class HeroSelectModal {
                         ? 'text-slate-500 group-hover:text-slate-300'
                         : 'text-slate-700'
                     } shrink-0 ml-1">
-                      ${isSelected ? '[SELECTED]' : isGlitched ? 'ANALYZE >' : isUnlocked ? 'PICK >' : 'LOCKED'}
+                      ${isSelected ? t('selected_badge') : isGlitched ? `${t('analyze_btn')} >` : isUnlocked ? `${t('pick_btn')} >` : t('locked')}
                     </div>
                   </button>
                 `;
@@ -281,10 +281,10 @@ export class HeroSelectModal {
                       <span class="glitch-text text-2xl font-mono text-rose-400 font-black">X</span>
                     </div>
                     <div class="glitch-text text-sm sm:text-base font-mono font-bold text-rose-400 uppercase tracking-[0.25em] mb-2">
-                      [CORRUPTED ENTITY // CIPHER RESTRICTED]
+                      ${t('cipher_restricted')}
                     </div>
                     <p class="text-xs text-slate-500 font-mono max-w-sm leading-relaxed mb-4">
-                      MEMORY FRAGMENTS AND VESSEL PROTOCOLS REMAIN EXPUNGED. PURGE THE CORRUPTION TO AWAKEN.
+                      ${t('cipher_restricted_desc')}
                     </p>
                     <div class="w-48 h-1 bg-gradient-to-r from-transparent via-rose-500/40 to-transparent"></div>
                   </div>
@@ -292,7 +292,7 @@ export class HeroSelectModal {
 
                 <!-- Action CTA for Glitched State: Zero Spoilers -->
                 <button disabled class="w-full bg-slate-950/80 border border-rose-900/50 text-slate-500 font-gothic font-black text-sm sm:text-base py-3 sm:py-3.5 rounded-xl cursor-not-allowed tracking-widest flex items-center justify-center space-x-2">
-                  <span>[SEALED VESSEL - LOCKED]</span>
+                  <span>${t('sealed_vessel')}</span>
                 </button>
               `
                     : `
@@ -300,14 +300,14 @@ export class HeroSelectModal {
                   !isSelectedHeroUnlocked && unlockHeroReq
                     ? `
                   <button id="hero-unlock-req-btn" class="w-full bg-amber-950/40 hover:bg-amber-900/50 border border-amber-500/50 rounded-xl p-2.5 mb-3 text-center transition cursor-pointer active:scale-95 shadow">
-                    <span class="text-[9px] font-bold text-amber-400 uppercase tracking-widest block font-mono">UNLOCK REQUIREMENT (CLICK TO VIEW)</span>
+                    <span class="text-[9px] font-bold text-amber-400 uppercase tracking-widest block font-mono">${t('unlock_requirement')} (${t('click_card_to_equip')})</span>
                     <p class="text-xs text-slate-200 mt-0.5 font-sans font-bold">${unlockHeroReq.description}</p>
                   </button>
                 `
                     : `
                   <!-- Passive Trait -->
                   <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl mb-3">
-                    <span class="text-[9px] font-bold text-amber-300 uppercase tracking-widest block font-mono">PASSIVE TRAIT</span>
+                    <span class="text-[9px] font-bold text-amber-300 uppercase tracking-widest block font-mono">${t('passive_trait')}</span>
                     <p class="text-xs text-slate-200 mt-0.5 font-sans leading-snug">${this.selectedHero.traitDescription}</p>
                   </div>
                 `
@@ -316,8 +316,8 @@ export class HeroSelectModal {
                 <!-- ACTIVE ABILITY (SPACE) DECK -->
                 <div class="mb-3">
                   <div class="flex items-center justify-between mb-1.5 font-mono">
-                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest">ACTIVE SPECIAL ABILITY [SPACE]</span>
-                    <span class="text-[9px] text-slate-400">CLICK CARD TO EQUIP</span>
+                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest">${t('active_ability_deck')} [SPACE]</span>
+                    <span class="text-[9px] text-slate-400">${t('click_card_to_equip')}</span>
                   </div>
 
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -335,9 +335,9 @@ export class HeroSelectModal {
                         <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability1.description}</p>
                       </div>
                       <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between font-mono text-[9px]">
-                        <span class="text-slate-500">PRIMARY</span>
+                        <span class="text-slate-500">${t('primary')}</span>
                         <span class="font-bold ${equippedAbility === 1 ? 'text-amber-400' : 'text-slate-400'}">
-                          ${equippedAbility === 1 ? '[EQUIPPED]' : 'SELECT >'}
+                          ${equippedAbility === 1 ? `[${t('equipped')}]` : `${t('select_btn')}`}
                         </span>
                       </div>
                     </button>
@@ -359,9 +359,9 @@ export class HeroSelectModal {
                           <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability2.description}</p>
                         </div>
                         <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between font-mono text-[9px]">
-                          <span class="text-amber-400 font-bold">AWAKENED</span>
+                          <span class="text-amber-400 font-bold">${t('awakened')}</span>
                           <span class="font-bold ${equippedAbility === 2 ? 'text-amber-400' : 'text-slate-400'}">
-                            ${equippedAbility === 2 ? '[EQUIPPED]' : 'SELECT >'}
+                            ${equippedAbility === 2 ? `[${t('equipped')}]` : `${t('select_btn')}`}
                           </span>
                         </div>
                       </button>
@@ -377,7 +377,7 @@ export class HeroSelectModal {
                         </div>
                         <div class="mt-2 pt-1 border-t border-slate-900 flex items-center justify-between">
                           <button data-unlock-ability-hero="${this.selectedHero.id}" class="unlock-ability-btn w-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 hover:border-amber-400 py-1 rounded text-[10px] font-mono font-bold text-amber-300 transition active:scale-95 shadow">
-                            UNLOCK (500 GOLD)
+                            ${t('unlock_ability_gold')}
                           </button>
                         </div>
                       </div>
@@ -389,19 +389,19 @@ export class HeroSelectModal {
                 <!-- Attributes Grid -->
                 <div class="grid grid-cols-4 gap-2 text-[10px] font-mono mb-3">
                   <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
-                    <span class="text-slate-500 text-[9px] block">HP</span>
+                    <span class="text-slate-500 text-[9px] block">${t('hp_stat')}</span>
                     <span class="font-bold text-rose-400 text-xs">${this.selectedHero.baseStats.maxHealth}</span>
                   </div>
                   <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
-                    <span class="text-slate-500 text-[9px] block">ARMOR</span>
+                    <span class="text-slate-500 text-[9px] block">${t('armor_stat')}</span>
                     <span class="font-bold text-sky-400 text-xs">+${this.selectedHero.baseStats.armor}</span>
                   </div>
                   <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
-                    <span class="text-slate-500 text-[9px] block">SPEED</span>
+                    <span class="text-slate-500 text-[9px] block">${t('speed_stat')}</span>
                     <span class="font-bold text-emerald-400 text-xs">${this.selectedHero.baseStats.moveSpeed}</span>
                   </div>
                   <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
-                    <span class="text-slate-500 text-[9px] block">WEAPON</span>
+                    <span class="text-slate-500 text-[9px] block">${t('weapon_stat')}</span>
                     <span class="font-bold text-amber-400 truncate block text-xs">${startingWeapon ? startingWeapon.name : ''}</span>
                   </div>
                 </div>
@@ -413,7 +413,7 @@ export class HeroSelectModal {
                   ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.25)]'
                   : 'bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700'
               } font-gothic font-black text-sm sm:text-base py-3 sm:py-3.5 rounded-xl transition active:scale-95 cursor-pointer tracking-widest flex items-center justify-center space-x-2">
-                <span>${isSelectedHeroUnlocked ? 'PROCEED TO REALM SELECTION' : 'VIEW UNLOCK ACHIEVEMENTS'}</span>
+                <span>${isSelectedHeroUnlocked ? t('proceed_to_realm') : t('view_unlock_achievements')}</span>
                 <span>→</span>
               </button>
             `
@@ -435,13 +435,13 @@ export class HeroSelectModal {
               <div class="flex items-center space-x-2">
                 <button id="stage-back-breadcrumb-btn" class="text-xs font-mono font-bold text-slate-400 hover:text-amber-300 transition flex items-center space-x-1 cursor-pointer">
                   <span>←</span>
-                  <span>CHANGE HERO</span>
+                  <span>${t('change_hero')}</span>
                 </button>
                 <span class="text-slate-600">•</span>
-                <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-400/90 uppercase tracking-[0.25em]">STEP 2 OF 2 • REALM SELECTION</span>
+                <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-400/90 uppercase tracking-[0.25em]">${t('step_2_sub')}</span>
               </div>
               <h1 class="text-xl sm:text-2xl md:text-3xl font-gothic font-black text-slate-100 tracking-wide mt-0.5">
-                CHOOSE DESTINATION REALM
+                ${t('choose_destination_realm')}
               </h1>
             </div>
 
@@ -460,7 +460,7 @@ export class HeroSelectModal {
             ${STAGES.map((s, idx) => {
               const isSelected = s.id === this.selectedStage.id;
               const isUnlocked = StorageService.isStageUnlocked(s.id);
-              const threatLevel = idx === 0 ? 'THREAT LEVEL I' : idx === 1 ? 'THREAT LEVEL II' : 'THREAT LEVEL III';
+              const threatLevel = idx === 0 ? t('threat_level_1') : idx === 1 ? t('threat_level_2') : t('threat_level_3');
               const threatColor = idx === 0 ? 'text-emerald-400 border-emerald-500/40' : idx === 1 ? 'text-amber-400 border-amber-500/40' : 'text-rose-400 border-rose-500/40';
 
               return `
@@ -475,7 +475,7 @@ export class HeroSelectModal {
                     <div class="flex items-center justify-between mb-2 font-mono">
                       <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-slate-900 border ${threatColor}">${threatLevel}</span>
                       <span class="text-[9px] font-bold ${isSelected ? 'text-amber-400' : isUnlocked ? 'text-slate-500' : 'text-slate-700'}">
-                        ${isSelected ? '[SELECTED]' : isUnlocked ? 'SELECT >' : 'LOCKED'}
+                        ${isSelected ? t('selected_badge') : isUnlocked ? t('select_btn') : t('locked')}
                       </span>
                     </div>
 
@@ -489,10 +489,10 @@ export class HeroSelectModal {
                       isUnlocked
                         ? `<div class="text-xs text-emerald-400 font-bold flex items-center space-x-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                            <span>[REALM UNLOCKED]</span>
+                            <span>${t('realm_unlocked')}</span>
                           </div>`
                         : `<div class="text-[10px] text-amber-300/90 bg-amber-950/40 border border-amber-500/30 p-2 rounded-lg leading-tight font-semibold">
-                            [LOCKED]: ${s.unlockCondition}
+                            [${t('locked')}]: ${s.unlockCondition}
                           </div>`
                     }
                   </div>
@@ -504,7 +504,7 @@ export class HeroSelectModal {
           <!-- Action Footer: Always in viewport, zero scrolling needed! -->
           <div class="border-t border-slate-800/80 pt-3 mt-3 flex items-center justify-between shrink-0">
             <button id="stage-back-btn" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 px-5 py-3 rounded-xl text-xs font-mono font-bold text-slate-300 transition active:scale-95 cursor-pointer">
-              ← BACK TO HEROES
+              ← ${t('back_to_heroes')}
             </button>
 
             <button id="stage-start-run-btn" class="${
@@ -512,7 +512,7 @@ export class HeroSelectModal {
                 ? 'bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 shadow-[0_0_25px_rgba(245,158,11,0.35)]'
                 : 'bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700'
             } font-gothic font-black text-sm sm:text-base px-8 py-3 rounded-xl transition active:scale-95 cursor-pointer tracking-widest flex items-center space-x-2">
-              <span>${canStart ? `DESCEND INTO ${this.selectedStage.name.toUpperCase()}` : 'VIEW UNLOCK ACHIEVEMENTS'}</span>
+              <span>${canStart ? `${t('descend_into')} ${this.selectedStage.name.toUpperCase()}` : t('view_unlock_achievements')}</span>
               <span>&gt;&gt;</span>
             </button>
           </div>

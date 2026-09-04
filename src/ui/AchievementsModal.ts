@@ -64,11 +64,11 @@ export class AchievementsModal {
           ${ACHIEVEMENTS.map((ach) => {
             const isUnlocked = data.unlockedAchievements.includes(ach.id);
             const isSecretLocked = ach.isSecret && !isUnlocked;
-            const displayName = isSecretLocked ? '[CORRUPTED RECORD]' : ach.name;
+            const displayName = isSecretLocked ? t('corrupted_record') : ach.name;
             const displayDesc = isSecretLocked
-              ? 'Corrupted void cipher detected. The cosmic trial and true nature of this entity remain shrouded in oblivion.'
+              ? t('corrupted_record_desc')
               : ach.description;
-            const displayReward = isSecretLocked ? '[CLASSIFIED REWARD]' : ach.rewardName;
+            const displayReward = isSecretLocked ? t('classified_reward') : ach.rewardName;
 
             return `
               <div class="p-3.5 rounded-2xl border transition shadow ${
@@ -91,7 +91,7 @@ export class AchievementsModal {
                         ? 'bg-purple-950 text-purple-300 border border-purple-800/60 animate-pulse'
                         : 'bg-slate-900 text-slate-500 border border-slate-800'
                     }">
-                      ${isUnlocked ? t('unlocked') : isSecretLocked ? 'CIPHER' : t('locked')}
+                      ${isUnlocked ? t('unlocked') : isSecretLocked ? t('cipher_badge') : t('locked')}
                     </span>
                   </div>
 
@@ -110,7 +110,7 @@ export class AchievementsModal {
                     ? 'bg-purple-950/80 border border-purple-800 text-purple-300 font-mono font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]'
                     : 'bg-slate-900 border border-slate-800 text-slate-600 font-bold'
                 } flex items-center justify-center text-xs shrink-0 font-mono">
-                  ${isUnlocked ? 'OK' : isSecretLocked ? '???' : 'LOCK'}
+                  ${isUnlocked ? 'OK' : isSecretLocked ? '???' : t('locked_badge')}
                 </div>
               </div>
             `;

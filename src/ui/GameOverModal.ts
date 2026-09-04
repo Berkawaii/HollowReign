@@ -54,7 +54,7 @@ export class GameOverModal {
         <!-- Stats Box -->
         <div class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-5 grid grid-cols-2 gap-4 mb-6 text-sm">
           <div class="flex flex-col">
-            <span class="text-slate-400 text-xs">${t('weapon')} / Hero</span>
+            <span class="text-slate-400 text-xs">${t('hero')}</span>
             <span class="font-bold text-slate-200">${p.hero.name}</span>
           </div>
           <div class="flex flex-col">
@@ -79,7 +79,7 @@ export class GameOverModal {
         <div class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 mb-6">
           <label class="block text-xs font-bold text-slate-300 mb-2">${t('submit_to_leaderboard')}</label>
           <div class="flex space-x-2">
-            <input id="player-name-input" type="text" maxlength="16" placeholder="${t('player')} Name" value="Survivor" class="flex-1 bg-slate-900 border border-slate-700 px-3 py-2 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400 font-mono" />
+            <input id="player-name-input" type="text" maxlength="16" placeholder="${t('player_name_placeholder')}" value="${t('survivor_default')}" class="flex-1 bg-slate-900 border border-slate-700 px-3 py-2 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400 font-mono" />
             <button id="submit-score-btn" class="bg-amber-600 hover:bg-amber-500 px-4 py-2 rounded-lg text-xs font-bold text-slate-950 transition active:scale-95">
               ${t('submit_score')}
             </button>
@@ -129,7 +129,7 @@ export class GameOverModal {
 
     if (submitBtn && nameInput && statusMsg) {
       submitBtn.addEventListener('click', async () => {
-        const name = nameInput.value.trim() || 'Survivor';
+        const name = nameInput.value.trim() || t('survivor_default');
         submitBtn.setAttribute('disabled', 'true');
         statusMsg.textContent = t('submitting');
 
