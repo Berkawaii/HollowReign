@@ -18,10 +18,19 @@ export interface CharacterStats {
   rerolls: number;      // Level-up card reroll count
 }
 
+export interface HeroAbility {
+  id: string;
+  name: string;
+  description: string;
+  cooldown: number;
+  unlockCostGold: number;
+}
+
 export interface HeroConfig {
   id: string;
   name: string;
   title: string;
+  role: string;
   description: string;
   startingWeaponId: string;
   baseStats: CharacterStats;
@@ -29,6 +38,8 @@ export interface HeroConfig {
   color: string;
   accentColor: string;
   spriteId: string;
+  ability1: HeroAbility;
+  ability2: HeroAbility;
 }
 
 export const HEROES: HeroConfig[] = [
@@ -36,12 +47,27 @@ export const HEROES: HeroConfig[] = [
     id: 'valerius',
     name: 'Valerius',
     title: 'Abyssal Warden',
+    role: 'Juggernaut',
     description: 'Heavy armor and iron will, tainted by the deep void. Wields the Abyssal Edge.',
     startingWeaponId: 'whip',
     traitDescription: 'Gains +1 permanent Void Armor every 10 levels.',
     color: '#4f46e5',
     accentColor: '#818cf8',
     spriteId: 'hero_valerius',
+    ability1: {
+      id: 'valerius_1',
+      name: 'Aegis Charge',
+      description: 'Charges forward with high velocity, dealing 65 impact damage, knocking back foes, and granting 0.9s invulnerability.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'valerius_2',
+      name: 'Abyssal Bastion',
+      description: 'Plants an immovable void bastion that repels nearby horrors, grants +10 Void Armor, and regenerates 25 HP over 4s.',
+      cooldown: 14.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.0,
       armor: 1,
@@ -66,12 +92,27 @@ export const HEROES: HeroConfig[] = [
     id: 'sylvia',
     name: 'Sylvia',
     title: 'Astral Occultist',
+    role: 'Astral Mage',
     description: 'Communes with outer cosmic entities to cast piercing void darts.',
     startingWeaponId: 'magic_wand',
     traitDescription: 'Adds +1 Void Projectile Amount to all weapons every 20 levels.',
     color: '#06b6d4',
     accentColor: '#67e8f9',
     spriteId: 'hero_sylvia',
+    ability1: {
+      id: 'sylvia_1',
+      name: 'Astral Blink',
+      description: 'Instantly teleports toward pointer/facing direction, leaving behind an astral damage vortex for 3.5s.',
+      cooldown: 10.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'sylvia_2',
+      name: 'Cosmic Supernova',
+      description: 'Calls down 4 orbital starlight beams detonating in cascading explosions and pulling all visible XP gems to player.',
+      cooldown: 15.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.0,
       armor: 0,
@@ -96,12 +137,27 @@ export const HEROES: HeroConfig[] = [
     id: 'ignis',
     name: 'Ignis',
     title: 'Blackfire Pyromancer',
+    role: 'Pyromancer',
     description: 'Harnesses cursed blackfire from dead stars to incinerate cosmic horrors.',
     startingWeaponId: 'fire_wand',
     traitDescription: 'Critical strikes ignite monstrosities with abyssal blackfire (+50% burn).',
     color: '#c026d3',
     accentColor: '#e879f9',
     spriteId: 'hero_ignis',
+    ability1: {
+      id: 'ignis_1',
+      name: 'Flame Nova',
+      description: 'Unleashes a radial hellfire blast (75 damage), vaporizing enemy arrows and leaving an incinerating ground fire.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'ignis_2',
+      name: 'Inferno Deathbeam',
+      description: 'Fires an apocalyptic piercing beam of blackfire melting all enemies in a line (180 total damage) and shattering shields.',
+      cooldown: 14.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.2,
       armor: 0,
@@ -126,12 +182,27 @@ export const HEROES: HeroConfig[] = [
     id: 'kaelen',
     name: 'Kaelen',
     title: 'Void Stalker',
+    role: 'Void Assassin',
     description: 'Cultist rogue slipping through spatial rifts with deadly obsidian fangs.',
     startingWeaponId: 'knife',
     traitDescription: 'Slips into the void gaining +40% Movement Speed when below 30% health.',
     color: '#059669',
     accentColor: '#34d399',
     spriteId: 'hero_kaelen',
+    ability1: {
+      id: 'kaelen_1',
+      name: 'Shadow Step',
+      description: 'Phases into the shadows, granting complete invulnerability and 100% Critical Strike chance for 3.5s.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'kaelen_2',
+      name: 'Blade Vortex',
+      description: 'Spins in a lethal whirlwind emitting 3 cascading waves of 16 piercing phantom obsidian daggers in all directions.',
+      cooldown: 13.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 0.9,
       armor: 0,
@@ -156,12 +227,27 @@ export const HEROES: HeroConfig[] = [
     id: 'mortimer',
     name: 'Mortimer',
     title: 'Necro-Alchemist',
+    role: 'Alchemist',
     description: 'Former scholar of Miskatonic delving into forbidden resurrection arts.',
     startingWeaponId: 'bone',
     traitDescription: 'Infuses projectiles with cosmic inertia (+20% projectile duration).',
     color: '#7c3aed',
     accentColor: '#c084fc',
     spriteId: 'hero_mortimer',
+    ability1: {
+      id: 'mortimer_1',
+      name: 'Soul Drain',
+      description: 'Drains essence from all enemies within 250px, restoring HP and conjuring 2 orbiting bone barriers.',
+      cooldown: 14.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'mortimer_2',
+      name: 'Plague Cataclysm',
+      description: 'Shatters an abyssal miasma flask, generating a persistent corrosive toxin cloud that slows foes by 60% and deals heavy damage over 6s.',
+      cooldown: 15.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.0,
       armor: 0,
@@ -186,12 +272,27 @@ export const HEROES: HeroConfig[] = [
     id: 'nyx',
     name: 'Nyx',
     title: 'The Eldritch Weaver',
+    role: 'Eldritch Weaver',
     description: 'Blind priestess weaving antimatter threads and dimensional silk to ensnare horrors.',
     startingWeaponId: 'void_tendril',
     traitDescription: 'Void Cocoon: Standing still for 1.2s spins a slowing silk web that increases damage by +25%.',
     color: '#8b5cf6',
     accentColor: '#a78bfa',
     spriteId: 'hero_nyx',
+    ability1: {
+      id: 'nyx_1',
+      name: 'Spatial Tether',
+      description: 'Fires dimensional silk tethers at up to 8 enemies, pulling them tightly together and rooting them for 2.5s.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'nyx_2',
+      name: 'Void Singularity',
+      description: 'Opens a gravitational rift at cursor location that vigorously vacuums all monsters inward and collapses in a 120-damage shockwave.',
+      cooldown: 14.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.1,
       armor: 0,
@@ -216,12 +317,27 @@ export const HEROES: HeroConfig[] = [
     id: 'malakor',
     name: 'Malakor',
     title: 'Drowned Inquisitor',
+    role: 'Inquisitor',
     description: 'Resurrected inquisitor dragged from the abyssal depths wielding a massive rust-caked anchor.',
     startingWeaponId: 'abyssal_anchor',
     traitDescription: 'Crushing Depths: Starts with +3 Armor and +50% Knockback. Shatters enemy defenses on impact.',
     color: '#0e7490',
     accentColor: '#38bdf8',
     spriteId: 'hero_malakor',
+    ability1: {
+      id: 'malakor_1',
+      name: 'Ground Pound',
+      description: 'Leaps into the air and slams his titan anchor down, triggering 3 tidal water geysers and stunning enemies.',
+      cooldown: 13.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'malakor_2',
+      name: "Leviathan's Call",
+      description: 'Summons spectral abyssal anchor chains from beneath all visible monsters, chaining them in place for 3s and inflicting crush damage.',
+      cooldown: 16.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.25,
       armor: 3,
@@ -246,12 +362,27 @@ export const HEROES: HeroConfig[] = [
     id: 'morrigan',
     name: 'Morrigan',
     title: 'Sanguine Priestess',
+    role: 'Blood Priestess',
     description: 'Dark cultist feeding upon vital ichor to perform forbidden blood transmutation rites.',
     startingWeaponId: 'blood_chalice',
     traitDescription: 'Blood Tithe: Sacrifices 10% max HP every minute to gain permanent +5% Might and +1% Lifesteal.',
     color: '#be123c',
     accentColor: '#f43f5e',
     spriteId: 'hero_morrigan',
+    ability1: {
+      id: 'morrigan_1',
+      name: 'Crimson Burst',
+      description: 'Erupts vital ichor in an 8-direction explosive burst, leeching life from every horror struck.',
+      cooldown: 11.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'morrigan_2',
+      name: 'Sacrificial Domain',
+      description: 'Sacrifices 10% current HP to unleash a blasphemous blood circle granting +100% damage and 15% life-steal for 5s.',
+      cooldown: 15.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.15,
       armor: 1,
@@ -276,12 +407,27 @@ export const HEROES: HeroConfig[] = [
     id: 'zephyr',
     name: 'Zephyr',
     title: 'Astral Astromancer',
+    role: 'Chronomancer',
     description: 'Mad astronomer whose eyes witnessed the cosmic singularity beyond the stars.',
     startingWeaponId: 'singularity_orb',
     traitDescription: 'Gravitational Core: +60% Magnet Range; vacuuming gems triggers gravitational shockwaves.',
     color: '#0284c7',
     accentColor: '#7dd3fc',
     spriteId: 'hero_zephyr',
+    ability1: {
+      id: 'zephyr_1',
+      name: 'Graviton Surge',
+      description: 'Blasts a spatial shockwave repelling all monstrosities and vacuuming every distant gem on the map.',
+      cooldown: 12.0,
+      unlockCostGold: 0,
+    },
+    ability2: {
+      id: 'zephyr_2',
+      name: 'Chronos Rift',
+      description: 'Distorts temporal flow for 4s: all enemy movement and enemy projectiles are slowed by 85% while player moves at +80% speed.',
+      cooldown: 18.0,
+      unlockCostGold: 500,
+    },
     baseStats: {
       might: 1.05,
       armor: 0,

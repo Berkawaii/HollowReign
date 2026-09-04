@@ -31,6 +31,8 @@ export interface MetaSaveData {
   unlockedPassives: string[];
   unlockedStages: string[];
   unlockedAchievements: string[]; // achievement IDs completed
+  unlockedAbilities: string[];    // unlocked secondary abilities: ['valerius_2', ...]
+  equippedAbilities: Record<string, number>; // heroId -> 1 or 2
   // Lifetime Statistics
   lifetimeStats: LifetimeStats;
   highScores: ScoreRecord[];
@@ -50,6 +52,8 @@ export class StorageService {
     unlockedPassives: ['hollow_heart', 'empty_tome', 'bracer', 'spinach', 'spellbinder', 'pummarola'],
     unlockedStages: ['stage_forest'],
     unlockedAchievements: [],
+    unlockedAbilities: [],
+    equippedAbilities: {},
     lifetimeStats: {
       totalKills: 0,
       totalGoldEarned: 0,
@@ -102,6 +106,8 @@ export class StorageService {
 
       // Normalize any old hero_ prefixed IDs in storage
       data.unlockedHeroes = data.unlockedHeroes.map((h) => h.replace('hero_', ''));
+      if (!Array.isArray(data.unlockedAbilities)) data.unlockedAbilities = [];
+      if (!data.equippedAbilities || typeof data.equippedAbilities !== 'object') data.equippedAbilities = {};
 
       return data;
     } catch {
@@ -240,6 +246,43 @@ export class StorageService {
     if (stageId === 'stage_forest') return true; // Starter stage is always unlocked!
     const data = this.load();
     return data.unlockedStages.includes(stageId);
+  }
+
+  public static isAbilityUnlocked(heroId: string, abilityIndex: number): boolean {
+    if (abilityIndex === 1) return true; // Primary ability is always unlocked!
+    const cleanId = heroId.replace('hero_', '');
+    const data = this.load();
+    return data.unlockedAbilities.includes(`${cleanId}_${abilityIndex}`);
+  }
+
+  public static unlockAbility(heroId: string, abilityIndex: number, cost: number): boolean {
+    const cleanId = heroId.replace('hero_', '');
+    const abilityKey = `${cleanId}_${abilityIndex}`;
+    const data = this.load();
+    if (data.unlockedAbilities.includes(abilityKey)) return true;
+    if (data.gold < cost) return false;
+
+    data.gold -= cost;
+    data.unlockedAbilities.push(abilityKey);
+    this.save(data);
+    return true;
+  }
+
+  public static getEquippedAbility(heroId: string): number {
+    const cleanId = heroId.replace('hero_', '');
+    const data = this.load();
+    const equipped = data.equippedAbilities[cleanId];
+    if (equipped === 2 && this.isAbilityUnlocked(cleanId, 2)) {
+      return 2;
+    }
+    return 1;
+  }
+
+  public static setEquippedAbility(heroId: string, abilityIndex: number): void {
+    const cleanId = heroId.replace('hero_', '');
+    const data = this.load();
+    data.equippedAbilities[cleanId] = abilityIndex;
+    this.save(data);
   }
 
   /* =========================================================================

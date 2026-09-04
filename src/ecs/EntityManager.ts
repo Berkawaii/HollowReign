@@ -11,6 +11,7 @@ import {
 } from './Components';
 import { HeroConfig } from '../config/heroes';
 import { GAME_CONFIG } from '../config/constants';
+import { StorageService } from '../services/StorageService';
 
 export class EntityManager {
   // Player
@@ -196,26 +197,10 @@ export class EntityManager {
       passives: [],
       invulnerabilityTimer: 0,
       abilityCooldownTimer: 0,
-      abilityMaxCooldown: 12.0,
+      abilityMaxCooldown: (StorageService.getEquippedAbility(hero.id) === 2 ? hero.ability2.cooldown : hero.ability1.cooldown),
       abilityActiveTimer: 0,
-      abilityName:
-        hero.id === 'valerius'
-          ? 'Holy Shield Charge'
-          : hero.id === 'sylvia'
-          ? 'Astral Blink'
-          : hero.id === 'ignis'
-          ? 'Flame Nova'
-          : hero.id === 'kaelen'
-          ? 'Shadow Step'
-          : hero.id === 'mortimer'
-          ? 'Soul Drain & Orbit'
-          : hero.id === 'nyx'
-          ? 'Weaver Cocoon Web'
-          : hero.id === 'malakor'
-          ? 'Tectonic Tremor'
-          : hero.id === 'morrigan'
-          ? 'Sanguine Eruption'
-          : 'Gravitational Singularity',
+      abilityName: (StorageService.getEquippedAbility(hero.id) === 2 ? hero.ability2.name : hero.ability1.name),
+      equippedAbilityIndex: StorageService.getEquippedAbility(hero.id),
       dashVx: 0,
       dashVy: 0,
       dashDuration: 0,

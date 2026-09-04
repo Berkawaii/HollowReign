@@ -32,6 +32,7 @@ export interface PlayerComponent {
   abilityMaxCooldown: number;
   abilityActiveTimer: number;
   abilityName: string;
+  equippedAbilityIndex: number;
   dashVx: number;
   dashVy: number;
   dashDuration: number;
