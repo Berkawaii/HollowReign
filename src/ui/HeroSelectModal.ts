@@ -265,7 +265,7 @@ export class HeroSelectModal {
                     ${
                       isSelectedHeroGlitched
                         ? `<p class="text-[11px] sm:text-xs text-rose-200/90 mt-1 font-mono leading-relaxed bg-black/50 p-2 rounded-xl border border-rose-900/50">
-                             0x7F // S̸O̴U̵L̸_̵N̷O̸T̵_̸F̶O̴U̸N̴D̵ ... T̷H̶E̸ ̸R̶E̸A̴P̷E̸R̵ ̸M̶U̸S̴T̷ ̸F̴A̶L̷L̵ ... ONLY THE SLAYER OF THE 30-MINUTE HARBINGER CAN PURGE THE CORRUPTION AND AWAKEN THIS VESSEL.
+                             0x7F // S̸O̴U̵L̸_̵N̷O̸T̵_̸F̶O̴U̸N̴D̵ ... T̷H̶E̸ ̸R̶E̸A̴P̷E̸R̵ ̸M̶U̸S̴T̷ ̸F̴A̶L̷L̵ ... ONLY THE SLAYER OF THE HARBINGER CAN PURGE THE CORRUPTION AND AWAKEN THIS VESSEL.
                            </p>`
                         : `<p class="text-[11px] sm:text-xs text-slate-300 mt-1 font-sans leading-relaxed">${this.selectedHero.description}</p>`
                     }
@@ -275,18 +275,29 @@ export class HeroSelectModal {
                 ${
                   isSelectedHeroGlitched
                     ? `
-                  <button id="hero-unlock-req-btn" class="w-full bg-rose-950/40 hover:bg-rose-900/50 border border-rose-500/60 rounded-xl p-2.5 mb-3 text-center transition cursor-pointer active:scale-95 shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-                    <span class="text-[9px] font-bold text-rose-400 uppercase tracking-widest block font-mono animate-pulse">CORRUPTED SHROUD // DEFEAT THE REAPER TO CLEANSE</span>
-                    <p class="text-xs text-slate-100 mt-0.5 font-sans font-bold">Defeat The Ancient One (Grim Reaper) to banish the cosmic death shroud.</p>
-                  </button>
-
-                  <!-- Glitched Passive Trait -->
-                  <div class="bg-slate-900/80 border border-rose-900/50 p-2.5 rounded-xl mb-3 font-mono">
-                    <span class="text-[9px] font-bold text-rose-400 uppercase tracking-widest block">PASSIVE TRAIT</span>
-                    <p class="text-xs text-slate-400 mt-0.5 leading-snug">■■■■■■■■■■ [LOCKED BEHIND DEATH'S SHROUD] ■■■■■■■■■■</p>
+                  <!-- Fully Concealed Corrupted Void Anomaly: Zero Info / Zero Spoilers -->
+                  <div class="flex-1 flex flex-col justify-center items-center p-8 text-center my-auto min-h-[280px]">
+                    <div class="w-16 h-16 rounded-2xl border border-rose-500/50 bg-rose-950/40 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(244,63,94,0.3)]">
+                      <span class="glitch-text text-2xl font-mono text-rose-400 font-black">X</span>
+                    </div>
+                    <div class="glitch-text text-sm sm:text-base font-mono font-bold text-rose-400 uppercase tracking-[0.25em] mb-2">
+                      [CORRUPTED ENTITY // CIPHER RESTRICTED]
+                    </div>
+                    <p class="text-xs text-slate-500 font-mono max-w-sm leading-relaxed mb-4">
+                      MEMORY FRAGMENTS AND VESSEL PROTOCOLS REMAIN EXPUNGED. PURGE THE CORRUPTION TO AWAKEN.
+                    </p>
+                    <div class="w-48 h-1 bg-gradient-to-r from-transparent via-rose-500/40 to-transparent"></div>
                   </div>
-                `
-                    : !isSelectedHeroUnlocked && unlockHeroReq
+                </div>
+
+                <!-- Action CTA for Glitched State: Zero Spoilers -->
+                <button disabled class="w-full bg-slate-950/80 border border-rose-900/50 text-slate-500 font-gothic font-black text-sm sm:text-base py-3 sm:py-3.5 rounded-xl cursor-not-allowed tracking-widest flex items-center justify-center space-x-2">
+                  <span>[SEALED VESSEL - LOCKED]</span>
+                </button>
+              `
+                    : `
+                ${
+                  !isSelectedHeroUnlocked && unlockHeroReq
                     ? `
                   <button id="hero-unlock-req-btn" class="w-full bg-amber-950/40 hover:bg-amber-900/50 border border-amber-500/50 rounded-xl p-2.5 mb-3 text-center transition cursor-pointer active:scale-95 shadow">
                     <span class="text-[9px] font-bold text-amber-400 uppercase tracking-widest block font-mono">UNLOCK REQUIREMENT (CLICK TO VIEW)</span>
@@ -305,131 +316,93 @@ export class HeroSelectModal {
                 <!-- ACTIVE ABILITY (SPACE) DECK -->
                 <div class="mb-3">
                   <div class="flex items-center justify-between mb-1.5 font-mono">
-                    <span class="text-[10px] font-bold ${isSelectedHeroGlitched ? 'text-rose-400' : 'text-amber-400'} uppercase tracking-widest">ACTIVE SPECIAL ABILITY [SPACE]</span>
-                    <span class="text-[9px] text-slate-400">${isSelectedHeroGlitched ? 'DATA EXPUNGED' : 'CLICK CARD TO EQUIP'}</span>
+                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest">ACTIVE SPECIAL ABILITY [SPACE]</span>
+                    <span class="text-[9px] text-slate-400">CLICK CARD TO EQUIP</span>
                   </div>
 
-                  ${
-                    isSelectedHeroGlitched
-                      ? `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <div class="p-3 rounded-xl border border-rose-900/40 bg-rose-950/20 text-left font-mono flex flex-col justify-between">
-                        <div>
-                          <div class="flex items-center justify-between">
-                            <span class="glitch-text text-xs text-rose-400 font-bold">■■■■■■■</span>
-                            <span class="text-[9px] text-slate-500">??s CD</span>
-                          </div>
-                          <p class="text-[10px] text-slate-400 mt-1 leading-snug">Encrypted primary runic frequency. Slay the Reaper to reconstruct.</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <!-- Ability 1: Innate Primary -->
+                    <button data-equip-ability="1" class="ability-card-btn p-3 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
+                      equippedAbility === 1
+                        ? 'border-amber-400 bg-amber-950/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                        : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
+                    }">
+                      <div>
+                        <div class="flex items-center justify-between">
+                          <span class="font-gothic font-bold text-xs ${equippedAbility === 1 ? 'text-amber-300' : 'text-slate-200'}">${this.selectedHero.ability1.name}</span>
+                          <span class="text-[9px] font-mono text-slate-400">${this.selectedHero.ability1.cooldown}s CD</span>
                         </div>
-                        <div class="mt-2 pt-1 border-t border-rose-950 text-[9px] text-rose-400/80 font-bold">[CORRUPTED]</div>
+                        <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability1.description}</p>
                       </div>
+                      <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between font-mono text-[9px]">
+                        <span class="text-slate-500">PRIMARY</span>
+                        <span class="font-bold ${equippedAbility === 1 ? 'text-amber-400' : 'text-slate-400'}">
+                          ${equippedAbility === 1 ? '[EQUIPPED]' : 'SELECT >'}
+                        </span>
+                      </div>
+                    </button>
 
-                      <div class="p-3 rounded-xl border border-rose-900/40 bg-rose-950/20 text-left font-mono flex flex-col justify-between">
-                        <div>
-                          <div class="flex items-center justify-between">
-                            <span class="glitch-text text-xs text-rose-400 font-bold">■■■■■■■</span>
-                            <span class="text-[9px] text-slate-500">??s CD</span>
-                          </div>
-                          <p class="text-[10px] text-slate-400 mt-1 leading-snug">Encrypted secondary runic frequency. Slay the Reaper to reconstruct.</p>
-                        </div>
-                        <div class="mt-2 pt-1 border-t border-rose-950 text-[9px] text-rose-400/80 font-bold">[CORRUPTED]</div>
-                      </div>
-                    </div>
-                  `
-                      : `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <!-- Ability 1: Innate Primary -->
-                      <button data-equip-ability="1" class="ability-card-btn p-3 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
-                        equippedAbility === 1
+                    <!-- Ability 2: Awakened Secondary -->
+                    ${
+                      isAbility2Unlocked
+                        ? `
+                      <button data-equip-ability="2" class="ability-card-btn p-3 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
+                        equippedAbility === 2
                           ? 'border-amber-400 bg-amber-950/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
                           : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
                       }">
                         <div>
                           <div class="flex items-center justify-between">
-                            <span class="font-gothic font-bold text-xs ${equippedAbility === 1 ? 'text-amber-300' : 'text-slate-200'}">${this.selectedHero.ability1.name}</span>
-                            <span class="text-[9px] font-mono text-slate-400">${this.selectedHero.ability1.cooldown}s CD</span>
+                            <span class="font-gothic font-bold text-xs ${equippedAbility === 2 ? 'text-amber-300' : 'text-slate-200'}">${this.selectedHero.ability2.name}</span>
+                            <span class="text-[9px] font-mono text-slate-400">${this.selectedHero.ability2.cooldown}s CD</span>
                           </div>
-                          <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability1.description}</p>
+                          <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability2.description}</p>
                         </div>
                         <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between font-mono text-[9px]">
-                          <span class="text-slate-500">PRIMARY</span>
-                          <span class="font-bold ${equippedAbility === 1 ? 'text-amber-400' : 'text-slate-400'}">
-                            ${equippedAbility === 1 ? '[EQUIPPED]' : 'SELECT >'}
+                          <span class="text-amber-400 font-bold">AWAKENED</span>
+                          <span class="font-bold ${equippedAbility === 2 ? 'text-amber-400' : 'text-slate-400'}">
+                            ${equippedAbility === 2 ? '[EQUIPPED]' : 'SELECT >'}
                           </span>
                         </div>
                       </button>
-
-                      <!-- Ability 2: Awakened Secondary -->
-                      ${
-                        isAbility2Unlocked
-                          ? `
-                        <button data-equip-ability="2" class="ability-card-btn p-3 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
-                          equippedAbility === 2
-                            ? 'border-amber-400 bg-amber-950/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                            : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
-                        }">
-                          <div>
-                            <div class="flex items-center justify-between">
-                              <span class="font-gothic font-bold text-xs ${equippedAbility === 2 ? 'text-amber-300' : 'text-slate-200'}">${this.selectedHero.ability2.name}</span>
-                              <span class="text-[9px] font-mono text-slate-400">${this.selectedHero.ability2.cooldown}s CD</span>
-                            </div>
-                            <p class="text-[10px] text-slate-300 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability2.description}</p>
+                    `
+                        : `
+                      <div class="p-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/40 text-left flex flex-col justify-between">
+                        <div>
+                          <div class="flex items-center justify-between">
+                            <span class="font-gothic font-bold text-xs text-slate-400">${this.selectedHero.ability2.name}</span>
+                            <span class="text-[9px] font-mono text-slate-500">${this.selectedHero.ability2.cooldown}s CD</span>
                           </div>
-                          <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between font-mono text-[9px]">
-                            <span class="text-amber-400 font-bold">AWAKENED</span>
-                            <span class="font-bold ${equippedAbility === 2 ? 'text-amber-400' : 'text-slate-400'}">
-                              ${equippedAbility === 2 ? '[EQUIPPED]' : 'SELECT >'}
-                            </span>
-                          </div>
-                        </button>
-                      `
-                          : `
-                        <div class="p-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/40 text-left flex flex-col justify-between">
-                          <div>
-                            <div class="flex items-center justify-between">
-                              <span class="font-gothic font-bold text-xs text-slate-400">${this.selectedHero.ability2.name}</span>
-                              <span class="text-[9px] font-mono text-slate-500">${this.selectedHero.ability2.cooldown}s CD</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability2.description}</p>
-                          </div>
-                          <div class="mt-2 pt-1 border-t border-slate-900 flex items-center justify-between">
-                            <button data-unlock-ability-hero="${this.selectedHero.id}" class="unlock-ability-btn w-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 hover:border-amber-400 py-1 rounded text-[10px] font-mono font-bold text-amber-300 transition active:scale-95 shadow">
-                              UNLOCK (500 GOLD)
-                            </button>
-                          </div>
+                          <p class="text-[10px] text-slate-500 font-sans mt-1 leading-snug line-clamp-3">${this.selectedHero.ability2.description}</p>
                         </div>
-                      `
-                      }
-                    </div>
-                  `
-                  }
+                        <div class="mt-2 pt-1 border-t border-slate-900 flex items-center justify-between">
+                          <button data-unlock-ability-hero="${this.selectedHero.id}" class="unlock-ability-btn w-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 hover:border-amber-400 py-1 rounded text-[10px] font-mono font-bold text-amber-300 transition active:scale-95 shadow">
+                            UNLOCK (500 GOLD)
+                          </button>
+                        </div>
+                      </div>
+                    `
+                    }
+                  </div>
                 </div>
 
                 <!-- Attributes Grid -->
                 <div class="grid grid-cols-4 gap-2 text-[10px] font-mono mb-3">
-                  <div class="bg-slate-900/90 p-2 rounded-xl border ${isSelectedHeroGlitched ? 'border-rose-900/50' : 'border-slate-800'}">
+                  <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
                     <span class="text-slate-500 text-[9px] block">HP</span>
-                    <span class="font-bold ${isSelectedHeroGlitched ? 'text-rose-400' : 'text-rose-400'} text-xs">
-                      ${isSelectedHeroGlitched ? '???' : this.selectedHero.baseStats.maxHealth}
-                    </span>
+                    <span class="font-bold text-rose-400 text-xs">${this.selectedHero.baseStats.maxHealth}</span>
                   </div>
-                  <div class="bg-slate-900/90 p-2 rounded-xl border ${isSelectedHeroGlitched ? 'border-rose-900/50' : 'border-slate-800'}">
+                  <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
                     <span class="text-slate-500 text-[9px] block">ARMOR</span>
-                    <span class="font-bold ${isSelectedHeroGlitched ? 'text-rose-400' : 'text-sky-400'} text-xs">
-                      ${isSelectedHeroGlitched ? '???' : `+${this.selectedHero.baseStats.armor}`}
-                    </span>
+                    <span class="font-bold text-sky-400 text-xs">+${this.selectedHero.baseStats.armor}</span>
                   </div>
-                  <div class="bg-slate-900/90 p-2 rounded-xl border ${isSelectedHeroGlitched ? 'border-rose-900/50' : 'border-slate-800'}">
+                  <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
                     <span class="text-slate-500 text-[9px] block">SPEED</span>
-                    <span class="font-bold ${isSelectedHeroGlitched ? 'text-rose-400' : 'text-emerald-400'} text-xs">
-                      ${isSelectedHeroGlitched ? '???' : this.selectedHero.baseStats.moveSpeed}
-                    </span>
+                    <span class="font-bold text-emerald-400 text-xs">${this.selectedHero.baseStats.moveSpeed}</span>
                   </div>
-                  <div class="bg-slate-900/90 p-2 rounded-xl border ${isSelectedHeroGlitched ? 'border-rose-900/50' : 'border-slate-800'}">
+                  <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
                     <span class="text-slate-500 text-[9px] block">WEAPON</span>
-                    <span class="font-bold ${isSelectedHeroGlitched ? 'text-rose-400' : 'text-amber-400'} truncate block text-xs">
-                      ${isSelectedHeroGlitched ? '???' : startingWeapon ? startingWeapon.name : ''}
-                    </span>
+                    <span class="font-bold text-amber-400 truncate block text-xs">${startingWeapon ? startingWeapon.name : ''}</span>
                   </div>
                 </div>
               </div>
@@ -438,19 +411,13 @@ export class HeroSelectModal {
               <button id="hero-proceed-stage-btn" class="w-full ${
                 isSelectedHeroUnlocked
                   ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-                  : isSelectedHeroGlitched
-                  ? 'bg-slate-900 hover:bg-slate-800 text-rose-300 border border-rose-900 shadow-[0_0_15px_rgba(244,63,94,0.15)]'
                   : 'bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700'
               } font-gothic font-black text-sm sm:text-base py-3 sm:py-3.5 rounded-xl transition active:scale-95 cursor-pointer tracking-widest flex items-center justify-center space-x-2">
-                <span>${
-                  isSelectedHeroUnlocked
-                    ? 'PROCEED TO REALM SELECTION'
-                    : isSelectedHeroGlitched
-                    ? 'VIEW UNLOCK REQUIREMENT [SLAY REAPER]'
-                    : 'VIEW UNLOCK ACHIEVEMENTS'
-                }</span>
+                <span>${isSelectedHeroUnlocked ? 'PROCEED TO REALM SELECTION' : 'VIEW UNLOCK ACHIEVEMENTS'}</span>
                 <span>→</span>
               </button>
+            `
+                }
             </div>
           </div>
         </div>

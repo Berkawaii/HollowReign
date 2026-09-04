@@ -5,6 +5,7 @@ import { ENEMIES } from '../config/enemies';
 import { sound } from '../core/AudioEngine';
 import { WorldMap } from '../core/WorldMap';
 import { ProceduralAssets } from '../utils/ProceduralAssets';
+import { StorageService } from '../services/StorageService';
 import { t } from '../i18n';
 
 export const WEAPON_SHORT_NAMES: Record<string, string> = {
@@ -139,6 +140,9 @@ export class HUD {
     const activeQuest = worldMap?.activeQuestEvent;
     const nearestQuest = worldMap?.getNearestLockedQuest(em.playerX, em.playerY);
 
+    const maxWeaponSlots = StorageService.getMaxWeaponSlots();
+    const maxPassiveSlots = StorageService.getMaxPassiveSlots();
+
     this.container.innerHTML = `
       <!-- TOP BAR: EXP & STATS -->
       <div class="absolute top-0 left-0 right-0 p-3 bg-gradient-to-b from-black/80 to-transparent">
@@ -194,19 +198,19 @@ export class HUD {
         </div>
       </div>
 
-      <!-- ACTIVE RITUAL OR QUEST COMPASS INDICATOR -->
+      <!-- ACTIVE RITUAL OR QUEST COMPASS INDICATOR (BELOW HEADER TIMER) -->
       ${
         activeQuest
           ? `
-        <div class="absolute top-16 sm:top-14 left-1/2 -translate-x-1/2 bg-purple-950/90 border border-purple-400 text-purple-200 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-bold animate-pulse shadow-lg flex items-center space-x-2">
+        <div class="absolute top-[76px] sm:top-[72px] left-1/2 -translate-x-1/2 z-20 bg-purple-950/95 border border-purple-400 text-purple-200 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-bold animate-pulse shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center space-x-2 backdrop-blur-md">
           <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
           <span>[Active Ritual]: ${activeQuest.title} ${activeQuest.remainingTime !== undefined ? `• ${Math.ceil(activeQuest.remainingTime)}s` : ''}</span>
         </div>
       `
           : nearestQuest && nearestQuest.dist > 160
           ? `
-        <div class="absolute top-16 sm:top-14 left-1/2 -translate-x-1/2 bg-slate-950/80 border border-amber-500/40 text-amber-300 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono flex items-center space-x-2 shadow backdrop-blur-sm">
-          <span class="text-amber-400 font-bold">QUEST COMPASS:</span>
+        <div class="absolute top-[76px] sm:top-[72px] left-1/2 -translate-x-1/2 z-20 bg-slate-950/90 border border-amber-500/50 text-amber-300 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-mono flex items-center space-x-2 shadow-[0_0_12px_rgba(0,0,0,0.8)] backdrop-blur-md">
+          <span class="text-amber-400 font-bold uppercase tracking-wider">QUEST COMPASS:</span>
           <span class="text-slate-200 truncate max-w-[120px] sm:max-w-none">${nearestQuest.name}</span>
           <span class="text-yellow-300 font-black">${Math.round(nearestQuest.dist)}m [${nearestQuest.directionLabel}]</span>
         </div>
@@ -214,31 +218,34 @@ export class HUD {
           : ''
       }
 
-      <!-- BOTTOM CENTER: SHRINE PROMPT (IF NEARBY) -->
+      <!-- BOTTOM CENTER: ORNATE DARK FANTASY SHRINE PROMPT -->
       ${
         shrine
           ? `
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-auto bg-slate-950/95 border-2 border-amber-400 p-3 rounded-2xl shadow-2xl flex items-center space-x-3 animate-in fade-in zoom-in-95">
-          <div class="w-8 h-8 rounded-lg bg-amber-950 border border-amber-400 flex items-center justify-center font-bold text-amber-300 text-xs">
-            SHR
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-auto bg-gradient-to-b from-slate-900/95 via-slate-950/95 to-black/95 border-2 border-amber-500/70 p-3 sm:p-3.5 rounded-2xl shadow-[0_0_35px_rgba(245,158,11,0.25)] flex items-center space-x-3 sm:space-x-3.5 backdrop-blur-md animate-in fade-in zoom-in-95 z-20">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-600 via-amber-800 to-amber-950 border border-amber-400/80 flex items-center justify-center font-gothic font-black text-amber-200 text-xs shadow-[0_0_10px_rgba(245,158,11,0.3)] shrink-0">
+            ALTAR
           </div>
-          <div class="text-left">
-            <div class="font-bold text-xs text-amber-300">${shrine.name}</div>
-            <div class="text-[10px] text-slate-300 font-sans">
-              <span class="text-rose-400 font-bold">${shrine.costText}</span> -> <span class="text-emerald-400 font-bold">${shrine.rewardText}</span>
+          <div class="text-left font-mono">
+            <div class="font-gothic font-black text-xs sm:text-sm text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-400 leading-snug">${shrine.name}</div>
+            <div class="text-[10px] sm:text-[11px] flex items-center space-x-1.5 sm:space-x-2 mt-0.5">
+              <span class="text-rose-300 bg-rose-950/70 border border-rose-800/60 px-1.5 sm:px-2 py-0.5 rounded font-bold">${shrine.costText}</span>
+              <span class="text-amber-400 font-bold text-xs">-></span>
+              <span class="text-emerald-300 bg-emerald-950/70 border border-emerald-800/60 px-1.5 sm:px-2 py-0.5 rounded font-bold">${shrine.rewardText}</span>
             </div>
           </div>
-          <button id="hud-shrine-interact-btn" class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 text-slate-950 px-3.5 py-1.5 rounded-xl text-xs font-black shadow transition active:scale-95">
-            ${t('shrine_prompt_use')}
+          <button id="hud-shrine-interact-btn" class="bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 text-slate-950 px-3 sm:px-4 py-2 rounded-xl text-xs font-black shadow-[0_0_15px_rgba(245,158,11,0.3)] transition active:scale-95 flex items-center space-x-1 sm:space-x-1.5 shrink-0">
+            <span>${t('shrine_prompt_use')}</span>
+            <kbd class="bg-black/20 text-slate-900 border border-black/30 px-1 py-0.2 rounded text-[10px] font-mono font-black">[E]</kbd>
           </button>
         </div>
       `
           : ''
       }
 
-      <!-- BOTTOM LEFT: INVENTORY SLOTS -->
-      <div class="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 flex flex-col space-y-1 sm:space-y-2 bg-black/70 backdrop-blur-sm p-1.5 sm:p-2.5 rounded-xl border border-slate-800 shadow-xl pointer-events-auto scale-75 sm:scale-100 origin-bottom-left">
-        <!-- Weapon Slots (Max 6) -->
+      <!-- BOTTOM LEFT: INVENTORY SLOTS (PIXEL ICONS & LEVEL BADGES) -->
+      <div class="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 flex flex-col space-y-1.5 bg-slate-950/85 backdrop-blur-md p-1.5 sm:p-2.5 rounded-2xl border border-amber-500/30 shadow-[0_0_20px_rgba(0,0,0,0.8)] pointer-events-auto scale-75 sm:scale-100 origin-bottom-left">
+        <!-- Weapon Slots (Max 6, Starts at 3) -->
         <div class="flex space-x-1.5">
           ${Array.from({ length: 6 })
             .map((_, idx) => {
@@ -253,50 +260,88 @@ export class HUD {
                   w.evolutionPartnerPassive &&
                   p.passives.some((pass) => pass.id === w.evolutionPartnerPassive);
 
-                const shortName = WEAPON_SHORT_NAMES[eq.id] || (w ? w.name.slice(0, 3).toUpperCase() : 'W');
+                const iconUrl = ProceduralAssets.toDataURL(w?.iconId || ('icon_' + eq.id));
 
                 return `
-                  <div title="${w ? w.name : ''}" class="w-10 h-10 rounded-lg ${
+                  <div title="${w ? w.name : ''}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${
                     isEvo
-                      ? 'bg-gradient-to-b from-amber-900/90 via-slate-900 to-red-950/90 border-2 border-yellow-400 shadow-lg shadow-amber-500/40'
+                      ? 'bg-gradient-to-b from-amber-950 via-slate-950 to-red-950 border-2 border-yellow-400 shadow-[0_0_12px_rgba(245,158,11,0.4)]'
                       : isReadyForEvo
-                      ? 'bg-slate-900/90 border-2 border-amber-400 animate-pulse shadow-md shadow-amber-500/30'
-                      : 'bg-slate-900/90 border border-amber-500/50'
-                  } flex flex-col items-center justify-between p-0.5 relative group cursor-pointer">
-                    <span class="text-xs font-bold ${isEvo ? 'text-yellow-200' : 'text-amber-300'} truncate w-full text-center">${shortName}</span>
-                    <span class="text-[9px] ${
+                      ? 'bg-slate-900/95 border-2 border-amber-400 animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+                      : 'bg-slate-900/90 border border-amber-500/40'
+                  } flex flex-col items-center justify-between p-1 relative group cursor-pointer overflow-hidden">
+                    <img src="${iconUrl}" alt="${w?.name || ''}" class="w-5 h-5 sm:w-6 sm:h-6 object-contain" style="image-rendering: pixelated;" />
+                    <span class="text-[8px] font-mono leading-none ${
                       isEvo
-                        ? 'bg-yellow-500 text-slate-950 font-black px-1'
+                        ? 'bg-yellow-400 text-slate-950 font-black px-1 py-0.5'
                         : isReadyForEvo
-                        ? 'bg-amber-500 text-slate-950 font-bold px-1'
-                        : 'bg-amber-900/80 text-amber-200 px-1'
-                    } rounded font-bold">
-                      ${isEvo ? 'EVO' : isReadyForEvo ? 'L8 MAX' : `L${eq.level}`}
+                        ? 'bg-amber-400 text-slate-950 font-black px-1 py-0.5'
+                        : 'bg-black/80 text-amber-300 font-bold px-1 py-0.2'
+                    } rounded">
+                      ${isEvo ? 'EVO' : isReadyForEvo ? 'MAX' : `LV${eq.level}`}
                     </span>
                   </div>
                 `;
               }
-              return `<div class="w-10 h-10 rounded-lg bg-slate-950/60 border border-dashed border-slate-800 flex items-center justify-center text-slate-600 text-[10px] font-bold">WEP</div>`;
+
+              if (idx < maxWeaponSlots) {
+                return `
+                  <div title="Open Weapon Slot" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
+                    [OPEN]
+                  </div>
+                `;
+              }
+
+              return `
+                <div title="Locked Slot - Unlock via Achievements" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
+                  <span class="text-[8px] text-slate-600 font-bold leading-none">LOCK</span>
+                </div>
+              `;
             })
             .join('')}
         </div>
 
-        <!-- Passive Slots (Max 6) -->
+        <!-- Passive Slots (Max 6, Starts at 3) -->
         <div class="flex space-x-1.5">
           ${Array.from({ length: 6 })
             .map((_, idx) => {
               const eq = p.passives[idx];
               if (eq) {
                 const pass = PASSIVES[eq.id];
-                const shortName = PASSIVE_SHORT_NAMES[eq.id] || (pass ? pass.name.slice(0, 3).toUpperCase() : 'P');
+                const iconUrl = ProceduralAssets.toDataURL(pass?.iconId || ('icon_' + eq.id));
+                const isMax = pass && eq.level >= pass.maxLevel;
+
                 return `
-                  <div title="${pass ? pass.name : ''}" class="w-10 h-10 rounded-lg bg-slate-900/90 border border-sky-500/50 flex flex-col items-center justify-between p-0.5 relative cursor-pointer">
-                    <span class="text-xs font-bold text-sky-300 truncate w-full text-center">${shortName}</span>
-                    <span class="text-[9px] bg-sky-900/80 text-sky-200 px-1 rounded font-bold">L${eq.level}</span>
+                  <div title="${pass ? pass.name : ''}" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${
+                    isMax
+                      ? 'bg-slate-900/90 border-2 border-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.25)]'
+                      : 'bg-slate-900/90 border border-sky-500/40'
+                  } flex flex-col items-center justify-between p-1 relative cursor-pointer overflow-hidden">
+                    <img src="${iconUrl}" alt="${pass?.name || ''}" class="w-5 h-5 sm:w-6 sm:h-6 object-contain" style="image-rendering: pixelated;" />
+                    <span class="text-[8px] font-mono leading-none ${
+                      isMax
+                        ? 'bg-sky-400 text-slate-950 font-black px-1 py-0.5'
+                        : 'bg-black/80 text-sky-300 font-bold px-1 py-0.2'
+                    } rounded">
+                      ${isMax ? 'MAX' : `LV${eq.level}`}
+                    </span>
                   </div>
                 `;
               }
-              return `<div class="w-10 h-10 rounded-lg bg-slate-950/60 border border-dashed border-slate-800 flex items-center justify-center text-slate-600 text-[10px] font-bold">PAS</div>`;
+
+              if (idx < maxPassiveSlots) {
+                return `
+                  <div title="Open Passive Slot" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950/60 border border-dashed border-slate-700/80 flex items-center justify-center text-slate-600 text-[8px] sm:text-[9px] font-mono font-bold">
+                    [OPEN]
+                  </div>
+                `;
+              }
+
+              return `
+                <div title="Locked Slot - Unlock via Achievements" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/80 border border-red-950/70 flex flex-col items-center justify-center text-red-700/60 text-[8px] font-mono font-bold">
+                  <span class="text-[8px] text-slate-600 font-bold leading-none">LOCK</span>
+                </div>
+              `;
             })
             .join('')}
         </div>

@@ -159,8 +159,8 @@ export class LevelUpModal {
 
     const candidates: { card: UpgradeCardOption; weight: number }[] = [];
 
-    const hasWeaponSlot = p.weapons.length < 6;
-    const hasPassiveSlot = p.passives.length < 6;
+    const hasWeaponSlot = p.weapons.length < StorageService.getMaxWeaponSlots();
+    const hasPassiveSlot = p.passives.length < StorageService.getMaxPassiveSlots();
 
     // 1. EVALUATE WEAPONS
     Object.values(WEAPONS).forEach((w: WeaponConfig) => {

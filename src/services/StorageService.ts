@@ -248,6 +248,22 @@ export class StorageService {
     return data.unlockedStages.includes(stageId);
   }
 
+  public static getMaxWeaponSlots(): number {
+    let slots = 3;
+    if (this.isAchievementUnlocked('ach_slot_4')) slots++;
+    if (this.isAchievementUnlocked('ach_slot_5')) slots++;
+    if (this.isAchievementUnlocked('ach_slot_6')) slots++;
+    return Math.min(6, slots);
+  }
+
+  public static getMaxPassiveSlots(): number {
+    let slots = 3;
+    if (this.isAchievementUnlocked('ach_slot_4')) slots++;
+    if (this.isAchievementUnlocked('ach_slot_5')) slots++;
+    if (this.isAchievementUnlocked('ach_slot_6')) slots++;
+    return Math.min(6, slots);
+  }
+
   public static isAbilityUnlocked(heroId: string, abilityIndex: number): boolean {
     if (abilityIndex === 1) return true; // Primary ability is always unlocked!
     const cleanId = heroId.replace('hero_', '');

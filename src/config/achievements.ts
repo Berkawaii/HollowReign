@@ -2,7 +2,7 @@ export interface AchievementConfig {
   id: string;
   name: string;
   description: string;
-  rewardType: 'hero' | 'weapon' | 'passive' | 'stage' | 'gold';
+  rewardType: 'hero' | 'weapon' | 'passive' | 'stage' | 'gold' | 'slot';
   rewardId: string;
   rewardName: string;
   conditionType: 'survive_time' | 'kills_single' | 'level_single' | 'gold_single' | 'gold_total' | 'boss_kill' | 'evolution' | 'hero_survive' | 'map_quest';
@@ -199,6 +199,37 @@ export const ACHIEVEMENTS: AchievementConfig[] = [
     conditionType: 'level_single',
     targetValue: 35,
     extraParam: 'sylvia',
+  },
+  {
+    id: 'ach_slot_4',
+    name: 'Arsenal Expansion I',
+    description: 'Reach Level 15 in a single run to unlock Weapon & Passive Slot 4.',
+    rewardType: 'slot',
+    rewardId: 'slot_4',
+    rewardName: 'Arsenal Slot 4 Unlocked',
+    conditionType: 'level_single',
+    targetValue: 15,
+  },
+  {
+    id: 'ach_slot_5',
+    name: 'Arsenal Expansion II',
+    description: 'Survive for 15 minutes in a single run to unlock Weapon & Passive Slot 5.',
+    rewardType: 'slot',
+    rewardId: 'slot_5',
+    rewardName: 'Arsenal Slot 5 Unlocked',
+    conditionType: 'survive_time',
+    targetValue: 900,
+  },
+  {
+    id: 'ach_slot_6',
+    name: 'Arsenal Expansion III',
+    description: 'Defeat the Spawn of Shub-Niggurath boss at 10:00 to unlock Weapon & Passive Slot 6.',
+    rewardType: 'slot',
+    rewardId: 'slot_6',
+    rewardName: 'Arsenal Slot 6 Unlocked',
+    conditionType: 'boss_kill',
+    targetValue: 1,
+    extraParam: 'gorgon',
   },
   {
     id: 'ach_omen',

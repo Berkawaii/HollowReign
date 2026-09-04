@@ -3,6 +3,7 @@ import { WEAPONS } from '../config/weapons';
 import { PASSIVES } from '../config/passives';
 import { sound } from '../core/AudioEngine';
 import { ProceduralAssets } from '../utils/ProceduralAssets';
+import { StorageService } from '../services/StorageService';
 import { t } from '../i18n';
 
 export class InventoryModal {
@@ -32,6 +33,9 @@ export class InventoryModal {
     const seconds = Math.floor(p.survivalTime % 60)
       .toString()
       .padStart(2, '0');
+
+    const maxWeapons = StorageService.getMaxWeaponSlots();
+    const maxPassives = StorageService.getMaxPassiveSlots();
 
     this.container.innerHTML = `
       <div class="w-full max-w-5xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-500/80 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-2xl flex flex-col my-auto max-h-[94vh] overflow-y-auto">
@@ -137,7 +141,7 @@ export class InventoryModal {
             <!-- WEAPONS SECTION -->
             <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
               <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2.5 flex items-center justify-between border-b border-slate-800 pb-1.5">
-                <span>${t('equipped_weapons')} (${p.weapons.length}/6)</span>
+                <span>${t('equipped_weapons')} (${p.weapons.length}/${maxWeapons})</span>
                 <span class="text-[10px] text-slate-400">Lvl 8 + Passive = Super Evolution</span>
               </h3>
 
@@ -146,6 +150,14 @@ export class InventoryModal {
                   .map((_, idx) => {
                     const eq = p.weapons[idx];
                     if (!eq) {
+                      if (idx >= maxWeapons) {
+                        return `
+                          <div class="h-20 rounded-xl bg-slate-950/40 border border-slate-900 flex flex-col items-center justify-center text-slate-600 text-xs font-mono">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">[LOCKED SLOT]</span>
+                            <span class="text-[9px] text-slate-600 mt-1">Unlock via Achievements</span>
+                          </div>
+                        `;
+                      }
                       return `
                         <div class="h-20 rounded-xl bg-slate-900/30 border border-dashed border-slate-800/80 flex items-center justify-center text-slate-600 text-xs font-bold">
                           [Empty Slot]
@@ -208,7 +220,7 @@ export class InventoryModal {
             <!-- PASSIVES SECTION -->
             <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
               <h3 class="text-xs font-bold text-sky-400 uppercase tracking-widest mb-2.5 border-b border-slate-800 pb-1.5">
-                ${t('equipped_passives')} (${p.passives.length}/6)
+                ${t('equipped_passives')} (${p.passives.length}/${maxPassives})
               </h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -216,6 +228,14 @@ export class InventoryModal {
                   .map((_, idx) => {
                     const eq = p.passives[idx];
                     if (!eq) {
+                      if (idx >= maxPassives) {
+                        return `
+                          <div class="h-16 rounded-xl bg-slate-950/40 border border-slate-900 flex flex-col items-center justify-center text-slate-600 text-xs font-mono">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">[LOCKED SLOT]</span>
+                            <span class="text-[9px] text-slate-600 mt-0.5">Unlock via Achievements</span>
+                          </div>
+                        `;
+                      }
                       return `
                         <div class="h-16 rounded-xl bg-slate-900/30 border border-dashed border-slate-800/80 flex items-center justify-center text-slate-600 text-xs font-bold">
                           [Empty Slot]
